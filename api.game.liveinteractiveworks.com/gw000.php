@@ -36,6 +36,7 @@ if(isset($postRequest))
 	switch($decryptedData['pid'])
 	{
 		case 101: //P_LOGIN_START
+			header('Set-Cookie: mdx=48cl46l7g5c8n3fe59vmb7gn8d; path=/;');
 			$packet = array('res' => 0,
 				"nativeToken" => "FHxveQcSfC+xZ9nc6B5euzQX7sUQ44PVTTNizkQRhvHrVDPnytbXqaXjGLBlfkWpHoFR\/g8g0+sgK3YTxznENOMBxJnJ7nKSVumBZCTqDcXN\/7j0NBAeARwu0kzjh0FdP9j0rXMBcqG="
 			);
@@ -80,14 +81,25 @@ if(isset($postRequest))
 			*/
 			
 			//For new player with ticket
-			$packet = array('res' => 0,
+			/*$packet = array('res' => 0,
 				"result" => 11,
 				"linkUUID" => "00000000-0000-0000-0000-000000000001",
 				"player" => array(
 					"id" => "kPjrXd",
 					"name" => null
 				)
+			);*/
+			
+			$packet = array('res' => 0,
+				"result" => 13,
+				"linkUUID" => "00000000-0000-0000-0000-000000000001",
+				"player" => array(
+					"id" => "kPjrXd",
+					"name" => "Maren"
+				)
 			);
+			
+			
 		break;
 		case 110: //P_IAP_START
 			file_put_contents('exportedRequests/P_IAP_START.log', print_r($decryptedData, true));
@@ -144,20 +156,88 @@ if(isset($postRequest))
 				"bIntro" => boolval(true),
 				"eventInfo" => array(
 					"bResume" => boolval(false),
-					"lua" => intval(0),
+					"lua" => intval(crc32('ComicEvent/introduction.lua')),
 					"resumeId" => intval(0),
 					"tagId" => intval(0)
 				),
 				"roomId" => "1",
 				"teamId" => "1",
 				"teamName" => "Maren's Team",
-				"webSockesServer" => $websocketServer
+				"webSockesServer" => $websocketServer,
+				"aCharacter" => array(),
+				"aScan" => array(),
+				"aRemoveScan" => array(),
+				"aGPS" => array(
+					array(
+						"id" => intval(1),
+						"name" => "marui",
+						"pinType" => "main",
+						"pinColor" => "y",
+						"latitude" => floatval(35.646530),
+						"longitude" => floatval(139.708430),
+						"LuaScript" => intval(crc32('ComicEvent/oioi8f/oioi8f_ev_deai_000.lua')),
+						"bLocationEvent" => intval(0),
+						"quest" => array(
+							"id" => 1,
+							"value" => 1
+						),
+						"mapType" => "GPSMap",
+						"mapNo" => "",			
+					)
+				),
+				"aRemoveGPS" => array(),
+				"aOnceEvent" => array(),
+				"aRemoveOnceEvent" => array(),
+				"aBuildings" => array(),
+				"nowHp" => intval(50),
+				"maxHp" => intval(100),
+				"colorId" => intval(25),
+				"quest" => array(
+					"id" => 1,
+					"value" => 1
+				),
+				"bNewQuest" => boolval(true),
+				"aItemList" => array(),
+				"localMap" => array()
 			);
 		break;
 		case 201: //P_EVENT
-			file_put_contents('exportedRequests/P_EVENT.log', print_r($decryptedData, true));
-			$packet = array('res' => 1,
-			
+			$packet = array('res' => 0,
+				"aCharacter" => array(),
+				"aScan" => array(),
+				"aRemoveScan" => array(),
+				"aGPS" => array(
+					array(
+						"id" => intval(1),
+						"name" => "marui",
+						"pinType" => "main",
+						"pinColor" => "y",
+						"latitude" => floatval(35.646530),
+						"longitude" => floatval(139.708430),
+						"LuaScript" => intval(crc32('ComicEvent/oioi8f/oioi8f_ev_deai_000.lua')),
+						"bLocationEvent" => intval(0),
+						"quest" => array(
+							"id" => 1,
+							"value" => 1
+						),
+						"mapType" => "GPSMap",
+						"mapNo" => "",			
+					)
+				),
+				"aRemoveGPS" => array(),
+				"aOnceEvent" => array(),
+				"aRemoveOnceEvent" => array(),
+				"aBuildings" => array(),
+				"nowHp" => intval(50),
+				"maxHp" => intval(100),
+				"colorId" => intval(25),
+				"quest" => array(
+					"id" => 1,
+					"value" => 1
+				),
+				"bNewQuest" => boolval(false),
+				"aItemList" => array(),
+				"localMap" => array()
 			);
 		break;
 		case 202: //P_EVENT_SAVE_RESUME
