@@ -42,6 +42,10 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 		NetResultHome(w, r)
 	case Consts.P_PARTY_START:
 		NetResultPartyStart(w, r)
+	case Consts.P_EVENT:
+		NetResultEvent(w, r)
+	case Consts.P_EVENT_CHECK_RESUME:
+		NetResultEventCheck(w, r)
 	}
 
 }
@@ -147,23 +151,58 @@ func NetResultPartyCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func NetResultHome(w http.ResponseWriter, r *http.Request) {
-	var UserPointer UserModel
-	UserPointer.ID = "kPjrXd"
-	UserPointer.Name = "Maren"
+	var UserPointer1 UserModel
+	UserPointer1.ID = "kPjrXd"
+	UserPointer1.Name = "Maren"
+
+	/*var UserPointer2 UserModel
+	var UserPointer3 UserModel
+	var UserPointer4 UserModel*/
 
 	var EventInfoPointer ResumeDataModel
-	EventInfoPointer.BResume = true
+	EventInfoPointer.BResume = false
 	EventInfoPointer.Lua = crc32.ChecksumIEEE([]byte("ComicEvent/introduction.lua"))
 	EventInfoPointer.TagId = 0
 	EventInfoPointer.ResumeId = 0
 
+	var QuestPointer QuestModel
+	QuestPointer.ID = 1
+	QuestPointer.Value = 1
+
+	var GPSPointer GPSModel
+	GPSPointer.ID = 1
+	GPSPointer.Name = "marui"
+	GPSPointer.PinType = "main"
+	GPSPointer.PinColor = "y"
+	GPSPointer.Latitude = 35.646530
+	GPSPointer.Longitude = 139.708430
+	GPSPointer.LuaScript = crc32.ChecksumIEEE([]byte("ComicEvent/oioi8f/oioi8f_ev_deai_000.lua"))
+	GPSPointer.BLocationEvent = 0
+	GPSPointer.Quest = &QuestPointer
+	GPSPointer.MapType = "GPSMap"
+
 	var Response Home_Response
 	Response.RES = Consts.R_SUCCESS
+	Response.ACharacter = []CharacterModel{}
+	Response.AScan = []ScanModel{}
+	Response.ARemoveScan = []string{}
+	Response.AGPS = append(Response.AGPS, GPSPointer)
+	Response.ARemoveGPS = []string{}
+	Response.AOnceEvent = []uint32{}
+	Response.ARemoveOnceEvent = []uint32{}
+	Response.ABuildings = []BuildingModel{}
+	Response.NowHp = 100
+	Response.MaxHp = 500
+	Response.ColorId = 1
+	Response.Quest = &QuestPointer
+	Response.BNewQuest = false
+	Response.AItemList = make([]int, 0)
+	Response.LocalMap = &LocalMapModel{}
 	Response.WebSocketServer = "ws://192.168.100.141:85"
 	Response.RoomId = "J24YUe"
 	Response.TeamId = "J24YUe"
 	Response.TeamName = "MarenTeam"
-	Response.ATeamUser = append(Response.ATeamUser, UserPointer)
+	Response.ATeamUser = append(Response.ATeamUser, UserPointer1)
 	Response.EventInfo = &EventInfoPointer
 	Response.BIntro = true
 
@@ -189,6 +228,76 @@ func NetResultPartyStart(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultEvent(w http.ResponseWriter, r *http.Request) {
+
+	var QuestPointer QuestModel
+	QuestPointer.ID = 1
+	QuestPointer.Value = 1
+
+	var GPSPointer GPSModel
+	GPSPointer.ID = 1
+	GPSPointer.Name = "marui"
+	GPSPointer.PinType = "main"
+	GPSPointer.PinColor = "y"
+	GPSPointer.Latitude = 35.646530
+	GPSPointer.Longitude = 139.708430
+	GPSPointer.LuaScript = crc32.ChecksumIEEE([]byte("ComicEvent/oioi8f/oioi8f_ev_deai_000.lua"))
+	GPSPointer.BLocationEvent = 0
+	GPSPointer.Quest = &QuestPointer
+	GPSPointer.MapType = "GPSMap"
+
+	var Response Home_Response
+	Response.RES = Consts.R_SUCCESS
+	Response.ACharacter = []CharacterModel{}
+	Response.AScan = []ScanModel{}
+	Response.ARemoveScan = []string{}
+	Response.AGPS = append(Response.AGPS, GPSPointer)
+	Response.ARemoveGPS = []string{}
+	Response.AOnceEvent = []uint32{}
+	Response.ARemoveOnceEvent = []uint32{}
+	Response.ABuildings = []BuildingModel{}
+	Response.NowHp = 100
+	Response.MaxHp = 500
+	Response.ColorId = 1
+	Response.Quest = &QuestPointer
+	Response.BNewQuest = false
+	Response.AItemList = make([]int, 0)
+	Response.LocalMap = &LocalMapModel{}
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultEventCheck(w http.ResponseWriter, r *http.Request) {
+
+	var EventInfoPointer ResumeDataModel
+	EventInfoPointer.BResume = false
+	EventInfoPointer.Lua = crc32.ChecksumIEEE([]byte("ComicEvent/introduction.lua"))
+	EventInfoPointer.TagId = 0
+	EventInfoPointer.ResumeId = 0
+
+	var Response Event_Check_Resume_Response
+	Response.RES = Consts.R_SUCCESS
+	Response.EventInfo = &EventInfoPointer
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
