@@ -266,8 +266,13 @@ if(isset($postRequest))
 		break;
 		case 206: //P_EVENT_CHECK_RESUME
 			file_put_contents('exportedRequests/P_EVENT_CHECK_RESUME.log', print_r($decryptedData, true));
-			$packet = array('res' => 1,
-			
+			$packet = array('res' => 0,
+				"eventInfo" => array(
+					"bResume" => boolval(false),
+					"lua" => intval(crc32('ComicEvent/introduction.lua')),
+					"resumeId" => intval(0),
+					"tagId" => intval(0)
+				)
 			);
 		break;
 		case 300: //P_BATTLE_IN
