@@ -124,13 +124,13 @@ type ScanModel struct {
 }
 
 type GPSModel struct {
-	ID             int         `json:"int"`
+	ID             string      `json:"id"`
 	Name           string      `json:"name"`
 	PinType        string      `json:"pinType"`
 	PinColor       string      `json:"pinColor"`
 	Latitude       float64     `json:"latitude"`
 	Longitude      float64     `json:"longitude"`
-	LuaScript      uint32      `json:"LuaScript"`
+	LuaScript      uint32      `json:"luaScript"`
 	BLocationEvent int         `json:"bLocationEvent"`
 	Quest          *QuestModel `json:"quest"`
 	MapType        string      `json:"mapType"`
@@ -144,9 +144,9 @@ type BuildingModel struct {
 }
 
 type QuestModel struct {
-	ID       int              `json:"id,omitempty"`
-	ItemList []QuestItemModel `json:"itemList,omitempty"`
-	Value    int              `json:"value,omitempty"`
+	ID       int              `json:"id"`
+	ItemList []QuestItemModel `json:"itemList"`
+	Value    int              `json:"value"`
 }
 
 type QuestItemModel struct {

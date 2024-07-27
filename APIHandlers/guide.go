@@ -1,7 +1,8 @@
 package APIHandlers
 
 import (
-	"FRPGServer/Consts"
+	Consts_Protocol "FRPGServer/Consts/Protocol"
+	Consts_RES "FRPGServer/Consts/Res"
 	"FRPGServer/Utils"
 	"encoding/json"
 	"fmt"
@@ -25,14 +26,14 @@ func GuideHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	switch JSONRequest.PID {
-	case Consts.P_GET_URL:
+	case Consts_Protocol.GET_URL:
 		NetResultGetUrl(w, r)
 	}
 }
 
 func NetResultGetUrl(w http.ResponseWriter, r *http.Request) {
 	var Response Get_URL_Response
-	Response.RES = Consts.R_SUCCESS
+	Response.RES = Consts_RES.SUCCESS
 	Response.API = "http://192.168.100.141:80/gw000.php"
 	Response.NSC = "http://192.168.100.141:80/nativeBridge/native/session.php"
 	Response.MainteURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki"
