@@ -37,5 +37,5 @@ const (
 	Quest_111   = 111
 	Quest_120   = 120
 	Quest_1000  = 1000
-	Quest_59651 = 59651 //Broken?
+	Quest_59651 = 59651 //Likely for GPS dummy
 )

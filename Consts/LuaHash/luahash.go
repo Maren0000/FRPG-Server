@@ -173,5 +173,8 @@ const (
 
 	Oioi_8F_BT_Frog_Y4 = 2511160959 //"ComicEvent/oioi8f/oioi8f_bt_frog_y5.lua"
 
-	Oioi_8F_EV_Deai_0 = 1989973162 //"ComicEvent/oioi8f/oioi8f_ev_deai_000.lua"
+	Oioi_8F_EV_Deai_0  = 1989973162 //"ComicEvent/oioi8f/oioi8f_ev_deai_000.lua"
+	Oioi_8F_EV_Rindo_0 = 1564649451 //"ComicEvent/oioi8f/oioi8f_ev_rindo_000.lua"
+	Oioi_8F_EV_Shiba_0 = 4153838679 //"ComicEvent/oioi8f/oioi8f_ev_shiba_000.lua"
+	Oioi_8F_EV_Shiba_2 = 2371280695 //"ComicEvent/oioi8f/oioi8f_ev_shiba_002.lua"
 )
