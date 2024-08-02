@@ -158,6 +158,16 @@ RETURNING *;
 SELECT * FROM "userSave"
 WHERE "UserID" = ? LIMIT 1;
 
+-- name: UpdateUserSaveIntro :exec
+UPDATE "userSave"
+set "BIntro" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserSaveNewQuest :exec
+UPDATE "userSave"
+set "BNewQuest" = ?
+WHERE "UserID" = ?;
+
 -- name: CreateNewUserScan :one
 INSERT INTO "userScans" (
   "UserID", "ID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"
@@ -170,6 +180,11 @@ RETURNING *;
 SELECT * FROM "userScans"
 WHERE "UserID" = ? AND "IsRemove" = 0
 ORDER BY "ID";
+
+-- name: GetUserScan :one
+SELECT * FROM "userScans"
+WHERE "UserID" = ? AND "ID" = ?
+LIMIT 1;
 
 -- name: ListUserScanRemoved :many
 SELECT * FROM "userScans"
@@ -188,3 +203,25 @@ RETURNING *;
 SELECT * FROM "userItems"
 WHERE "UserID" = ?
 ORDER BY "Item";
+
+-- name: GetUserResume :one
+SELECT * FROM "userResume"
+WHERE "UserID" = ? LIMIT 1;
+
+-- name: CreateNewUserResume :one
+INSERT INTO "userResume" (
+  "UserID", "BResume", "LuaHash", "TagID", "ResumeID"
+) VALUES (
+  ?, ?, ?, ?, ?
+)
+RETURNING *;
+
+-- name: UpdateUserResume :exec
+UPDATE "userResume"
+set "BResume" = ?, "LuaHash" = ?, "TagID" = ?, "ResumeID" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserResumeBool :exec
+UPDATE "userResume"
+set "BResume" = ?
+WHERE "UserID" = ?;

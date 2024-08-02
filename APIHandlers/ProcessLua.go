@@ -3,13 +3,25 @@ package APIHandlers
 import (
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	db_commands "FRPGServer/db/commands"
+	"fmt"
+	"strconv"
 )
 
-func proccessLua(UserID string, LuaHash uint32) {
+func proccessLua(UserID string, LuaHash uint32) error {
 	switch LuaHash {
 	case Consts_LuaHash.Introduction:
-		db_commands.UpdateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 1)
-		//To-Do: Set bIntro to false in UserSave
+		err := db_commands.UpdateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 1)
+		if err != nil {
+			return err
+		}
+		err = db_commands.UpdateUserSaveIntro(UserID, 0)
+		if err != nil {
+			return err
+		}
+		return nil
+	default:
+		fmt.Println("Unknown LuaHash to process: " + strconv.FormatUint(uint64(LuaHash), 10))
+		return nil
 	}
 }
 

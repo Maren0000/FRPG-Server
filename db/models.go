@@ -73,6 +73,14 @@ type UserQuestItems struct {
 	Type    sql.NullString
 }
 
+type UserResume struct {
+	UserID   sql.NullString
+	BResume  sql.NullInt64
+	LuaHash  sql.NullInt64
+	TagID    sql.NullInt64
+	ResumeID sql.NullInt64
+}
+
 type UserSave struct {
 	UserID    sql.NullString
 	BIntro    sql.NullInt64
@@ -80,6 +88,7 @@ type UserSave struct {
 	MaxHP     sql.NullInt64
 	ColorID   sql.NullInt64
 	BNewQuest sql.NullInt64
+	AItemList sql.NullString
 }
 
 type UserScans struct {
@@ -94,7 +103,7 @@ type UserScans struct {
 }
 
 type Users struct {
-	DeviceID string
+	DeviceID sql.NullString
 	ID       sql.NullString
 	Name     sql.NullString
 	Status   sql.NullInt64

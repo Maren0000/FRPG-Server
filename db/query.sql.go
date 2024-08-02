@@ -42,7 +42,7 @@ RETURNING DeviceID, ID, Name, Status, TeamID, NewGame, UUID
 `
 
 type CreateNewUserParams struct {
-	DeviceID string
+	DeviceID sql.NullString
 	ID       sql.NullString
 	NewGame  sql.NullInt64
 	UUID     sql.NullString
@@ -305,13 +305,49 @@ func (q *Queries) CreateNewUserQuestItem(ctx context.Context, arg CreateNewUserQ
 	return i, err
 }
 
+const createNewUserResume = `-- name: CreateNewUserResume :one
+INSERT INTO "userResume" (
+  "UserID", "BResume", "LuaHash", "TagID", "ResumeID"
+) VALUES (
+  ?, ?, ?, ?, ?
+)
+RETURNING UserID, BResume, LuaHash, TagID, ResumeID
+`
+
+type CreateNewUserResumeParams struct {
+	UserID   sql.NullString
+	BResume  sql.NullInt64
+	LuaHash  sql.NullInt64
+	TagID    sql.NullInt64
+	ResumeID sql.NullInt64
+}
+
+func (q *Queries) CreateNewUserResume(ctx context.Context, arg CreateNewUserResumeParams) (UserResume, error) {
+	row := q.db.QueryRowContext(ctx, createNewUserResume,
+		arg.UserID,
+		arg.BResume,
+		arg.LuaHash,
+		arg.TagID,
+		arg.ResumeID,
+	)
+	var i UserResume
+	err := row.Scan(
+		&i.UserID,
+		&i.BResume,
+		&i.LuaHash,
+		&i.TagID,
+		&i.ResumeID,
+	)
+	return i, err
+}
+
 const createNewUserSave = `-- name: CreateNewUserSave :one
 INSERT INTO "userSave" (
   "UserID", "BIntro", "NowHP", "MaxHP", "ColorID", "BNewQuest"
 ) VALUES (
   ?, ?, ?, ?, ?, ?
 )
-RETURNING UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest
+RETURNING UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, AItemList
 `
 
 type CreateNewUserSaveParams struct {
@@ -340,6 +376,7 @@ func (q *Queries) CreateNewUserSave(ctx context.Context, arg CreateNewUserSavePa
 		&i.MaxHP,
 		&i.ColorID,
 		&i.BNewQuest,
+		&i.AItemList,
 	)
 	return i, err
 }
@@ -394,7 +431,7 @@ DELETE FROM "users"
 WHERE "DeviceID" = ?
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, deviceid string) error {
+func (q *Queries) DeleteUser(ctx context.Context, deviceid sql.NullString) error {
 	_, err := q.db.ExecContext(ctx, deleteUser, deviceid)
 	return err
 }
@@ -404,7 +441,7 @@ SELECT DeviceID, ID, Name, Status, TeamID, NewGame, UUID FROM "users"
 WHERE "DeviceID" = ? LIMIT 1
 `
 
-func (q *Queries) GetUser(ctx context.Context, deviceid string) (Users, error) {
+func (q *Queries) GetUser(ctx context.Context, deviceid sql.NullString) (Users, error) {
 	row := q.db.QueryRowContext(ctx, getUser, deviceid)
 	var i Users
 	err := row.Scan(
@@ -443,8 +480,26 @@ func (q *Queries) GetUserQuest(ctx context.Context, userid sql.NullString) (User
 	return i, err
 }
 
+const getUserResume = `-- name: GetUserResume :one
+SELECT UserID, BResume, LuaHash, TagID, ResumeID FROM "userResume"
+WHERE "UserID" = ? LIMIT 1
+`
+
+func (q *Queries) GetUserResume(ctx context.Context, userid sql.NullString) (UserResume, error) {
+	row := q.db.QueryRowContext(ctx, getUserResume, userid)
+	var i UserResume
+	err := row.Scan(
+		&i.UserID,
+		&i.BResume,
+		&i.LuaHash,
+		&i.TagID,
+		&i.ResumeID,
+	)
+	return i, err
+}
+
 const getUserSave = `-- name: GetUserSave :one
-SELECT UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest FROM "userSave"
+SELECT UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, AItemList FROM "userSave"
 WHERE "UserID" = ? LIMIT 1
 `
 
@@ -458,6 +513,34 @@ func (q *Queries) GetUserSave(ctx context.Context, userid sql.NullString) (UserS
 		&i.MaxHP,
 		&i.ColorID,
 		&i.BNewQuest,
+		&i.AItemList,
+	)
+	return i, err
+}
+
+const getUserScan = `-- name: GetUserScan :one
+SELECT UserID, ID, Type, Tag, Height, BMulti, LuaHash, IsRemove FROM "userScans"
+WHERE "UserID" = ? AND "ID" = ?
+LIMIT 1
+`
+
+type GetUserScanParams struct {
+	UserID sql.NullString
+	ID     sql.NullInt64
+}
+
+func (q *Queries) GetUserScan(ctx context.Context, arg GetUserScanParams) (UserScans, error) {
+	row := q.db.QueryRowContext(ctx, getUserScan, arg.UserID, arg.ID)
+	var i UserScans
+	err := row.Scan(
+		&i.UserID,
+		&i.ID,
+		&i.Type,
+		&i.Tag,
+		&i.Height,
+		&i.BMulti,
+		&i.LuaHash,
+		&i.IsRemove,
 	)
 	return i, err
 }
@@ -821,7 +904,7 @@ WHERE "DeviceID" = ?
 
 type UpdateUserNameParams struct {
 	Name     sql.NullString
-	DeviceID string
+	DeviceID sql.NullString
 }
 
 func (q *Queries) UpdateUserName(ctx context.Context, arg UpdateUserNameParams) error {
@@ -837,7 +920,7 @@ WHERE "DeviceID" = ?
 
 type UpdateUserNewGameParams struct {
 	NewGame  sql.NullInt64
-	DeviceID string
+	DeviceID sql.NullString
 }
 
 func (q *Queries) UpdateUserNewGame(ctx context.Context, arg UpdateUserNewGameParams) error {
@@ -862,6 +945,79 @@ func (q *Queries) UpdateUserOnceEventRemove(ctx context.Context, arg UpdateUserO
 	return err
 }
 
+const updateUserResume = `-- name: UpdateUserResume :exec
+UPDATE "userResume"
+set "BResume" = ?, "LuaHash" = ?, "TagID" = ?, "ResumeID" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserResumeParams struct {
+	BResume  sql.NullInt64
+	LuaHash  sql.NullInt64
+	TagID    sql.NullInt64
+	ResumeID sql.NullInt64
+	UserID   sql.NullString
+}
+
+func (q *Queries) UpdateUserResume(ctx context.Context, arg UpdateUserResumeParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserResume,
+		arg.BResume,
+		arg.LuaHash,
+		arg.TagID,
+		arg.ResumeID,
+		arg.UserID,
+	)
+	return err
+}
+
+const updateUserResumeBool = `-- name: UpdateUserResumeBool :exec
+UPDATE "userResume"
+set "BResume" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserResumeBoolParams struct {
+	BResume sql.NullInt64
+	UserID  sql.NullString
+}
+
+func (q *Queries) UpdateUserResumeBool(ctx context.Context, arg UpdateUserResumeBoolParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserResumeBool, arg.BResume, arg.UserID)
+	return err
+}
+
+const updateUserSaveIntro = `-- name: UpdateUserSaveIntro :exec
+UPDATE "userSave"
+set "BIntro" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveIntroParams struct {
+	BIntro sql.NullInt64
+	UserID sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveIntro(ctx context.Context, arg UpdateUserSaveIntroParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveIntro, arg.BIntro, arg.UserID)
+	return err
+}
+
+const updateUserSaveNewQuest = `-- name: UpdateUserSaveNewQuest :exec
+UPDATE "userSave"
+set "BNewQuest" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveNewQuestParams struct {
+	BNewQuest sql.NullInt64
+	UserID    sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveNewQuest(ctx context.Context, arg UpdateUserSaveNewQuestParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveNewQuest, arg.BNewQuest, arg.UserID)
+	return err
+}
+
 const updateUserStatus = `-- name: UpdateUserStatus :exec
 UPDATE "users"
 set "Status" = ?
@@ -870,7 +1026,7 @@ WHERE "DeviceID" = ?
 
 type UpdateUserStatusParams struct {
 	Status   sql.NullInt64
-	DeviceID string
+	DeviceID sql.NullString
 }
 
 func (q *Queries) UpdateUserStatus(ctx context.Context, arg UpdateUserStatusParams) error {

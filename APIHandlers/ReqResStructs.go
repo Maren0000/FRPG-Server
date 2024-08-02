@@ -19,6 +19,11 @@ type Party_Create_Request struct {
 	AMember   []string `json:"aMember"`
 }
 
+type Scan_Request struct {
+	Generic_Request
+	TagId int `json:"tagId"`
+}
+
 type Event_End_Request struct {
 	Generic_Request
 	ALua []uint32 `json:"aLua"`

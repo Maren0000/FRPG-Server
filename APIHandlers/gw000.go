@@ -50,11 +50,11 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 	case Consts_Protocol.EVENT:
 		NetResultEvent(w, r, DecryptedBody)
 	case Consts_Protocol.QUEST_CHECKED:
-		NetResultNewQuest(w, r)
+		NetResultNewQuest(w, r, JSONRequest.TerminalId)
 	case Consts_Protocol.EVENT_CHECK_RESUME:
-		NetResultEventCheck(w, r)
+		NetResultEventCheck(w, r, JSONRequest.TerminalId)
 	case Consts_Protocol.SCAN_TAG:
-		NetResultScan(w, r)
+		NetResultScan(w, r, DecryptedBody)
 	case Consts_Protocol.SHOP_BENEFIT:
 		NetResultShopBenefit(w, r)
 	case Consts_Protocol.SHOP_IDENTIFY_START:
@@ -348,12 +348,6 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	Response.EventInfo = &EventInfoPointer
 	Response.BIntro = true*/
 
-	var EventInfoPointer ResumeDataModel
-	EventInfoPointer.BResume = false
-	EventInfoPointer.Lua = Consts_LuaHash.Oioi_8F_EV_Shiba_2
-	EventInfoPointer.TagId = 0
-	EventInfoPointer.ResumeId = 0
-
 	User, err := db_commands.GetUser(Did)
 	if err != nil {
 		fmt.Println(err)
@@ -371,6 +365,17 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	resumeData, err := db_commands.GetUserResume(UserID)
+	var EventInfoPointer ResumeDataModel
+	if resumeData.BResume.Int64 == 0 {
+		EventInfoPointer.BResume = false
+	} else {
+		EventInfoPointer.BResume = true
+	}
+	EventInfoPointer.Lua = uint32(resumeData.LuaHash.Int64)
+	EventInfoPointer.TagId = int32(resumeData.TagID.Int64)
+	EventInfoPointer.ResumeId = int32(resumeData.ResumeID.Int64)
 
 	Response.RES = Consts_RES.SUCCESS
 	Response.ACharacter = saveData.ACharacter
@@ -438,7 +443,15 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	UserID := User.ID.String
 
 	for _, LuaHash := range Request.ALua {
-		proccessLua(UserID, LuaHash)
+		err = proccessLua(UserID, LuaHash)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	err = db_commands.UpdateUserResumeBool(UserID, 0)
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	saveData, _, err := fetchSaveData(UserID)
@@ -475,13 +488,22 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	w.Write(sendbyte)
 }
 
-func NetResultEventCheck(w http.ResponseWriter, r *http.Request) {
+func NetResultEventCheck(w http.ResponseWriter, r *http.Request, Did string) {
+	User, err := db_commands.GetUser(Did)
+	if err != nil {
+		fmt.Println(err)
+	}
 
+	resumeData, err := db_commands.GetUserResume(User.ID.String)
 	var EventInfoPointer ResumeDataModel
-	EventInfoPointer.BResume = false
-	EventInfoPointer.Lua = Consts_LuaHash.EV_Novelty_3_Loft
-	EventInfoPointer.TagId = 0
-	EventInfoPointer.ResumeId = 0
+	if resumeData.BResume.Int64 == 0 {
+		EventInfoPointer.BResume = false
+	} else {
+		EventInfoPointer.BResume = true
+	}
+	EventInfoPointer.Lua = uint32(resumeData.LuaHash.Int64)
+	EventInfoPointer.TagId = int32(resumeData.TagID.Int64)
+	EventInfoPointer.ResumeId = int32(resumeData.ResumeID.Int64)
 
 	var Response Event_Check_Resume_Response
 	Response.RES = Consts_RES.SUCCESS
@@ -498,11 +520,32 @@ func NetResultEventCheck(w http.ResponseWriter, r *http.Request) {
 	w.Write(sendbyte)
 }
 
-func NetResultScan(w http.ResponseWriter, r *http.Request) {
+func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Scan_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	User, err := db_commands.GetUser(Request.TerminalId)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	UserScan, err := db_commands.GetUserScan(User.ID.String, Request.TagId)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//To-Do: Figure out when ResumeID is needed
+	err = db_commands.UpdateUserResume(User.ID.String, 1, uint32(UserScan.LuaHash.Int64), Request.TagId, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.Lua = Consts_LuaHash.Oioi_8F_EV_Deai_0
+	Response.Lua = uint32(UserScan.LuaHash.Int64)
 	//Response.Result = No Clue
 
 	JSONResponse, err := json.Marshal(Response)
@@ -569,8 +612,15 @@ func NetResultShopIdentifyEnd(w http.ResponseWriter, r *http.Request) {
 	w.Write(sendbyte)
 }
 
-func NetResultNewQuest(w http.ResponseWriter, r *http.Request) {
-	//To-Do: Disable new quest bool
+func NetResultNewQuest(w http.ResponseWriter, r *http.Request, Did string) {
+	User, err := db_commands.GetUser(Did)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = db_commands.UpdateUserSaveNewQuest(User.ID.String, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var Response New_Quest_Response
 	Response.RES = Consts_RES.SUCCESS

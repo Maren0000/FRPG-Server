@@ -17,7 +17,7 @@ import (
 
 	_ "embed"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/glebarez/go-sqlite"
 )
 
 //go:embed schema.sql
@@ -31,7 +31,7 @@ func Opendb() error {
 	var err error
 	ctx = context.Background()
 
-	dbconn, err = sql.Open("sqlite3", "file:FRPG.sqlite3")
+	dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -47,7 +47,7 @@ func Opendb() error {
 }
 
 func CheckDeviceIdExists(Did string) bool {
-	_, err := queries.GetUser(ctx, Did)
+	_, err := queries.GetUser(ctx, sql.NullString{String: Did, Valid: true})
 	if err != nil {
 		fmt.Println(err)
 		return false
@@ -57,7 +57,7 @@ func CheckDeviceIdExists(Did string) bool {
 
 func CreateNewUser(Did string) (user db.Users) {
 	user, err := queries.CreateNewUser(ctx, db.CreateNewUserParams{
-		DeviceID: Did,
+		DeviceID: sql.NullString{String: Did, Valid: true},
 		ID:       sql.NullString{String: Utils.GenRandId(), Valid: true},
 		NewGame:  sql.NullInt64{Int64: 1, Valid: true},
 		UUID:     sql.NullString{String: "00000000-0000-0000-0000-000000000001", Valid: true},
@@ -70,7 +70,7 @@ func CreateNewUser(Did string) (user db.Users) {
 }
 
 func GetUser(Did string) (user db.Users, err error) {
-	user, err = queries.GetUser(ctx, Did)
+	user, err = queries.GetUser(ctx, sql.NullString{String: Did, Valid: true})
 	if err != nil {
 		return user, err
 	}
@@ -79,7 +79,7 @@ func GetUser(Did string) (user db.Users, err error) {
 
 func SetUserName(Did string, Name string) (err error) {
 	err = queries.UpdateUserName(ctx, db.UpdateUserNameParams{
-		DeviceID: Did,
+		DeviceID: sql.NullString{String: Did, Valid: true},
 		Name:     sql.NullString{String: Name, Valid: true},
 	})
 	if err != nil {
@@ -90,7 +90,7 @@ func SetUserName(Did string, Name string) (err error) {
 
 func SetUserStatus(Did string, Status int) (err error) {
 	err = queries.UpdateUserStatus(ctx, db.UpdateUserStatusParams{
-		DeviceID: Did,
+		DeviceID: sql.NullString{String: Did, Valid: true},
 		Status:   sql.NullInt64{Int64: int64(Status), Valid: true},
 	})
 	if err != nil {
@@ -112,7 +112,7 @@ func SetUserTeam(UserID string, TeamID string) (err error) {
 
 func SetUserNewGame(Did string, Value int) (err error) {
 	err = queries.UpdateUserNewGame(ctx, db.UpdateUserNewGameParams{
-		DeviceID: Did,
+		DeviceID: sql.NullString{String: Did, Valid: true},
 		NewGame:  sql.NullInt64{Int64: int64(Value), Valid: true},
 	})
 	if err != nil {
@@ -209,6 +209,17 @@ func InitSaveData(UserID string) (err error) {
 		return err
 	}
 
+	_, err = queries.CreateNewUserResume(ctx, db.CreateNewUserResumeParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		BResume:  sql.NullInt64{Int64: 0, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Introduction, Valid: true},
+		TagID:    sql.NullInt64{Int64: 0, Valid: true},
+		ResumeID: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -218,6 +229,28 @@ func GetUserSavaData(UserID string) (SaveData db.UserSave, err error) {
 		return SaveData, err
 	}
 	return SaveData, nil
+}
+
+func UpdateUserSaveIntro(UserID string, Value int) (err error) {
+	err = queries.UpdateUserSaveIntro(ctx, db.UpdateUserSaveIntroParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		BIntro: sql.NullInt64{Int64: int64(Value), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveNewQuest(UserID string, Bool int) (err error) {
+	err = queries.UpdateUserSaveNewQuest(ctx, db.UpdateUserSaveNewQuestParams{
+		UserID:    sql.NullString{String: UserID, Valid: true},
+		BNewQuest: sql.NullInt64{Int64: int64(Bool), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func GetCurrentUserQuest(UserID string) (UserQuest db.UserQuest, err error) {
@@ -269,6 +302,17 @@ func ListUserScan(UserID string) (UserScans []db.UserScans, err error) {
 		return UserScans, err
 	}
 	return UserScans, nil
+}
+
+func GetUserScan(UserID string, ScanId int) (UserScan db.UserScans, err error) {
+	UserScan, err = queries.GetUserScan(ctx, db.GetUserScanParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		ID:     sql.NullInt64{Int64: int64(ScanId), Valid: true},
+	})
+	if err != nil {
+		return UserScan, err
+	}
+	return UserScan, nil
 }
 
 func ListUserScanRemoved(UserID string) (UserScans []db.UserScans, err error) {
@@ -324,6 +368,39 @@ func UpdateUserOnceEvent(UserID string, hash uint32, Remove int) (err error) {
 		UserID:   sql.NullString{String: UserID, Valid: true},
 		UInt:     sql.NullInt64{Int64: int64(hash), Valid: true},
 		IsRemove: sql.NullInt64{Int64: int64(Remove), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetUserResume(UserID string) (ResumeData db.UserResume, err error) {
+	ResumeData, err = queries.GetUserResume(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return ResumeData, err
+	}
+	return ResumeData, nil
+}
+
+func UpdateUserResume(UserID string, Bool int, LuaHash uint32, TagId int, ResumeId int) (err error) {
+	err = queries.UpdateUserResume(ctx, db.UpdateUserResumeParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		BResume:  sql.NullInt64{Int64: int64(Bool), Valid: true},
+		LuaHash:  sql.NullInt64{Int64: int64(LuaHash), Valid: true},
+		TagID:    sql.NullInt64{Int64: int64(TagId), Valid: true},
+		ResumeID: sql.NullInt64{Int64: int64(ResumeId), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserResumeBool(UserID string, Bool int) (err error) {
+	err = queries.UpdateUserResumeBool(ctx, db.UpdateUserResumeBoolParams{
+		UserID:  sql.NullString{String: UserID, Valid: true},
+		BResume: sql.NullInt64{Int64: int64(Bool), Valid: true},
 	})
 	if err != nil {
 		return err

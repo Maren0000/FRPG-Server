@@ -5,12 +5,17 @@ import (
 	db_commands "FRPGServer/db/commands"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 
 	"github.com/joho/godotenv"
 )
 
 func main() {
+	go func() {
+		http.ListenAndServe("localhost:8080", nil)
+	}()
+
 	err := db_commands.Opendb()
 	if err != nil {
 		log.Println(err)
