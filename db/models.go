@@ -61,9 +61,10 @@ type UserOnceEvent struct {
 }
 
 type UserQuest struct {
-	UserID sql.NullString
-	ID     sql.NullInt64
-	Value  sql.NullInt64
+	UserID  sql.NullString
+	ID      sql.NullInt64
+	Value   sql.NullInt64
+	IsClear sql.NullInt64
 }
 
 type UserQuestItems struct {

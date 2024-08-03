@@ -12,10 +12,6 @@ import (
 )
 
 func main() {
-	go func() {
-		http.ListenAndServe("localhost:8080", nil)
-	}()
-
 	err := db_commands.Opendb()
 	if err != nil {
 		log.Println(err)

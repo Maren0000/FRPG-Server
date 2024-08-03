@@ -267,13 +267,9 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	ItemPointer3.Type = "off"
 
 	var QuestPointer QuestModel
-	QuestPointer.ID = Consts_Quest.Quest_1
+	QuestPointer.ID = 1
 	QuestPointer.ItemList = append(QuestPointer.ItemList, ItemPointer)
 	QuestPointer.Value = 0
-
-	var QuestDumy QuestModel
-	QuestDumy.ID = Consts_Quest.Quest_59651
-	QuestDumy.Value = 0
 
 	var GPSPointer GPSModel
 	GPSPointer.ID = "4"
@@ -285,7 +281,7 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	//GPSPointer.LuaScript = Consts_LuaHash.Oioi_8F_EV_Deai_0
 	GPSPointer.BLocationEvent = 0
 	GPSPointer.Quest = &QuestPointer
-	GPSPointer.MapType = Consts_MapType.MaruiMap
+	GPSPointer.MapType = "maruiMap"
 	GPSPointer.MapNo = "8"
 
 	var GPSPointer3 GPSModel
@@ -316,19 +312,19 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 
 	var BuildingPointer BuildingModel
 	BuildingPointer.Name = "マルイ"
-	BuildingPointer.Prefab = Consts_Building.Marui
+	BuildingPointer.Prefab = "marui"
 	BuildingPointer.Status = "2" //0 is hide. 1 is off. 2 is on.
 
 	var LocalMapPointer LocalMapModel
 	LocalMapPointer.Floor = 8
-	LocalMapPointer.Name = Consts_MapType.MaruiMap
+	LocalMapPointer.Name = "maruiMap"
 
 	var Response Home_Response
 	Response.RES = Consts_RES.SUCCESS
 	//Response.ACharacter = append(Response.ACharacter, CharacterPointer)
 	Response.AScan = append(Response.AScan, ScanPointer)
 	Response.ARemoveScan = []string{}
-	Response.AGPS = append(Response.AGPS, GPSPointer2, GPSPointer, GPSPointer3)
+	Response.AGPS = append(Response.AGPS, GPSPointer2, GPSPointer)
 	Response.ARemoveGPS = []string{}
 	Response.AOnceEvent = []uint32{Consts_LuaHash.Introduction}
 	Response.ARemoveOnceEvent = []uint32{}
@@ -367,6 +363,9 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	}
 
 	resumeData, err := db_commands.GetUserResume(UserID)
+	if err != nil {
+		fmt.Println(err)
+	}
 	var EventInfoPointer ResumeDataModel
 	if resumeData.BResume.Int64 == 0 {
 		EventInfoPointer.BResume = false
@@ -391,6 +390,7 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	Response.ColorId = saveData.ColorId
 	Response.Quest = saveData.Quest
 	Response.AItemList = saveData.AItemList
+	Response.LocalMap = saveData.LocalMap
 	Response.WebSocketServer = "ws://" + IP + WSPort //Only used when there is more than one player in a team
 	Response.RoomId = "J24YUe"
 	Response.TeamId = "J24YUe"

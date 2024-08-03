@@ -1,16 +1,23 @@
 package APIHandlers
 
 import (
+	Consts_Coords "FRPGServer/Consts/Coords"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
+	Consts_MapPin "FRPGServer/Consts/MapPin"
+	Consts_MapType "FRPGServer/Consts/MapType"
+	Consts_Quest "FRPGServer/Consts/Quest"
+	Consts_QuestItem "FRPGServer/Consts/QuestItem"
+	Consts_ScanTag "FRPGServer/Consts/ScanTag"
 	db_commands "FRPGServer/db/commands"
 	"fmt"
 	"strconv"
 )
 
 func proccessLua(UserID string, LuaHash uint32) error {
+	//Welcome to hell
 	switch LuaHash {
 	case Consts_LuaHash.Introduction:
-		err := db_commands.UpdateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 1)
+		err := db_commands.CreateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 0)
 		if err != nil {
 			return err
 		}
@@ -18,6 +25,76 @@ func proccessLua(UserID string, LuaHash uint32) error {
 		if err != nil {
 			return err
 		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_EV_Deai_0:
+		//Clear and start new quest
+		err := db_commands.UpdateUserQuest(UserID, Consts_Quest.Quest_1_Start, 1)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_2_Start_Twisters)
+		if err != nil {
+			return err
+		}
+		err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		//Add items for quest panel
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_2_Start_Twisters, Consts_QuestItem.Quest_2_Rindo, "off")
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_2_Start_Twisters, Consts_QuestItem.Quest_2_Fret, "off")
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_2_Start_Twisters, Consts_QuestItem.Quest_2_Nagi, "off")
+		if err != nil {
+			return err
+		}
+
+		//Update Scan Tag
+		err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Q1_JoinBadge, Consts_LuaHash.Sys_Error_1)
+		if err != nil {
+			return err
+		}
+
+		//Add new scan tags
+		err = db_commands.CreateUserScan(UserID, 2, 3, Consts_ScanTag.QR_Q2_Rindo, 1, Consts_LuaHash.Oioi_8F_EV_Rindo_0)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserScan(UserID, 3, 3, Consts_ScanTag.QR_Q2_Fret, 1, Consts_LuaHash.Oioi_8F_EV_Fret_0)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserScan(UserID, 4, 3, Consts_ScanTag.QR_Q2_Nagi, 1, Consts_LuaHash.Oioi_8F_EV_Nagi_0)
+		if err != nil {
+			return err
+		}
+
+		//Update Local Map
+		err = db_commands.SetUserLocalMap(UserID, Consts_MapType.MaruiMap, 8)
+		if err != nil {
+			return err
+		}
+
+		//Update GPS pins
+		err = db_commands.CreateUserGPSPin(UserID, "2", "Q2_Rindo", Consts_MapPin.Rindo, "", Consts_Coords.Rindo_lat, Consts_Coords.Rindo_long, 2, Consts_MapType.MaruiMap, "8")
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserGPSPin(UserID, "3", "Q2_Fret", Consts_MapPin.Fret, "", Consts_Coords.Fret_lat, Consts_Coords.Fret_long, 2, Consts_MapType.MaruiMap, "8")
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserGPSPin(UserID, "4", "Q2_Nagi", Consts_MapPin.Nagi, "", Consts_Coords.Nagi_lat, Consts_Coords.Nagi_long, 2, Consts_MapType.MaruiMap, "8")
+		if err != nil {
+			return err
+		}
+
 		return nil
 	default:
 		fmt.Println("Unknown LuaHash to process: " + strconv.FormatUint(uint64(LuaHash), 10))
@@ -163,7 +240,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 
 	PlayerCurrentLocalMap, err := db_commands.GetCurrentUserLocalMap(UserID)
 	if err != nil {
-		//return save, false, err need better error handling
+		return save, false, err
 	}
 	var LocalmapTemp LocalMapModel
 	LocalmapTemp.Name = PlayerCurrentLocalMap.Name.String

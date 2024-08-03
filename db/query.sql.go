@@ -252,23 +252,34 @@ func (q *Queries) CreateNewUserOnceEvent(ctx context.Context, arg CreateNewUserO
 
 const createNewUserQuest = `-- name: CreateNewUserQuest :one
 INSERT INTO "userQuest" (
-  "UserID", "ID", "Value"
+  "UserID", "ID", "Value", "IsClear"
 ) VALUES (
-  ?, ?, ?
+  ?, ?, ?, ?
 )
-RETURNING UserID, ID, Value
+RETURNING UserID, ID, Value, IsClear
 `
 
 type CreateNewUserQuestParams struct {
-	UserID sql.NullString
-	ID     sql.NullInt64
-	Value  sql.NullInt64
+	UserID  sql.NullString
+	ID      sql.NullInt64
+	Value   sql.NullInt64
+	IsClear sql.NullInt64
 }
 
 func (q *Queries) CreateNewUserQuest(ctx context.Context, arg CreateNewUserQuestParams) (UserQuest, error) {
-	row := q.db.QueryRowContext(ctx, createNewUserQuest, arg.UserID, arg.ID, arg.Value)
+	row := q.db.QueryRowContext(ctx, createNewUserQuest,
+		arg.UserID,
+		arg.ID,
+		arg.Value,
+		arg.IsClear,
+	)
 	var i UserQuest
-	err := row.Scan(&i.UserID, &i.ID, &i.Value)
+	err := row.Scan(
+		&i.UserID,
+		&i.ID,
+		&i.Value,
+		&i.IsClear,
+	)
 	return i, err
 }
 
@@ -468,15 +479,20 @@ func (q *Queries) GetUserLocalMap(ctx context.Context, userid sql.NullString) (U
 	return i, err
 }
 
-const getUserQuest = `-- name: GetUserQuest :one
-SELECT UserID, ID, Value FROM "userQuest"
-WHERE "UserID" = ? LIMIT 1
+const getUserQuestCurrent = `-- name: GetUserQuestCurrent :one
+SELECT UserID, ID, Value, IsClear FROM "userQuest"
+WHERE "UserID" = ? AND "IsClear" = 0 LIMIT 1
 `
 
-func (q *Queries) GetUserQuest(ctx context.Context, userid sql.NullString) (UserQuest, error) {
-	row := q.db.QueryRowContext(ctx, getUserQuest, userid)
+func (q *Queries) GetUserQuestCurrent(ctx context.Context, userid sql.NullString) (UserQuest, error) {
+	row := q.db.QueryRowContext(ctx, getUserQuestCurrent, userid)
 	var i UserQuest
-	err := row.Scan(&i.UserID, &i.ID, &i.Value)
+	err := row.Scan(
+		&i.UserID,
+		&i.ID,
+		&i.Value,
+		&i.IsClear,
+	)
 	return i, err
 }
 
@@ -820,6 +836,40 @@ func (q *Queries) ListUserQuestItem(ctx context.Context, arg ListUserQuestItemPa
 	return items, nil
 }
 
+const listUserQuests = `-- name: ListUserQuests :many
+SELECT UserID, ID, Value, IsClear FROM "userQuest"
+WHERE "UserID" = ?
+ORDER BY "ID"
+`
+
+func (q *Queries) ListUserQuests(ctx context.Context, userid sql.NullString) ([]UserQuest, error) {
+	rows, err := q.db.QueryContext(ctx, listUserQuests, userid)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []UserQuest
+	for rows.Next() {
+		var i UserQuest
+		if err := rows.Scan(
+			&i.UserID,
+			&i.ID,
+			&i.Value,
+			&i.IsClear,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listUserScan = `-- name: ListUserScan :many
 SELECT UserID, ID, Type, Tag, Height, BMulti, LuaHash, IsRemove FROM "userScans"
 WHERE "UserID" = ? AND "IsRemove" = 0
@@ -896,6 +946,23 @@ func (q *Queries) ListUserScanRemoved(ctx context.Context, userid sql.NullString
 	return items, nil
 }
 
+const updateUserLocalMap = `-- name: UpdateUserLocalMap :exec
+UPDATE "userLocalMap"
+set "Name" = ?, "Floor" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserLocalMapParams struct {
+	Name   sql.NullString
+	Floor  sql.NullInt64
+	UserID sql.NullString
+}
+
+func (q *Queries) UpdateUserLocalMap(ctx context.Context, arg UpdateUserLocalMapParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserLocalMap, arg.Name, arg.Floor, arg.UserID)
+	return err
+}
+
 const updateUserName = `-- name: UpdateUserName :exec
 UPDATE "users"
 set "Name" = ?
@@ -942,6 +1009,23 @@ type UpdateUserOnceEventRemoveParams struct {
 
 func (q *Queries) UpdateUserOnceEventRemove(ctx context.Context, arg UpdateUserOnceEventRemoveParams) error {
 	_, err := q.db.ExecContext(ctx, updateUserOnceEventRemove, arg.IsRemove, arg.UserID, arg.UInt)
+	return err
+}
+
+const updateUserQuestClear = `-- name: UpdateUserQuestClear :exec
+UPDATE "userQuest"
+set "IsClear" = ?
+WHERE "UserID" = ? AND "ID" = ?
+`
+
+type UpdateUserQuestClearParams struct {
+	IsClear sql.NullInt64
+	UserID  sql.NullString
+	ID      sql.NullInt64
+}
+
+func (q *Queries) UpdateUserQuestClear(ctx context.Context, arg UpdateUserQuestClearParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserQuestClear, arg.IsClear, arg.UserID, arg.ID)
 	return err
 }
 
@@ -1015,6 +1099,23 @@ type UpdateUserSaveNewQuestParams struct {
 
 func (q *Queries) UpdateUserSaveNewQuest(ctx context.Context, arg UpdateUserSaveNewQuestParams) error {
 	_, err := q.db.ExecContext(ctx, updateUserSaveNewQuest, arg.BNewQuest, arg.UserID)
+	return err
+}
+
+const updateUserScanLuaHash = `-- name: UpdateUserScanLuaHash :exec
+UPDATE "userScans"
+set "LuaHash" = ?
+WHERE "UserID" = ? AND "Tag" = ?
+`
+
+type UpdateUserScanLuaHashParams struct {
+	LuaHash sql.NullInt64
+	UserID  sql.NullString
+	Tag     sql.NullString
+}
+
+func (q *Queries) UpdateUserScanLuaHash(ctx context.Context, arg UpdateUserScanLuaHashParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserScanLuaHash, arg.LuaHash, arg.UserID, arg.Tag)
 	return err
 }
 

@@ -98,6 +98,11 @@ RETURNING *;
 SELECT * FROM "userLocalMap"
 WHERE "UserID" = ? LIMIT 1;
 
+-- name: UpdateUserLocalMap :exec
+UPDATE "userLocalMap"
+set "Name" = ?, "Floor" = ?
+WHERE "UserID" = ?;
+
 -- name: CreateNewUserOnceEvent :one
 INSERT INTO "userOnceEvent" (
   "UserID", "UInt", "IsRemove"
@@ -123,15 +128,25 @@ ORDER BY "UInt";
 
 -- name: CreateNewUserQuest :one
 INSERT INTO "userQuest" (
-  "UserID", "ID", "Value"
+  "UserID", "ID", "Value", "IsClear"
 ) VALUES (
-  ?, ?, ?
+  ?, ?, ?, ?
 )
 RETURNING *;
 
--- name: GetUserQuest :one
+-- name: GetUserQuestCurrent :one
 SELECT * FROM "userQuest"
-WHERE "UserID" = ? LIMIT 1;
+WHERE "UserID" = ? AND "IsClear" = 0 LIMIT 1;
+
+-- name: ListUserQuests :many
+SELECT * FROM "userQuest"
+WHERE "UserID" = ?
+ORDER BY "ID";
+
+-- name: UpdateUserQuestClear :exec
+UPDATE "userQuest"
+set "IsClear" = ?
+WHERE "UserID" = ? AND "ID" = ?;
 
 -- name: CreateNewUserQuestItem :one
 INSERT INTO "userQuestItems" (
@@ -180,6 +195,11 @@ RETURNING *;
 SELECT * FROM "userScans"
 WHERE "UserID" = ? AND "IsRemove" = 0
 ORDER BY "ID";
+
+-- name: UpdateUserScanLuaHash :exec
+UPDATE "userScans"
+set "LuaHash" = ?
+WHERE "UserID" = ? AND "Tag" = ?;
 
 -- name: GetUserScan :one
 SELECT * FROM "userScans"

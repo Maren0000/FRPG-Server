@@ -2,9 +2,9 @@ package Consts_QuestItem
 
 const (
 	Quest_1_JoinBadge   = "item0"
-	Quest_2_Rindo       = "item0"
-	Quest_2_Fret        = "item1"
-	Quest_2_Nagi        = "item2"
+	Quest_2_Rindo       = "item0" //ID_PANEL_ITEM_0
+	Quest_2_Fret        = "item1" //ID_PANEL_ITEM_1
+	Quest_2_Nagi        = "item2" //ID_PANEL_ITEM_2
 	Quest_3_Frog_R_1    = "item0"
 	Quest_3_Frog_R_2    = "item1"
 	Quest_3_Frog_B_1    = "item2"
