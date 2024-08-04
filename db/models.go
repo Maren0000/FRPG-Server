@@ -29,7 +29,7 @@ type UserCharacters struct {
 
 type UserGPS struct {
 	UserID         sql.NullString
-	ID             sql.NullString
+	ID             int64
 	Name           sql.NullString
 	PinType        sql.NullString
 	PinColor       sql.NullString
@@ -94,7 +94,7 @@ type UserSave struct {
 
 type UserScans struct {
 	UserID   sql.NullString
-	ID       sql.NullInt64
+	ID       int64
 	Type     sql.NullInt64
 	Tag      sql.NullString
 	Height   sql.NullFloat64

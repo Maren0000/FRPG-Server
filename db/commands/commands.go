@@ -148,7 +148,7 @@ func InitSaveData(UserID string) (err error) {
 		BIntro:    sql.NullInt64{Int64: 1, Valid: true},
 		NowHP:     sql.NullInt64{Int64: 100, Valid: true},
 		MaxHP:     sql.NullInt64{Int64: 100, Valid: true},
-		ColorID:   sql.NullInt64{Int64: rand.Int63n(3-1) + 1, Valid: true},
+		ColorID:   sql.NullInt64{Int64: rand.Int63n(2) + 1, Valid: true},
 		BNewQuest: sql.NullInt64{Int64: 1, Valid: true},
 	})
 	if err != nil {
@@ -157,7 +157,6 @@ func InitSaveData(UserID string) (err error) {
 
 	_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
-		ID:        sql.NullString{String: "1", Valid: true},
 		Name:      sql.NullString{String: "MaruiPin", Valid: true},
 		PinType:   sql.NullString{String: Consts_MapPin.MapPin, Valid: true},
 		Latitude:  sql.NullFloat64{Float64: 35.660866, Valid: true},
@@ -209,7 +208,6 @@ func InitSaveData(UserID string) (err error) {
 
 	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
-		ID:       sql.NullInt64{Int64: 1, Valid: true},
 		Type:     sql.NullInt64{Int64: 3, Valid: true},
 		Tag:      sql.NullString{String: Consts_ScanTag.QR_Q1_JoinBadge, Valid: true},
 		BMulti:   sql.NullInt64{Int64: 0, Valid: true},
@@ -333,10 +331,9 @@ func UpdateUserQuestProgress(UserID string, QuestID int, Increment int) (err err
 	return nil
 }
 
-func CreateUserGPSPin(UserID string, ID string, Name string, PinType string, PinColor string, Latitude float64, Longitude float64, QuestId int, MapType string, MapFloor string) (err error) {
+func CreateUserGPSPin(UserID string, Name string, PinType string, PinColor string, Latitude float64, Longitude float64, QuestId int, MapType string, MapFloor string) (err error) {
 	_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
-		ID:        sql.NullString{String: ID, Valid: true},
 		Name:      sql.NullString{String: Name, Valid: true},
 		PinType:   sql.NullString{String: PinType, Valid: true},
 		PinColor:  sql.NullString{String: PinColor, Valid: true},
@@ -346,6 +343,18 @@ func CreateUserGPSPin(UserID string, ID string, Name string, PinType string, Pin
 		MapType:   sql.NullString{String: MapType, Valid: true},
 		MapNo:     sql.NullString{String: MapFloor, Valid: true},
 		IsRemove:  sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserGPSQuest(UserID string, name string, QuestID int) (err error) {
+	err = queries.UpdateUserGPSQuest(ctx, db.UpdateUserGPSQuestParams{
+		UserID:  sql.NullString{String: UserID, Valid: true},
+		Name:    sql.NullString{String: name, Valid: true},
+		QuestID: sql.NullInt64{Int64: int64(QuestID), Valid: true},
 	})
 	if err != nil {
 		return err
@@ -394,10 +403,10 @@ func ListUserGPS(UserID string) (UserGPS []db.UserGPS, err error) {
 	return UserGPS, nil
 }
 
-func UpdateUserGPSRemove(UserID string, GPSId string, Remove int) (err error) {
+func UpdateUserGPSRemove(UserID string, GPSName string, Remove int) (err error) {
 	err = queries.UpdateUserGPSRemove(ctx, db.UpdateUserGPSRemoveParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
-		ID:       sql.NullString{String: GPSId, Valid: true},
+		Name:     sql.NullString{String: GPSName, Valid: true},
 		IsRemove: sql.NullInt64{Int64: int64(Remove), Valid: true},
 	})
 	if err != nil {
@@ -438,10 +447,9 @@ func UpdateUserQuestItem(UserID string, QuestID int, Name string, Type string) (
 	return nil
 }
 
-func CreateUserScan(UserID string, ID int, Type int, Tag string, Bmulti int, LuaHash uint32) (err error) {
+func CreateUserScan(UserID string, Type int, Tag string, Bmulti int, LuaHash uint32) (err error) {
 	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
-		ID:       sql.NullInt64{Int64: int64(ID), Valid: true},
 		Type:     sql.NullInt64{Int64: int64(Type), Valid: true},
 		Tag:      sql.NullString{String: Tag, Valid: true},
 		BMulti:   sql.NullInt64{Int64: int64(Bmulti), Valid: true},
@@ -477,7 +485,7 @@ func UpdateUserScanLuaHash(UserID string, ScanTag string, LuaHash uint32) (err e
 func GetUserScan(UserID string, ScanId int) (UserScan db.UserScans, err error) {
 	UserScan, err = queries.GetUserScan(ctx, db.GetUserScanParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
-		ID:     sql.NullInt64{Int64: int64(ScanId), Valid: true},
+		ID:     int64(ScanId),
 	})
 	if err != nil {
 		return UserScan, err
@@ -517,12 +525,35 @@ func ListUserOnceEventRemoved(UserID string) (UserOnceEvent []db.UserOnceEvent, 
 	return UserOnceEvent, nil
 }
 
+func CreateUserCharacter(UserID string, CharacterId int, ItemId int) (Character db.UserCharacters, err error) {
+	Character, err = queries.CreateNewUserCharacter(ctx, db.CreateNewUserCharacterParams{
+		UserID:      sql.NullString{String: UserID, Valid: true},
+		CharacterId: sql.NullInt64{Int64: int64(CharacterId), Valid: true},
+		ItemId:      sql.NullInt64{Int64: int64(ItemId), Valid: true},
+	})
+	if err != nil {
+		return Character, err
+	}
+	return Character, nil
+}
+
 func ListUserCharacters(UserID string) (UserCharacters []db.UserCharacters, err error) {
 	UserCharacters, err = queries.ListUserCharacters(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
 		return UserCharacters, err
 	}
 	return UserCharacters, nil
+}
+
+func CreateUserItem(UserID string, ItemId int) (Item db.UserItems, err error) {
+	Item, err = queries.CreateNewUserItem(ctx, db.CreateNewUserItemParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		Item:   sql.NullInt64{Int64: int64(ItemId), Valid: true},
+	})
+	if err != nil {
+		return Item, err
+	}
+	return Item, nil
 }
 
 func ListUserItems(UserID string) (UserItems []db.UserItems, err error) {

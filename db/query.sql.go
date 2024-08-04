@@ -127,16 +127,15 @@ func (q *Queries) CreateNewUserCharacter(ctx context.Context, arg CreateNewUserC
 
 const createNewUserGPS = `-- name: CreateNewUserGPS :one
 INSERT INTO "userGPS" (
-  "UserID", "ID", "Name", "PinType", "PinColor", "Latitude", "Longitude", "LuaScript", "BLocationEvent", "QuestID", "MapType", "MapNo", "IsRemove"
+  "UserID", "Name", "PinType", "PinColor", "Latitude", "Longitude", "LuaScript", "BLocationEvent", "QuestID", "MapType", "MapNo", "IsRemove"
 ) VALUES (
-  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 )
 RETURNING UserID, ID, Name, PinType, PinColor, Latitude, Longitude, LuaScript, BLocationEvent, QuestID, MapType, MapNo, IsRemove
 `
 
 type CreateNewUserGPSParams struct {
 	UserID         sql.NullString
-	ID             sql.NullString
 	Name           sql.NullString
 	PinType        sql.NullString
 	PinColor       sql.NullString
@@ -153,7 +152,6 @@ type CreateNewUserGPSParams struct {
 func (q *Queries) CreateNewUserGPS(ctx context.Context, arg CreateNewUserGPSParams) (UserGPS, error) {
 	row := q.db.QueryRowContext(ctx, createNewUserGPS,
 		arg.UserID,
-		arg.ID,
 		arg.Name,
 		arg.PinType,
 		arg.PinColor,
@@ -394,16 +392,15 @@ func (q *Queries) CreateNewUserSave(ctx context.Context, arg CreateNewUserSavePa
 
 const createNewUserScan = `-- name: CreateNewUserScan :one
 INSERT INTO "userScans" (
-  "UserID", "ID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"
+  "UserID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"
 ) VALUES (
-  ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?, ?
 )
 RETURNING UserID, ID, Type, Tag, Height, BMulti, LuaHash, IsRemove
 `
 
 type CreateNewUserScanParams struct {
 	UserID   sql.NullString
-	ID       sql.NullInt64
 	Type     sql.NullInt64
 	Tag      sql.NullString
 	Height   sql.NullFloat64
@@ -415,7 +412,6 @@ type CreateNewUserScanParams struct {
 func (q *Queries) CreateNewUserScan(ctx context.Context, arg CreateNewUserScanParams) (UserScans, error) {
 	row := q.db.QueryRowContext(ctx, createNewUserScan,
 		arg.UserID,
-		arg.ID,
 		arg.Type,
 		arg.Tag,
 		arg.Height,
@@ -566,7 +562,7 @@ LIMIT 1
 
 type GetUserScanParams struct {
 	UserID sql.NullString
-	ID     sql.NullInt64
+	ID     int64
 }
 
 func (q *Queries) GetUserScan(ctx context.Context, arg GetUserScanParams) (UserScans, error) {
@@ -970,20 +966,54 @@ func (q *Queries) ListUserScanRemoved(ctx context.Context, userid sql.NullString
 	return items, nil
 }
 
+const updateUserCharacterItem = `-- name: UpdateUserCharacterItem :exec
+UPDATE "userCharacters"
+set "ItemId" = ?
+WHERE "UserID" = ? AND "CharacterId" = ?
+`
+
+type UpdateUserCharacterItemParams struct {
+	ItemId      sql.NullInt64
+	UserID      sql.NullString
+	CharacterId sql.NullInt64
+}
+
+func (q *Queries) UpdateUserCharacterItem(ctx context.Context, arg UpdateUserCharacterItemParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserCharacterItem, arg.ItemId, arg.UserID, arg.CharacterId)
+	return err
+}
+
+const updateUserGPSQuest = `-- name: UpdateUserGPSQuest :exec
+UPDATE "userGPS"
+set "QuestID" = ?
+WHERE "UserID" = ? AND "Name" = ?
+`
+
+type UpdateUserGPSQuestParams struct {
+	QuestID sql.NullInt64
+	UserID  sql.NullString
+	Name    sql.NullString
+}
+
+func (q *Queries) UpdateUserGPSQuest(ctx context.Context, arg UpdateUserGPSQuestParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserGPSQuest, arg.QuestID, arg.UserID, arg.Name)
+	return err
+}
+
 const updateUserGPSRemove = `-- name: UpdateUserGPSRemove :exec
 UPDATE "userGPS"
 set "IsRemove" = ?
-WHERE "UserID" = ? AND "ID" = ?
+WHERE "UserID" = ? AND "Name" = ?
 `
 
 type UpdateUserGPSRemoveParams struct {
 	IsRemove sql.NullInt64
 	UserID   sql.NullString
-	ID       sql.NullString
+	Name     sql.NullString
 }
 
 func (q *Queries) UpdateUserGPSRemove(ctx context.Context, arg UpdateUserGPSRemoveParams) error {
-	_, err := q.db.ExecContext(ctx, updateUserGPSRemove, arg.IsRemove, arg.UserID, arg.ID)
+	_, err := q.db.ExecContext(ctx, updateUserGPSRemove, arg.IsRemove, arg.UserID, arg.Name)
 	return err
 }
 

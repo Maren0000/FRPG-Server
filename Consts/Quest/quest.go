@@ -3,8 +3,8 @@ package Consts_Quest
 const (
 	Quest_1_Start          = 1 //ID_QUEST_START
 	Quest_2_Start_Twisters = 2 //ID_QUEST_START_TWISTERS
-	Quest_3                = 3
-	Quest_4                = 4
+	Quest_3_Start_Battle_1 = 3 //ID_QUEST_START_BATTLE_1
+	Quest_4_Start_Battle_2 = 4 //ID_QUEST_START_BATTLE_2
 	Quest_5                = 5
 	Quest_6                = 6
 	Quest_7                = 7

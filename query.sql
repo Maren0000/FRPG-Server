@@ -72,11 +72,16 @@ SELECT * FROM "userCharacters"
 WHERE "UserID" = ?
 ORDER BY "CharacterId";
 
+-- name: UpdateUserCharacterItem :exec
+UPDATE "userCharacters"
+set "ItemId" = ?
+WHERE "UserID" = ? AND "CharacterId" = ?;
+
 -- name: CreateNewUserGPS :one
 INSERT INTO "userGPS" (
-  "UserID", "ID", "Name", "PinType", "PinColor", "Latitude", "Longitude", "LuaScript", "BLocationEvent", "QuestID", "MapType", "MapNo", "IsRemove"
+  "UserID", "Name", "PinType", "PinColor", "Latitude", "Longitude", "LuaScript", "BLocationEvent", "QuestID", "MapType", "MapNo", "IsRemove"
 ) VALUES (
-  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 )
 RETURNING *;
 
@@ -85,10 +90,15 @@ SELECT * FROM "userGPS"
 WHERE "UserID" = ? AND "IsRemove" = 0
 ORDER BY "ID";
 
+-- name: UpdateUserGPSQuest :exec
+UPDATE "userGPS"
+set "QuestID" = ?
+WHERE "UserID" = ? AND "Name" = ?;
+
 -- name: UpdateUserGPSRemove :exec
 UPDATE "userGPS"
 set "IsRemove" = ?
-WHERE "UserID" = ? AND "ID" = ?;
+WHERE "UserID" = ? AND "Name" = ?;
 
 -- name: ListUserGPSRemoved :many
 SELECT * FROM "userGPS"
@@ -208,9 +218,9 @@ WHERE "UserID" = ?;
 
 -- name: CreateNewUserScan :one
 INSERT INTO "userScans" (
-  "UserID", "ID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"
+  "UserID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"
 ) VALUES (
-  ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?, ?
 )
 RETURNING *;
 

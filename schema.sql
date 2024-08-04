@@ -34,7 +34,7 @@ CREATE TABLE "userCharacters" (
 
 CREATE TABLE "userGPS" (
 	"UserID"	TEXT,
-	"ID"	TEXT,
+	"ID"	INTEGER	UNIQUE PRIMARY KEY	AUTOINCREMENT,
 	"Name"	TEXT,
 	"PinType"	TEXT,
 	"PinColor"	TEXT,
@@ -96,7 +96,7 @@ CREATE TABLE "userSave" (
 
 CREATE TABLE "userScans" (
 	"UserID"	TEXT,
-	"ID"	INTEGER,
+	"ID"	INTEGER	UNIQUE PRIMARY KEY	AUTOINCREMENT,
 	"Type"	INTEGER,
 	"Tag"	TEXT,
 	"Height"	REAL,

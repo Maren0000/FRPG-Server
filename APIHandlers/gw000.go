@@ -5,6 +5,7 @@ import (
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Protocol "FRPGServer/Consts/Protocol"
 	Consts_RES "FRPGServer/Consts/Res"
+	"FRPGServer/SaveData"
 	"FRPGServer/Utils"
 	db_commands "FRPGServer/db/commands"
 	"encoding/json"
@@ -443,7 +444,7 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	UserID := User.ID.String
 
 	for _, LuaHash := range Request.ALua {
-		err = proccessLua(UserID, LuaHash)
+		err = SaveData.ProccessLua(UserID, LuaHash)
 		if err != nil {
 			fmt.Println(err)
 		}
