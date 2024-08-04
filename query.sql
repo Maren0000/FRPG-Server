@@ -2,6 +2,10 @@
 SELECT * FROM "users"
 WHERE "DeviceID" = ? LIMIT 1;
 
+-- name: GetUserID :one
+SELECT "ID" FROM "users"
+WHERE "DeviceID" = ? LIMIT 1;
+
 -- name: CreateNewUser :one
 INSERT INTO "users" (
   "DeviceID", "ID", "NewGame", "UUID", "Status"
@@ -81,6 +85,11 @@ SELECT * FROM "userGPS"
 WHERE "UserID" = ? AND "IsRemove" = 0
 ORDER BY "ID";
 
+-- name: UpdateUserGPSRemove :exec
+UPDATE "userGPS"
+set "IsRemove" = ?
+WHERE "UserID" = ? AND "ID" = ?;
+
 -- name: ListUserGPSRemoved :many
 SELECT * FROM "userGPS"
 WHERE "UserID" = ? AND "IsRemove" = 1
@@ -143,6 +152,11 @@ SELECT * FROM "userQuest"
 WHERE "UserID" = ?
 ORDER BY "ID";
 
+-- name: UpdateUserQuestProgress :exec
+UPDATE "userQuest"
+set "Value" = ?
+WHERE "UserID" = ? AND "ID" = ?;
+
 -- name: UpdateUserQuestClear :exec
 UPDATE "userQuest"
 set "IsClear" = ?
@@ -161,6 +175,11 @@ SELECT * FROM "userQuestItems"
 WHERE "UserID" = ? AND "QuestID" = ?
 ORDER BY "Name";
 
+-- name: UpdateUserQuestItem :exec
+UPDATE "userQuestItems"
+set "Type" = ?
+WHERE "UserID" = ? AND "QuestID" = ? AND "Name" = ?;
+
 -- name: CreateNewUserSave :one
 INSERT INTO "userSave" (
   "UserID", "BIntro", "NowHP", "MaxHP", "ColorID", "BNewQuest"
@@ -171,6 +190,10 @@ RETURNING *;
 
 -- name: GetUserSave :one
 SELECT * FROM "userSave"
+WHERE "UserID" = ? LIMIT 1;
+
+-- name: GetUserSaveColor :one
+SELECT "ColorID" FROM "userSave"
 WHERE "UserID" = ? LIMIT 1;
 
 -- name: UpdateUserSaveIntro :exec

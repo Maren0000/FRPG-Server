@@ -77,6 +77,15 @@ func GetUser(Did string) (user db.Users, err error) {
 	return user, nil
 }
 
+func GetUserID(DeviceID string) (UserID string, err error) {
+	var User sql.NullString
+	User, err = queries.GetUserID(ctx, sql.NullString{String: DeviceID, Valid: true})
+	if err != nil {
+		return UserID, err
+	}
+	return User.String, nil
+}
+
 func SetUserName(Did string, Name string) (err error) {
 	err = queries.UpdateUserName(ctx, db.UpdateUserNameParams{
 		DeviceID: sql.NullString{String: Did, Valid: true},
@@ -242,6 +251,15 @@ func GetUserSavaData(UserID string) (SaveData db.UserSave, err error) {
 	return SaveData, nil
 }
 
+func GetUserSavaColor(UserID string) (ColorID int, err error) {
+	var UserSaveColor sql.NullInt64
+	UserSaveColor, err = queries.GetUserSaveColor(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return ColorID, err
+	}
+	return int(UserSaveColor.Int64), nil
+}
+
 func UpdateUserSaveIntro(UserID string, Value int) (err error) {
 	err = queries.UpdateUserSaveIntro(ctx, db.UpdateUserSaveIntroParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
@@ -285,11 +303,29 @@ func CreateUserQuestItem(UserID string, QuestID int, ItemID string, Type string)
 	return nil
 }
 
-func UpdateUserQuest(UserID string, QuestID int, IsClear int) (err error) {
+func UpdateUserQuestClear(UserID string, QuestID int, IsClear int) (err error) {
 	err = queries.UpdateUserQuestClear(ctx, db.UpdateUserQuestClearParams{
 		UserID:  sql.NullString{String: UserID, Valid: true},
 		ID:      sql.NullInt64{Int64: int64(QuestID), Valid: true},
 		IsClear: sql.NullInt64{Int64: int64(IsClear), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserQuestProgress(UserID string, QuestID int, Increment int) (err error) {
+	var UserQuest db.UserQuest
+	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return err
+	}
+
+	err = queries.UpdateUserQuestProgress(ctx, db.UpdateUserQuestProgressParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		ID:     sql.NullInt64{Int64: int64(QuestID), Valid: true},
+		Value:  sql.NullInt64{Int64: UserQuest.Value.Int64 + int64(Increment), Valid: true},
 	})
 	if err != nil {
 		return err
@@ -358,6 +394,18 @@ func ListUserGPS(UserID string) (UserGPS []db.UserGPS, err error) {
 	return UserGPS, nil
 }
 
+func UpdateUserGPSRemove(UserID string, GPSId string, Remove int) (err error) {
+	err = queries.UpdateUserGPSRemove(ctx, db.UpdateUserGPSRemoveParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		ID:       sql.NullString{String: GPSId, Valid: true},
+		IsRemove: sql.NullInt64{Int64: int64(Remove), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func ListUserGPSRemoved(UserID string) (UserGPS []db.UserGPS, err error) {
 	UserGPS, err = queries.ListUserGPSRemoved(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
@@ -375,6 +423,19 @@ func ListUserQuestItems(UserID string, QuestID int) (UserQuestItems []db.UserQue
 		return UserQuestItems, err
 	}
 	return UserQuestItems, nil
+}
+
+func UpdateUserQuestItem(UserID string, QuestID int, Name string, Type string) (err error) {
+	err = queries.UpdateUserQuestItem(ctx, db.UpdateUserQuestItemParams{
+		UserID:  sql.NullString{String: UserID, Valid: true},
+		QuestID: sql.NullInt64{Int64: int64(QuestID), Valid: true},
+		Name:    sql.NullString{String: Name, Valid: true},
+		Type:    sql.NullString{String: Type, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func CreateUserScan(UserID string, ID int, Type int, Tag string, Bmulti int, LuaHash uint32) (err error) {

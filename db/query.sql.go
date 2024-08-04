@@ -467,6 +467,18 @@ func (q *Queries) GetUser(ctx context.Context, deviceid sql.NullString) (Users, 
 	return i, err
 }
 
+const getUserID = `-- name: GetUserID :one
+SELECT "ID" FROM "users"
+WHERE "DeviceID" = ? LIMIT 1
+`
+
+func (q *Queries) GetUserID(ctx context.Context, deviceid sql.NullString) (sql.NullString, error) {
+	row := q.db.QueryRowContext(ctx, getUserID, deviceid)
+	var ID sql.NullString
+	err := row.Scan(&ID)
+	return ID, err
+}
+
 const getUserLocalMap = `-- name: GetUserLocalMap :one
 SELECT UserID, Name, Floor FROM "userLocalMap"
 WHERE "UserID" = ? LIMIT 1
@@ -532,6 +544,18 @@ func (q *Queries) GetUserSave(ctx context.Context, userid sql.NullString) (UserS
 		&i.AItemList,
 	)
 	return i, err
+}
+
+const getUserSaveColor = `-- name: GetUserSaveColor :one
+SELECT "ColorID" FROM "userSave"
+WHERE "UserID" = ? LIMIT 1
+`
+
+func (q *Queries) GetUserSaveColor(ctx context.Context, userid sql.NullString) (sql.NullInt64, error) {
+	row := q.db.QueryRowContext(ctx, getUserSaveColor, userid)
+	var ColorID sql.NullInt64
+	err := row.Scan(&ColorID)
+	return ColorID, err
 }
 
 const getUserScan = `-- name: GetUserScan :one
@@ -946,6 +970,23 @@ func (q *Queries) ListUserScanRemoved(ctx context.Context, userid sql.NullString
 	return items, nil
 }
 
+const updateUserGPSRemove = `-- name: UpdateUserGPSRemove :exec
+UPDATE "userGPS"
+set "IsRemove" = ?
+WHERE "UserID" = ? AND "ID" = ?
+`
+
+type UpdateUserGPSRemoveParams struct {
+	IsRemove sql.NullInt64
+	UserID   sql.NullString
+	ID       sql.NullString
+}
+
+func (q *Queries) UpdateUserGPSRemove(ctx context.Context, arg UpdateUserGPSRemoveParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserGPSRemove, arg.IsRemove, arg.UserID, arg.ID)
+	return err
+}
+
 const updateUserLocalMap = `-- name: UpdateUserLocalMap :exec
 UPDATE "userLocalMap"
 set "Name" = ?, "Floor" = ?
@@ -1026,6 +1067,46 @@ type UpdateUserQuestClearParams struct {
 
 func (q *Queries) UpdateUserQuestClear(ctx context.Context, arg UpdateUserQuestClearParams) error {
 	_, err := q.db.ExecContext(ctx, updateUserQuestClear, arg.IsClear, arg.UserID, arg.ID)
+	return err
+}
+
+const updateUserQuestItem = `-- name: UpdateUserQuestItem :exec
+UPDATE "userQuestItems"
+set "Type" = ?
+WHERE "UserID" = ? AND "QuestID" = ? AND "Name" = ?
+`
+
+type UpdateUserQuestItemParams struct {
+	Type    sql.NullString
+	UserID  sql.NullString
+	QuestID sql.NullInt64
+	Name    sql.NullString
+}
+
+func (q *Queries) UpdateUserQuestItem(ctx context.Context, arg UpdateUserQuestItemParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserQuestItem,
+		arg.Type,
+		arg.UserID,
+		arg.QuestID,
+		arg.Name,
+	)
+	return err
+}
+
+const updateUserQuestProgress = `-- name: UpdateUserQuestProgress :exec
+UPDATE "userQuest"
+set "Value" = ?
+WHERE "UserID" = ? AND "ID" = ?
+`
+
+type UpdateUserQuestProgressParams struct {
+	Value  sql.NullInt64
+	UserID sql.NullString
+	ID     sql.NullInt64
+}
+
+func (q *Queries) UpdateUserQuestProgress(ctx context.Context, arg UpdateUserQuestProgressParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserQuestProgress, arg.Value, arg.UserID, arg.ID)
 	return err
 }
 
