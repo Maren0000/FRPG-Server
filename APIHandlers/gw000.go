@@ -1,6 +1,7 @@
 package APIHandlers
 
 import (
+	Consts_BGM "FRPGServer/Consts/BGM"
 	Consts_Login "FRPGServer/Consts/Login"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Protocol "FRPGServer/Consts/Protocol"
@@ -62,8 +63,12 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 		NetResultShopIdentifyStart(w, r)
 	case Consts_Protocol.SHOP_IDENTIFY_END:
 		NetResultShopIdentifyEnd(w, r)
+	case Consts_Protocol.BATTLE_IN:
+		NetResultBattleIn(w, r)
+	case Consts_Protocol.BATTLE_RESULT:
+		NetResultBattleResult(w, r)
 	default:
-		fmt.Println(strconv.Itoa(JSONRequest.PID) + "Not implemnted!")
+		fmt.Println(strconv.Itoa(JSONRequest.PID) + ": Not implemnted!")
 	}
 
 }
@@ -547,7 +552,7 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
 	Response.Lua = uint32(UserScan.LuaHash.Int64)
-	//Response.Result = No Clue
+	//Response.Result = To-Do: Figure this out
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -562,10 +567,11 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 
 func NetResultShopBenefit(w http.ResponseWriter, r *http.Request) {
 
+	//To-Do: Add scan QR codes for this
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.Lua = Consts_LuaHash.EV_Novelty_11_TowerRecords
-	//Response.Result = No Clue
+	Response.Lua = Consts_LuaHash.Novelty_EV_11_TowerRecords
+	//Response.Result = To-Do: Figure this out
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -580,6 +586,7 @@ func NetResultShopBenefit(w http.ResponseWriter, r *http.Request) {
 
 func NetResultShopIdentifyStart(w http.ResponseWriter, r *http.Request) {
 
+	//To-Do: Add scan QRs for this
 	var Response Shop_Identify_Start_Response
 	Response.RES = Consts_RES.SUCCESS
 	Response.Message = "This is a test"
@@ -625,7 +632,46 @@ func NetResultNewQuest(w http.ResponseWriter, r *http.Request, Did string) {
 
 	var Response New_Quest_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.Result = 1 //idk tbh
+	Response.Result = 1 //To-Do: Figure this out
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultBattleIn(w http.ResponseWriter, r *http.Request) {
+
+	var Response Battle_In_Response
+	Response.RES = Consts_RES.SUCCESS
+	Response.BGM_ID = Consts_BGM.BGM_001
+	Response.NoiseSymbolPath = "noisesymbol/05"
+	Response.NoiseID = 5
+	Response.Badge = "01"
+	Response.Damage = 25
+	Response.BIgnoreInputOrder = 1 //Could be an multi thing?
+	Response.AAttackItemId = []int{1, 3, 5, 7}
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultBattleResult(w http.ResponseWriter, r *http.Request) {
+
+	var Response Battle_Result_Response
+	Response.RES = Consts_RES.SUCCESS
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {

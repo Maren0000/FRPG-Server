@@ -114,3 +114,19 @@ type Shop_Identify_Start_Response struct {
 	Result  uint32 `json:"result"`
 	Type    int    `json:"type"`
 }
+
+type Battle_In_Response struct {
+	Generic_Response
+	BGM_ID            int    `json:"bgm_id"`
+	NoiseSymbolPath   string `json:"noizeSymbolPath"`
+	NoiseID           int    `json:"noizeId"`
+	Badge             string `json:"badge"`
+	Damage            int    `json:"damage"`
+	BIgnoreInputOrder int    `json:"bIgnoreInputOrder"`
+	AAttackItemId     []int  `json:"aAttackItemId"`
+}
+
+type Battle_Result_Response struct {
+	Generic_Response
+	Lua uint32 `json:"lua,omitempty"`
+}

@@ -3,6 +3,7 @@ package Consts_MapPin
 const (
 	MapPin           = "mapPin"
 	Badge            = "badge"
+	Burger           = "burger"
 	Cry_Woman        = "cry_woman"
 	Fret             = "fret"
 	Gal              = "gal"

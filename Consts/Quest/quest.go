@@ -5,8 +5,8 @@ const (
 	Quest_2_Start_Twisters = 2 //ID_QUEST_START_TWISTERS
 	Quest_3_Start_Battle_1 = 3 //ID_QUEST_START_BATTLE_1
 	Quest_4_Start_Battle_2 = 4 //ID_QUEST_START_BATTLE_2
-	Quest_5                = 5
-	Quest_6                = 6
+	Quest_5_Week_Death     = 5 //ID_QUEST_WEEK_DEATH
+	Quest_6_Week_Battle    = 6 //ID_QUEST_WEEK_BATTLE
 	Quest_7                = 7
 	Quest_8                = 8
 	Quest_9                = 9
@@ -36,6 +36,6 @@ const (
 	Quest_110              = 110
 	Quest_111              = 111
 	Quest_120              = 120
-	Quest_1000             = 1000
+	Quest_1000_Burger      = 1000  //ID_QUEST_BURGER
 	Quest_59651            = 59651 //Likely for GPS dummy
 )

@@ -143,6 +143,7 @@ func CreateTeam(TeamName string) (team db.Teams, err error) {
 }
 
 func InitSaveData(UserID string) (err error) {
+	//To-Do: Move ColorID Random to Utils
 	_, err = queries.CreateNewUserSave(ctx, db.CreateNewUserSaveParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
 		BIntro:    sql.NullInt64{Int64: 1, Valid: true},

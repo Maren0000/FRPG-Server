@@ -105,6 +105,90 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 			return err
 		}
 		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_B3:
+		err := ProcessFiles.Oioi_8F_BT_Frog_B3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_R3:
+		err := ProcessFiles.Oioi_8F_BT_Frog_R3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_Y3:
+		err := ProcessFiles.Oioi_8F_BT_Frog_Y3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog3ren_Bridge:
+		err := ProcessFiles.Oioi_8F_BT_Frog3ren_Bridge(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog3ren_1:
+		err := ProcessFiles.Oioi_8F_BT_Frog3ren_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_B4:
+		err := ProcessFiles.Oioi_8F_BT_Frog_B4(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_R4:
+		err := ProcessFiles.Oioi_8F_BT_Frog_R4(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_Y4:
+		err := ProcessFiles.Oioi_8F_BT_Frog_Y4(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog3ren_2:
+		err := ProcessFiles.Oioi_8F_BT_Frog3ren_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_B5:
+		err := ProcessFiles.Oioi_8F_BT_Frog_B5(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_R5:
+		err := ProcessFiles.Oioi_8F_BT_Frog_R5(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_BT_Frog_Y5:
+		err := ProcessFiles.Oioi_8F_BT_Frog_Y5(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_8F_EV_Shiba_2:
+		err := ProcessFiles.Oioi_8F_EV_Shiba_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_5F_EV_Wall_1:
+		err := ProcessFiles.Oioi_5F_EV_Wall_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
 	default:
 		fmt.Println("Unknown LuaHash to process: " + strconv.FormatUint(uint64(LuaHash), 10))
 		return nil

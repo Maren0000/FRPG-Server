@@ -155,7 +155,7 @@ RETURNING *;
 
 -- name: GetUserQuestCurrent :one
 SELECT * FROM "userQuest"
-WHERE "UserID" = ? AND "IsClear" = 0 LIMIT 1;
+WHERE "UserID" = ? AND "IsClear" = 0 ORDER BY "ID" ASC LIMIT 1;
 
 -- name: ListUserQuests :many
 SELECT * FROM "userQuest"

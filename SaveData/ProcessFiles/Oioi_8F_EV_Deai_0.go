@@ -42,6 +42,7 @@ func Oioi_8F_EV_Deai_0(UserID string) error {
 	}
 
 	//Update Scan Tag
+	//To-Do: This should probably be remove not update
 	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Q1_JoinBadge, Consts_LuaHash.Sys_Error_1)
 	if err != nil {
 		return err

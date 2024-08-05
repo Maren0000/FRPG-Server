@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// To-Do: Move this to SaveData package
 func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error error) {
 	PlayerCharacters, err := db_commands.ListUserCharacters(UserID)
 	if err != nil {

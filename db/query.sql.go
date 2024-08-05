@@ -489,7 +489,7 @@ func (q *Queries) GetUserLocalMap(ctx context.Context, userid sql.NullString) (U
 
 const getUserQuestCurrent = `-- name: GetUserQuestCurrent :one
 SELECT UserID, ID, Value, IsClear FROM "userQuest"
-WHERE "UserID" = ? AND "IsClear" = 0 LIMIT 1
+WHERE "UserID" = ? AND "IsClear" = 0 ORDER BY "ID" ASC LIMIT 1
 `
 
 func (q *Queries) GetUserQuestCurrent(ctx context.Context, userid sql.NullString) (UserQuest, error) {
