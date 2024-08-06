@@ -169,14 +169,31 @@ func InitSaveData(UserID string) (err error) {
 		return err
 	}
 
-	/*_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+	//To-Do: add the rest of the OnceEvents since they are all added at the start
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
 		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Introduction, Valid: true},
 		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {
 		return err
-	}*/
+	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Oioi_5F_EV_FirstBattle, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Sys_EV_Burger_FirstDamage, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
 
 	_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
@@ -274,6 +291,86 @@ func UpdateUserSaveNewQuest(UserID string, Bool int) (err error) {
 	err = queries.UpdateUserSaveNewQuest(ctx, db.UpdateUserSaveNewQuestParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
 		BNewQuest: sql.NullInt64{Int64: int64(Bool), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveNowHP(UserID string, NowHp int) (err error) {
+	err = queries.UpdateUserSaveNowHP(ctx, db.UpdateUserSaveNowHPParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		NowHP:  sql.NullInt64{Int64: int64(NowHp), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveBattleId(UserID string, BattleId int) (err error) {
+	err = queries.UpdateUserSaveBattleID(ctx, db.UpdateUserSaveBattleIDParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		BattleID: sql.NullInt64{Int64: int64(BattleId), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveBattleBadge1(UserID string, BattleBadge int) (err error) {
+	err = queries.UpdateUserSaveBattleBadge1(ctx, db.UpdateUserSaveBattleBadge1Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge1: sql.NullInt64{Int64: int64(BattleBadge), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveBattleBadge2(UserID string, BattleBadge int) (err error) {
+	err = queries.UpdateUserSaveBattleBadge2(ctx, db.UpdateUserSaveBattleBadge2Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge2: sql.NullInt64{Int64: int64(BattleBadge), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserSaveBattleBadge3(UserID string, BattleBadge int) (err error) {
+	err = queries.UpdateUserSaveBattleBadge3(ctx, db.UpdateUserSaveBattleBadge3Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge3: sql.NullInt64{Int64: int64(BattleBadge), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func EmptyUserSaveBadges(UserID string) (err error) {
+	err = queries.UpdateUserSaveBattleBadge1(ctx, db.UpdateUserSaveBattleBadge1Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge1: sql.NullInt64{Valid: false},
+	})
+	if err != nil {
+		return err
+	}
+	err = queries.UpdateUserSaveBattleBadge2(ctx, db.UpdateUserSaveBattleBadge2Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge2: sql.NullInt64{Valid: false},
+	})
+	if err != nil {
+		return err
+	}
+	err = queries.UpdateUserSaveBattleBadge3(ctx, db.UpdateUserSaveBattleBadge3Params{
+		UserID:       sql.NullString{String: UserID, Valid: true},
+		BattleBadge3: sql.NullInt64{Valid: false},
 	})
 	if err != nil {
 		return err

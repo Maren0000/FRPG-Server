@@ -356,7 +356,7 @@ INSERT INTO "userSave" (
 ) VALUES (
   ?, ?, ?, ?, ?, ?
 )
-RETURNING UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, AItemList
+RETURNING UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, BattleID, BattleBadge1, BattleBadge2, BattleBadge3
 `
 
 type CreateNewUserSaveParams struct {
@@ -385,7 +385,10 @@ func (q *Queries) CreateNewUserSave(ctx context.Context, arg CreateNewUserSavePa
 		&i.MaxHP,
 		&i.ColorID,
 		&i.BNewQuest,
-		&i.AItemList,
+		&i.BattleID,
+		&i.BattleBadge1,
+		&i.BattleBadge2,
+		&i.BattleBadge3,
 	)
 	return i, err
 }
@@ -523,7 +526,7 @@ func (q *Queries) GetUserResume(ctx context.Context, userid sql.NullString) (Use
 }
 
 const getUserSave = `-- name: GetUserSave :one
-SELECT UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, AItemList FROM "userSave"
+SELECT UserID, BIntro, NowHP, MaxHP, ColorID, BNewQuest, BattleID, BattleBadge1, BattleBadge2, BattleBadge3 FROM "userSave"
 WHERE "UserID" = ? LIMIT 1
 `
 
@@ -537,7 +540,10 @@ func (q *Queries) GetUserSave(ctx context.Context, userid sql.NullString) (UserS
 		&i.MaxHP,
 		&i.ColorID,
 		&i.BNewQuest,
-		&i.AItemList,
+		&i.BattleID,
+		&i.BattleBadge1,
+		&i.BattleBadge2,
+		&i.BattleBadge3,
 	)
 	return i, err
 }
@@ -1181,6 +1187,70 @@ func (q *Queries) UpdateUserResumeBool(ctx context.Context, arg UpdateUserResume
 	return err
 }
 
+const updateUserSaveBattleBadge1 = `-- name: UpdateUserSaveBattleBadge1 :exec
+UPDATE "userSave"
+set "BattleBadge1" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveBattleBadge1Params struct {
+	BattleBadge1 sql.NullInt64
+	UserID       sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveBattleBadge1(ctx context.Context, arg UpdateUserSaveBattleBadge1Params) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveBattleBadge1, arg.BattleBadge1, arg.UserID)
+	return err
+}
+
+const updateUserSaveBattleBadge2 = `-- name: UpdateUserSaveBattleBadge2 :exec
+UPDATE "userSave"
+set "BattleBadge2" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveBattleBadge2Params struct {
+	BattleBadge2 sql.NullInt64
+	UserID       sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveBattleBadge2(ctx context.Context, arg UpdateUserSaveBattleBadge2Params) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveBattleBadge2, arg.BattleBadge2, arg.UserID)
+	return err
+}
+
+const updateUserSaveBattleBadge3 = `-- name: UpdateUserSaveBattleBadge3 :exec
+UPDATE "userSave"
+set "BattleBadge3" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveBattleBadge3Params struct {
+	BattleBadge3 sql.NullInt64
+	UserID       sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveBattleBadge3(ctx context.Context, arg UpdateUserSaveBattleBadge3Params) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveBattleBadge3, arg.BattleBadge3, arg.UserID)
+	return err
+}
+
+const updateUserSaveBattleID = `-- name: UpdateUserSaveBattleID :exec
+UPDATE "userSave"
+set "BattleID" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveBattleIDParams struct {
+	BattleID sql.NullInt64
+	UserID   sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveBattleID(ctx context.Context, arg UpdateUserSaveBattleIDParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveBattleID, arg.BattleID, arg.UserID)
+	return err
+}
+
 const updateUserSaveIntro = `-- name: UpdateUserSaveIntro :exec
 UPDATE "userSave"
 set "BIntro" = ?
@@ -1210,6 +1280,22 @@ type UpdateUserSaveNewQuestParams struct {
 
 func (q *Queries) UpdateUserSaveNewQuest(ctx context.Context, arg UpdateUserSaveNewQuestParams) error {
 	_, err := q.db.ExecContext(ctx, updateUserSaveNewQuest, arg.BNewQuest, arg.UserID)
+	return err
+}
+
+const updateUserSaveNowHP = `-- name: UpdateUserSaveNowHP :exec
+UPDATE "userSave"
+set "NowHP" = ?
+WHERE "UserID" = ?
+`
+
+type UpdateUserSaveNowHPParams struct {
+	NowHP  sql.NullInt64
+	UserID sql.NullString
+}
+
+func (q *Queries) UpdateUserSaveNowHP(ctx context.Context, arg UpdateUserSaveNowHPParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserSaveNowHP, arg.NowHP, arg.UserID)
 	return err
 }
 

@@ -189,6 +189,43 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 			return err
 		}
 		return nil
+	case Consts_LuaHash.Oioi_5F_EV_Vari3_1:
+		err := ProcessFiles.Oioi_5F_EV_Vari3_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_5F_EV_Pure3_1:
+		err := ProcessFiles.Oioi_5F_EV_Pure3_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_5F_EV_Pure2_1:
+		err := ProcessFiles.Oioi_5F_EV_Pure2_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Oioi_5F_EV_Yuusen3_1:
+		err := ProcessFiles.Oioi_5F_EV_Yuusen3_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+
+	case Consts_LuaHash.Sys_EV_Burger_Refresh:
+		err := ProcessFiles.Sys_EV_Burger_Refresh(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Sys_BT_Lose:
+		err := ProcessFiles.Sys_BT_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
 	default:
 		fmt.Println("Unknown LuaHash to process: " + strconv.FormatUint(uint64(LuaHash), 10))
 		return nil

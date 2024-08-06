@@ -216,6 +216,31 @@ UPDATE "userSave"
 set "BNewQuest" = ?
 WHERE "UserID" = ?;
 
+-- name: UpdateUserSaveNowHP :exec
+UPDATE "userSave"
+set "NowHP" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserSaveBattleID :exec
+UPDATE "userSave"
+set "BattleID" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserSaveBattleBadge1 :exec
+UPDATE "userSave"
+set "BattleBadge1" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserSaveBattleBadge2 :exec
+UPDATE "userSave"
+set "BattleBadge2" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserSaveBattleBadge3 :exec
+UPDATE "userSave"
+set "BattleBadge3" = ?
+WHERE "UserID" = ?;
+
 -- name: CreateNewUserScan :one
 INSERT INTO "userScans" (
   "UserID", "Type", "Tag", "Height", "BMulti", "LuaHash", "IsRemove"

@@ -89,7 +89,10 @@ CREATE TABLE "userSave" (
 	"MaxHP"	INTEGER,
 	"ColorID"	INTEGER,
 	"BNewQuest"	INTEGER,
-	"AItemList"	TEXT,
+	"BattleID"	INTEGER,
+	"BattleBadge1"	INTEGER,
+	"BattleBadge2"	INTEGER,
+	"BattleBadge3"	INTEGER,
 	FOREIGN KEY("UserID") REFERENCES "users"("ID") ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY("UserID")
 );

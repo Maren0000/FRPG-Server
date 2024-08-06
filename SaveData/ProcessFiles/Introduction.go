@@ -6,10 +6,12 @@ import (
 )
 
 func ProcessIntroductionLua(UserID string) error {
-	err := db_commands.CreateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 0)
+	//Remove OnceEvent
+	err := db_commands.UpdateUserOnceEvent(UserID, Consts_LuaHash.Introduction, 1)
 	if err != nil {
 		return err
 	}
+	//(Not in SERVER_SCRIPT)
 	err = db_commands.UpdateUserSaveIntro(UserID, 0)
 	if err != nil {
 		return err

@@ -178,7 +178,7 @@ const (
 	Oioi_5F_BT_Crow_B           = 3558712734 //"ComicEvent/oioi5f/oioi5f_bt_crow_b.lua"
 	Oioi_5F_BT_Crow_Bridge      = 3497177355 //"ComicEvent/oioi5f/oioi5f_bt_crow_bridge.lua"
 	Oioi_5F_BT_Crow_R           = 3036492316 //"ComicEvent/oioi5f/oioi5f_bt_crow_r.lua"
-	Oioi_5F_BT_Crow_Wn          = 703933249  //"ComicEvent/oioi5f/oioi5f_bt_crow_win.lua"
+	Oioi_5F_BT_Crow_Win         = 703933249  //"ComicEvent/oioi5f/oioi5f_bt_crow_win.lua"
 	Oioi_5F_BT_Crow_Y           = 3274507021 //"ComicEvent/oioi5f/oioi5f_bt_crow_y.lua"
 	Oioi_5F_BT_Jellyfish_B      = 1555706609 //"ComicEvent/oioi5f/oioi5f_bt_jellyfish_b.lua"
 	Oioi_5F_BT_Jellyfish_Bridge = 3303723308 //"ComicEvent/oioi5f/oioi5f_bt_jellyfish_bridge.lua"

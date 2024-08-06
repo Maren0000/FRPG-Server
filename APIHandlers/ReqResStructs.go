@@ -29,6 +29,22 @@ type Event_End_Request struct {
 	ALua []uint32 `json:"aLua"`
 }
 
+type Battle_In_Request struct {
+	Generic_Request
+	BattleId int `json:"battleId"`
+}
+
+type Battle_Attack_Request struct {
+	Generic_Request
+	ItemId int `json:"ItemId"`
+}
+
+type Battle_Result_Request struct {
+	Generic_Request
+	Succeeded int `json:"succeeded"`
+	NowHp     int `json:"nowHp"`
+}
+
 type Generic_Response struct {
 	RES int `json:"res"`
 }

@@ -1,7 +1,6 @@
 package APIHandlers
 
 import (
-	Consts_BGM "FRPGServer/Consts/BGM"
 	Consts_Login "FRPGServer/Consts/Login"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Protocol "FRPGServer/Consts/Protocol"
@@ -63,10 +62,12 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 		NetResultShopIdentifyStart(w, r)
 	case Consts_Protocol.SHOP_IDENTIFY_END:
 		NetResultShopIdentifyEnd(w, r)
+	case Consts_Protocol.BATTLE_ATTACK:
+		NetResultBattleAttackSucceeded(w, r, DecryptedBody)
 	case Consts_Protocol.BATTLE_IN:
-		NetResultBattleIn(w, r)
+		NetResultBattleIn(w, r, DecryptedBody)
 	case Consts_Protocol.BATTLE_RESULT:
-		NetResultBattleResult(w, r)
+		NetResultBattleResult(w, r, DecryptedBody)
 	default:
 		fmt.Println(strconv.Itoa(JSONRequest.PID) + ": Not implemnted!")
 	}
@@ -233,122 +234,6 @@ func NetResultPartyCreate(w http.ResponseWriter, r *http.Request, body []byte) {
 func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	IP := os.Getenv("IP_ADDRESS")
 	WSPort := os.Getenv("WS_PORT")
-
-	//Testing data
-	/*var UserPointer1 PlayerModel
-	UserPointer1.ID = "kPjrXd"
-	UserPointer1.Name = "Maren"
-
-	var CharacterPointer CharacterModel
-	CharacterPointer.CharacterId = 1
-	CharacterPointer.ItemId = 1
-
-	var ScanPointer ScanModel
-	ScanPointer.ID = 1
-	ScanPointer.Type = 3
-	ScanPointer.Tag = "GM_shibuya21_ma8_00004"
-	//ScanPointer.Height = I have no clue tbh (Apprently used for Type 1 April Tags)
-	ScanPointer.BMulti = true
-
-	var EventInfoPointer ResumeDataModel
-	EventInfoPointer.BResume = false
-	EventInfoPointer.Lua = Consts_LuaHash.Oioi_8F_EV_Shiba_2
-	EventInfoPointer.TagId = 0
-	EventInfoPointer.ResumeId = 0
-
-	var ItemPointer QuestItemModel
-	ItemPointer.Name = "item0"
-	ItemPointer.Type = "off"
-
-	var ItemPointer1 QuestItemModel
-	ItemPointer1.Name = "noise10_Y"
-	ItemPointer1.Type = "off"
-
-	var ItemPointer2 QuestItemModel
-	ItemPointer2.Name = "noise11_Y"
-	ItemPointer2.Type = "off"
-
-	var ItemPointer3 QuestItemModel
-	ItemPointer3.Name = "noise12_Y"
-	ItemPointer3.Type = "off"
-
-	var QuestPointer QuestModel
-	QuestPointer.ID = 1
-	QuestPointer.ItemList = append(QuestPointer.ItemList, ItemPointer)
-	QuestPointer.Value = 0
-
-	var GPSPointer GPSModel
-	GPSPointer.ID = "4"
-	GPSPointer.Name = "badge"
-	GPSPointer.PinType = "badge"
-	//GPSPointer.PinColor = "y"
-	GPSPointer.Latitude = 300
-	GPSPointer.Longitude = 200
-	//GPSPointer.LuaScript = Consts_LuaHash.Oioi_8F_EV_Deai_0
-	GPSPointer.BLocationEvent = 0
-	GPSPointer.Quest = &QuestPointer
-	GPSPointer.MapType = "maruiMap"
-	GPSPointer.MapNo = "8"
-
-	var GPSPointer3 GPSModel
-	GPSPointer3.ID = "2"
-	GPSPointer3.Name = "y"
-	GPSPointer3.PinType = Consts_MapPin.Noise_Elephant
-	GPSPointer3.PinColor = "_Y"
-	GPSPointer3.Latitude = 0
-	GPSPointer3.Longitude = 0
-	//GPSPointer3.LuaScript = Consts_LuaHash.Oioi_8F_EV_Deai_0
-	GPSPointer3.BLocationEvent = 0
-	GPSPointer3.Quest = &QuestPointer
-	GPSPointer3.MapType = Consts_MapType.MaruiMap
-	GPSPointer3.MapNo = "8"
-
-	var GPSPointer2 GPSModel
-	GPSPointer2.ID = "10"
-	GPSPointer2.Name = "marui"
-	GPSPointer2.PinType = "mapPin"
-	//GPSPointer2.PinColor = "pin_sub"
-	GPSPointer2.Latitude = 35.660866
-	GPSPointer2.Longitude = 139.701024
-	//GPSPointer2.LuaScript = Consts_LuaHash.GPS_1
-	//GPSPointer2.BLocationEvent = 0
-	GPSPointer2.Quest = &QuestPointer
-	//GPSPointer2.MapType = Consts_MapType.GPSMap
-	//GPSPointer2.MapNo = "0"
-
-	var BuildingPointer BuildingModel
-	BuildingPointer.Name = "マルイ"
-	BuildingPointer.Prefab = "marui"
-	BuildingPointer.Status = "2" //0 is hide. 1 is off. 2 is on.
-
-	var LocalMapPointer LocalMapModel
-	LocalMapPointer.Floor = 8
-	LocalMapPointer.Name = "maruiMap"
-
-	var Response Home_Response
-	Response.RES = Consts_RES.SUCCESS
-	//Response.ACharacter = append(Response.ACharacter, CharacterPointer)
-	Response.AScan = append(Response.AScan, ScanPointer)
-	Response.ARemoveScan = []string{}
-	Response.AGPS = append(Response.AGPS, GPSPointer2, GPSPointer)
-	Response.ARemoveGPS = []string{}
-	Response.AOnceEvent = []uint32{Consts_LuaHash.Introduction}
-	Response.ARemoveOnceEvent = []uint32{}
-	Response.ABuildings = append(Response.ABuildings, BuildingPointer)
-	Response.NowHp = 100
-	Response.MaxHp = 100
-	Response.ColorId = 3 //1 is Red, 2 is Blue, 3 is Yellow
-	Response.Quest = &QuestPointer
-	Response.BNewQuest = false
-	Response.AItemList = make([]int, 0)
-	//Response.LocalMap = &LocalMapPointer
-	Response.WebSocketServer = "ws://" + IP + WSPort //Only used when there is more than one player in a team
-	Response.RoomId = "J24YUe"
-	Response.TeamId = "J24YUe"
-	Response.TeamName = "MarenTeam"
-	Response.ATeamUser = append(Response.ATeamUser, UserPointer1)
-	Response.EventInfo = &EventInfoPointer
-	Response.BIntro = true*/
 
 	User, err := db_commands.GetUser(Did)
 	if err != nil {
@@ -645,17 +530,45 @@ func NetResultNewQuest(w http.ResponseWriter, r *http.Request, Did string) {
 	w.Write(sendbyte)
 }
 
-func NetResultBattleIn(w http.ResponseWriter, r *http.Request) {
+func NetResultBattleIn(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Battle_In_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		fmt.Println(err)
+	}
+	UserID, err := db_commands.GetUserID(Request.TerminalId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	UserSave, err := db_commands.GetUserSavaData(UserID)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = db_commands.UpdateUserSaveBattleId(UserID, Request.BattleId)
+	if err != nil {
+		fmt.Println(err)
+	}
 
+	BattleData := FetchBattleData(Request.BattleId)
 	var Response Battle_In_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.BGM_ID = Consts_BGM.BGM_001
-	Response.NoiseSymbolPath = "noisesymbol/05"
-	Response.NoiseID = 5
-	Response.Badge = "01"
-	Response.Damage = 25
-	Response.BIgnoreInputOrder = 1 //Could be an multi thing?
-	Response.AAttackItemId = []int{1, 3, 5, 7}
+	Response.BGM_ID = BattleData.BGM_ID
+	Response.NoiseSymbolPath = BattleData.NoiseSymbolPath
+	Response.NoiseID = BattleData.NoiseID
+	Response.Badge = BattleData.Badge
+	Response.Damage = BattleData.Damage
+	Response.BIgnoreInputOrder = BattleData.BIgnoreInputOrder
+	if UserSave.BattleBadge1.Valid {
+		Response.AAttackItemId = append(Response.AAttackItemId, int(UserSave.BattleBadge1.Int64))
+		if UserSave.BattleBadge2.Valid {
+			Response.AAttackItemId = append(Response.AAttackItemId, int(UserSave.BattleBadge2.Int64))
+			if UserSave.BattleBadge3.Valid {
+				Response.AAttackItemId = append(Response.AAttackItemId, int(UserSave.BattleBadge3.Int64))
+			}
+		}
+	} else {
+		Response.AAttackItemId = []int{}
+	}
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -668,10 +581,78 @@ func NetResultBattleIn(w http.ResponseWriter, r *http.Request) {
 	w.Write(sendbyte)
 }
 
-func NetResultBattleResult(w http.ResponseWriter, r *http.Request) {
+func NetResultBattleAttackSucceeded(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Battle_Attack_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	UserID, err := db_commands.GetUserID(Request.TerminalId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	UserSave, err := db_commands.GetUserSavaData(UserID)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if !UserSave.BattleBadge1.Valid {
+		err = db_commands.UpdateUserSaveBattleBadge1(UserID, Request.ItemId)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else if !UserSave.BattleBadge2.Valid {
+		err = db_commands.UpdateUserSaveBattleBadge2(UserID, Request.ItemId)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else if !UserSave.BattleBadge3.Valid {
+		err = db_commands.UpdateUserSaveBattleBadge3(UserID, Request.ItemId)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	var Response Generic_Response
+	Response.RES = Consts_RES.SUCCESS
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultBattleResult(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Battle_Result_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		fmt.Println(err)
+	}
+	UserID, err := db_commands.GetUserID(Request.TerminalId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = db_commands.UpdateUserSaveNowHP(UserID, Request.NowHp)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = db_commands.EmptyUserSaveBadges(UserID)
+	if err != nil {
+		fmt.Println(err)
+	}
+	UserSave, err := db_commands.GetUserSavaData(UserID)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var Response Battle_Result_Response
 	Response.RES = Consts_RES.SUCCESS
+	Response.Lua = FetchBattleLuaResult(int(UserSave.BattleID.Int64), Request.Succeeded, Request.NowHp)
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {

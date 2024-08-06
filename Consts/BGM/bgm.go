@@ -1,9 +1,9 @@
 package Consts_BGM
 
 const (
-	BGM_001 = 1
-	BGM_002 = 2
-	BGM_003 = 3
+	BGM_001 = 1 //Title - Wander Around Shibuya
+	BGM_002 = 2 //INCONGRUOUS
+	BGM_003 = 3 //
 	BGM_004 = 4
 	BGM_005 = 5
 	BGM_006 = 6

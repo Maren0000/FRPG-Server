@@ -78,3 +78,12 @@ type LocalMapModel struct {
 	Name  string `json:"name"`
 	Floor int    `json:"floor"`
 }
+
+type BattleInfoModel struct {
+	BGM_ID            int    `json:"bgm_id"`
+	NoiseSymbolPath   string `json:"noizeSymbolPath"`
+	NoiseID           int    `json:"noizeId"`
+	Badge             string `json:"badge"`
+	Damage            int    `json:"damage"`
+	BIgnoreInputOrder int    `json:"bIgnoreInputOrder"`
+}

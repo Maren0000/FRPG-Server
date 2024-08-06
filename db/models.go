@@ -83,13 +83,16 @@ type UserResume struct {
 }
 
 type UserSave struct {
-	UserID    sql.NullString
-	BIntro    sql.NullInt64
-	NowHP     sql.NullInt64
-	MaxHP     sql.NullInt64
-	ColorID   sql.NullInt64
-	BNewQuest sql.NullInt64
-	AItemList sql.NullString
+	UserID       sql.NullString
+	BIntro       sql.NullInt64
+	NowHP        sql.NullInt64
+	MaxHP        sql.NullInt64
+	ColorID      sql.NullInt64
+	BNewQuest    sql.NullInt64
+	BattleID     sql.NullInt64
+	BattleBadge1 sql.NullInt64
+	BattleBadge2 sql.NullInt64
+	BattleBadge3 sql.NullInt64
 }
 
 type UserScans struct {

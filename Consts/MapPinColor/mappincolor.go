@@ -35,4 +35,15 @@ const (
 	Noise_Scorpion_R   = "11_R"
 	Noise_Scorpion_B   = "11_B"
 	Noise_Scorpion_Y   = "11_Y"
+
+	//These colors aren't actually any different but eh
+	Noise_Gorilla_R  = "12_R"
+	Noise_Gorilla_B  = "12_B"
+	Noise_Gorilla_Y  = "12_Y"
+	Noise_Gorilla2_R = "13_R"
+	Noise_Gorilla2_B = "13_B"
+	Noise_Gorilla2_Y = "13_Y"
+	Noise_Rhino_R    = "14_R"
+	Noise_Rhino_B    = "14_B"
+	Noise_Rhino_Y    = "14_Y"
 )
