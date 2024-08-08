@@ -5,6 +5,7 @@ import (
 )
 
 func Sys_EV_Burger_Refresh(UserID string) error {
+	//Heal player
 	err := db_commands.UpdateUserSaveNowHP(UserID, 5)
 	if err != nil {
 		return err

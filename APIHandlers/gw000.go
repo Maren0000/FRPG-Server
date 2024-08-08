@@ -429,6 +429,7 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 	}
 
 	//To-Do: Figure out when ResumeID is needed
+	//To-Do: Maybe stop all lua events when player is dead?
 	err = db_commands.UpdateUserResume(User.ID.String, 1, uint32(UserScan.LuaHash.Int64), Request.TagId, 0)
 	if err != nil {
 		fmt.Println(err)

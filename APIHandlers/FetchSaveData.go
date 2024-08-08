@@ -7,6 +7,11 @@ import (
 
 // To-Do: Move this to SaveData package
 func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error error) {
+	PlayerSave, err := db_commands.GetUserSavaData(UserID)
+	if err != nil {
+		return save, false, err
+	}
+
 	PlayerCharacters, err := db_commands.ListUserCharacters(UserID)
 	if err != nil {
 		return save, false, err
@@ -51,24 +56,33 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		save.ABuildings = append(save.ABuildings, temp)
 	}
 
-	PlayerQuest, err := db_commands.GetCurrentUserQuest(UserID)
-	if err != nil {
-		return save, false, err
-	}
 	var CurrentQuest QuestModel
-	CurrentQuest.ID = int(PlayerQuest.ID.Int64)
-	CurrentQuest.Value = int(PlayerQuest.Value.Int64)
+	if PlayerSave.NowHP.Int64 == 0 {
+		PlayerQuest, err := db_commands.GetUserQuest(UserID, 1000)
+		if err != nil {
+			return save, false, err
+		}
+		CurrentQuest.ID = int(PlayerQuest.ID.Int64)
+		CurrentQuest.Value = int(PlayerQuest.Value.Int64)
+	} else {
+		PlayerQuest, err := db_commands.GetCurrentUserQuest(UserID)
+		if err != nil {
+			return save, false, err
+		}
+		CurrentQuest.ID = int(PlayerQuest.ID.Int64)
+		CurrentQuest.Value = int(PlayerQuest.Value.Int64)
 
-	PlayerQuestItems, err := db_commands.ListUserQuestItems(UserID, int(PlayerQuest.ID.Int64))
-	if err != nil {
-		return save, false, err
-	}
-	for _, data := range PlayerQuestItems {
-		var temp QuestItemModel
-		temp.Name = data.Name.String
-		temp.Type = data.Type.String
+		PlayerQuestItems, err := db_commands.ListUserQuestItems(UserID, int(PlayerQuest.ID.Int64))
+		if err != nil {
+			return save, false, err
+		}
+		for _, data := range PlayerQuestItems {
+			var temp QuestItemModel
+			temp.Name = data.Name.String
+			temp.Type = data.Type.String
 
-		CurrentQuest.ItemList = append(CurrentQuest.ItemList, temp)
+			CurrentQuest.ItemList = append(CurrentQuest.ItemList, temp)
+		}
 	}
 
 	PlayerGPS, err := db_commands.ListUserGPS(UserID)
@@ -150,11 +164,6 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 	LocalmapTemp.Name = PlayerCurrentLocalMap.Name.String
 	LocalmapTemp.Floor = int(PlayerCurrentLocalMap.Floor.Int64)
 	save.LocalMap = &LocalmapTemp
-
-	PlayerSave, err := db_commands.GetUserSavaData(UserID)
-	if err != nil {
-		return save, false, err
-	}
 
 	save.NowHp = int(PlayerSave.NowHP.Int64)
 	save.MaxHp = int(PlayerSave.MaxHP.Int64)

@@ -147,8 +147,8 @@ func InitSaveData(UserID string) (err error) {
 	_, err = queries.CreateNewUserSave(ctx, db.CreateNewUserSaveParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
 		BIntro:    sql.NullInt64{Int64: 1, Valid: true},
-		NowHP:     sql.NullInt64{Int64: 100, Valid: true},
-		MaxHP:     sql.NullInt64{Int64: 100, Valid: true},
+		NowHP:     sql.NullInt64{Int64: 5, Valid: true},
+		MaxHP:     sql.NullInt64{Int64: 5, Valid: true},
 		ColorID:   sql.NullInt64{Int64: rand.Int63n(2) + 1, Valid: true},
 		BNewQuest: sql.NullInt64{Int64: 1, Valid: true},
 	})
@@ -378,6 +378,17 @@ func EmptyUserSaveBadges(UserID string) (err error) {
 	return nil
 }
 
+func GetUserQuest(UserID string, QuestID int) (UserQuest db.UserQuest, err error) {
+	UserQuest, err = queries.GetUserQuest(ctx, db.GetUserQuestParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		ID:     sql.NullInt64{Int64: int64(QuestID), Valid: true},
+	})
+	if err != nil {
+		return UserQuest, err
+	}
+	return UserQuest, nil
+}
+
 func GetCurrentUserQuest(UserID string) (UserQuest db.UserQuest, err error) {
 	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
@@ -441,6 +452,27 @@ func CreateUserGPSPin(UserID string, Name string, PinType string, PinColor strin
 		MapType:   sql.NullString{String: MapType, Valid: true},
 		MapNo:     sql.NullString{String: MapFloor, Valid: true},
 		IsRemove:  sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func CreateUserGPSEventPin(UserID string, Name string, Latitude float64, Longitude float64, LuaHash uint32) (err error) {
+	_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
+		UserID:         sql.NullString{String: UserID, Valid: true},
+		Name:           sql.NullString{String: Name, Valid: true},
+		PinType:        sql.NullString{String: "", Valid: true},
+		PinColor:       sql.NullString{String: "", Valid: true},
+		Latitude:       sql.NullFloat64{Float64: Latitude, Valid: true},
+		Longitude:      sql.NullFloat64{Float64: Longitude, Valid: true},
+		QuestID:        sql.NullInt64{Int64: Consts_Quest.Quest_59651, Valid: true},
+		BLocationEvent: sql.NullInt64{Int64: 1, Valid: true},
+		LuaScript:      sql.NullInt64{Int64: int64(LuaHash), Valid: true},
+		MapType:        sql.NullString{String: "", Valid: true},
+		MapNo:          sql.NullString{String: "", Valid: true},
+		IsRemove:       sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {
 		return err
@@ -580,6 +612,18 @@ func UpdateUserScanLuaHash(UserID string, ScanTag string, LuaHash uint32) (err e
 	return nil
 }
 
+func UpdateUserScanRemove(UserID string, ScanTag string, Remove int) (err error) {
+	err = queries.UpdateUserScanRemove(ctx, db.UpdateUserScanRemoveParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Tag:      sql.NullString{String: ScanTag, Valid: true},
+		IsRemove: sql.NullInt64{Int64: int64(Remove), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func GetUserScan(UserID string, ScanId int) (UserScan db.UserScans, err error) {
 	UserScan, err = queries.GetUserScan(ctx, db.GetUserScanParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
@@ -605,6 +649,31 @@ func ListUserBuilding(UserID string) (UserBuildings []db.UserBuildings, err erro
 		return UserBuildings, err
 	}
 	return UserBuildings, nil
+}
+
+func CreateUserBuilding(UserID string, Prefab string, Name string, Status string) (err error) {
+	_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		Prefab: sql.NullString{String: Prefab, Valid: true},
+		Name:   sql.NullString{String: Name, Valid: true},
+		Status: sql.NullString{String: Status, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserBuildingStatus(UserID string, Prefab string, Status string) (err error) {
+	err = queries.UpdateUserBuildingStatus(ctx, db.UpdateUserBuildingStatusParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		Prefab: sql.NullString{String: Prefab, Valid: true},
+		Status: sql.NullString{String: Status, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func ListUserOnceEvent(UserID string) (UserOnceEvent []db.UserOnceEvent, err error) {

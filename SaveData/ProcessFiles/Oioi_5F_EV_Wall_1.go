@@ -65,7 +65,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
 	}
@@ -204,7 +204,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_JellyFish_R, "off")
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_Jellyfish_R, "off")
 		if err != nil {
 			return err
 		}
@@ -292,7 +292,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_JellyFish_B, "off")
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_Jellyfish_B, "off")
 		if err != nil {
 			return err
 		}
@@ -380,7 +380,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_JellyFish_Y, "off")
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_6_Week_Battle, Consts_QuestItem.Quest_6_Jellyfish_Y, "off")
 		if err != nil {
 			return err
 		}

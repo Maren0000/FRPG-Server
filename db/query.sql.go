@@ -490,6 +490,28 @@ func (q *Queries) GetUserLocalMap(ctx context.Context, userid sql.NullString) (U
 	return i, err
 }
 
+const getUserQuest = `-- name: GetUserQuest :one
+SELECT UserID, ID, Value, IsClear FROM "userQuest"
+WHERE "UserID" = ? AND "ID" = ? LIMIT 1
+`
+
+type GetUserQuestParams struct {
+	UserID sql.NullString
+	ID     sql.NullInt64
+}
+
+func (q *Queries) GetUserQuest(ctx context.Context, arg GetUserQuestParams) (UserQuest, error) {
+	row := q.db.QueryRowContext(ctx, getUserQuest, arg.UserID, arg.ID)
+	var i UserQuest
+	err := row.Scan(
+		&i.UserID,
+		&i.ID,
+		&i.Value,
+		&i.IsClear,
+	)
+	return i, err
+}
+
 const getUserQuestCurrent = `-- name: GetUserQuestCurrent :one
 SELECT UserID, ID, Value, IsClear FROM "userQuest"
 WHERE "UserID" = ? AND "IsClear" = 0 ORDER BY "ID" ASC LIMIT 1
@@ -972,6 +994,23 @@ func (q *Queries) ListUserScanRemoved(ctx context.Context, userid sql.NullString
 	return items, nil
 }
 
+const updateUserBuildingStatus = `-- name: UpdateUserBuildingStatus :exec
+UPDATE "userBuildings"
+set "Status" = ?
+WHERE "UserID" = ? AND "Prefab" = ?
+`
+
+type UpdateUserBuildingStatusParams struct {
+	Status sql.NullString
+	UserID sql.NullString
+	Prefab sql.NullString
+}
+
+func (q *Queries) UpdateUserBuildingStatus(ctx context.Context, arg UpdateUserBuildingStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserBuildingStatus, arg.Status, arg.UserID, arg.Prefab)
+	return err
+}
+
 const updateUserCharacterItem = `-- name: UpdateUserCharacterItem :exec
 UPDATE "userCharacters"
 set "ItemId" = ?
@@ -1313,6 +1352,23 @@ type UpdateUserScanLuaHashParams struct {
 
 func (q *Queries) UpdateUserScanLuaHash(ctx context.Context, arg UpdateUserScanLuaHashParams) error {
 	_, err := q.db.ExecContext(ctx, updateUserScanLuaHash, arg.LuaHash, arg.UserID, arg.Tag)
+	return err
+}
+
+const updateUserScanRemove = `-- name: UpdateUserScanRemove :exec
+UPDATE "userScans"
+set "IsRemove" = ?
+WHERE "UserID" = ? AND "Tag" = ?
+`
+
+type UpdateUserScanRemoveParams struct {
+	IsRemove sql.NullInt64
+	UserID   sql.NullString
+	Tag      sql.NullString
+}
+
+func (q *Queries) UpdateUserScanRemove(ctx context.Context, arg UpdateUserScanRemoveParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserScanRemove, arg.IsRemove, arg.UserID, arg.Tag)
 	return err
 }
 

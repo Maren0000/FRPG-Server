@@ -1,8 +1,15 @@
 package Consts_Coords
 
 const (
-	Marui_lat              = 35.660866
-	Marui_long             = 139.701024
+	Marui_lat   = 35.660866
+	Marui_long  = 139.701024
+	Modi_lat    = 35.661649
+	Modi_long   = 139.700567
+	Loft_lat    = 35.661095
+	Loft_long   = 139.699525
+	Magnet_lat  = 35.659862
+	Magnet_long = 139.700975
+
 	Oioi_8F_Rindo_lat      = 110.0
 	Oioi_8F_Rindo_long     = 175.0
 	Oioi_8F_Fret_lat       = -100.0
@@ -59,4 +66,20 @@ const (
 	Miyashita_2F_Burger_long = 0.0
 	Miyashita_3F_Burger_lat  = 0.0
 	Miyashita_3F_Burger_long = 0.0
+
+	//GPS
+	GPS_Voice_1_Lat  = 35.66166667
+	GPS_Voice_1_Long = 139.69972222
+	GPS_Voice_2_Lat  = 35.66055556
+	GPS_Voice_2_Long = 139.69916667
+	GPS_Voice_3_Lat  = 35.65944444
+	GPS_Voice_3_Long = 139.69861111
+	GPS_Voice_4_Lat  = 35.66111111
+	GPS_Voice_4_Long = 139.69777778
+	GPS_Voice_5_Lat  = 35.65972222
+	GPS_Voice_5_Long = 139.70027778
+	GPS_Voice_6_Lat  = 35.66055556
+	GPS_Voice_6_Long = 139.69861111
+	GPS_Voice_7_Lat  = 35.66194444
+	GPS_Voice_7_Long = 139.70083333
 )

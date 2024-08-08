@@ -7,9 +7,9 @@ const (
 	Quest_4_Start_Battle_2 = 4 //ID_QUEST_START_BATTLE_2
 	Quest_5_Week_Death     = 5 //ID_QUEST_WEEK_DEATH
 	Quest_6_Week_Battle    = 6 //ID_QUEST_WEEK_BATTLE
-	Quest_7                = 7
-	Quest_8                = 8
-	Quest_9                = 9
+	Quest_7_Branch         = 7 //ID_QUEST_BRANCH
+	Quest_8_Rindo_Death    = 8 //ID_QUEST_RINDO_DEATH
+	Quest_9_Rindo_Badge    = 9 //ID_QUEST_RINDO_BADGE
 	Quest_10               = 10
 	Quest_11               = 11
 	Quest_12               = 12

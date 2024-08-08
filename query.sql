@@ -59,6 +59,11 @@ SELECT * FROM "userBuildings"
 WHERE "UserID" = ?
 ORDER BY "Prefab";
 
+-- name: UpdateUserBuildingStatus :exec
+UPDATE "userBuildings"
+set "Status" = ?
+WHERE "UserID" = ? AND "Prefab" = ?;
+
 -- name: CreateNewUserCharacter :one
 INSERT INTO "userCharacters" (
   "UserID", "CharacterId", "ItemId"
@@ -152,6 +157,10 @@ INSERT INTO "userQuest" (
   ?, ?, ?, ?
 )
 RETURNING *;
+
+-- name: GetUserQuest :one
+SELECT * FROM "userQuest"
+WHERE "UserID" = ? AND "ID" = ? LIMIT 1;
 
 -- name: GetUserQuestCurrent :one
 SELECT * FROM "userQuest"
@@ -257,6 +266,11 @@ ORDER BY "ID";
 -- name: UpdateUserScanLuaHash :exec
 UPDATE "userScans"
 set "LuaHash" = ?
+WHERE "UserID" = ? AND "Tag" = ?;
+
+-- name: UpdateUserScanRemove :exec
+UPDATE "userScans"
+set "IsRemove" = ?
 WHERE "UserID" = ? AND "Tag" = ?;
 
 -- name: GetUserScan :one

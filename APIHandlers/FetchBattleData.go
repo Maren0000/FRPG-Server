@@ -35,7 +35,7 @@ func FetchBattleData(BattleID int) (BattleData BattleInfoModel) {
 		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Bear
 		BattleData.NoiseID = Consts_Noise.NoiseID_Bear
 		BattleData.Damage = 1
-		BattleData.Badge = "1,3,5,7" //strconv.Itoa(Consts_Item.Item_7)
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_7)
 		BattleData.BIgnoreInputOrder = 0
 	}
 
