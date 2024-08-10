@@ -19,7 +19,7 @@ func Oioi_8F_EV_Frog3ren_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_4_Start_Battle_2)
+	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_4_Start_Battle_2, 1)
 	if err != nil {
 		return err
 	}

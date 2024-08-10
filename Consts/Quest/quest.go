@@ -1,16 +1,16 @@
 package Consts_Quest
 
 const (
-	Quest_1_Start          = 1 //ID_QUEST_START
-	Quest_2_Start_Twisters = 2 //ID_QUEST_START_TWISTERS
-	Quest_3_Start_Battle_1 = 3 //ID_QUEST_START_BATTLE_1
-	Quest_4_Start_Battle_2 = 4 //ID_QUEST_START_BATTLE_2
-	Quest_5_Week_Death     = 5 //ID_QUEST_WEEK_DEATH
-	Quest_6_Week_Battle    = 6 //ID_QUEST_WEEK_BATTLE
-	Quest_7_Branch         = 7 //ID_QUEST_BRANCH
-	Quest_8_Rindo_Death    = 8 //ID_QUEST_RINDO_DEATH
-	Quest_9_Rindo_Badge    = 9 //ID_QUEST_RINDO_BADGE
-	Quest_10               = 10
+	Quest_1_Start          = 1  //ID_QUEST_START
+	Quest_2_Start_Twisters = 2  //ID_QUEST_START_TWISTERS
+	Quest_3_Start_Battle_1 = 3  //ID_QUEST_START_BATTLE_1
+	Quest_4_Start_Battle_2 = 4  //ID_QUEST_START_BATTLE_2
+	Quest_5_Week_Death     = 5  //ID_QUEST_WEEK_DEATH
+	Quest_6_Week_Battle    = 6  //ID_QUEST_WEEK_BATTLE
+	Quest_7_Branch         = 7  //ID_QUEST_BRANCH
+	Quest_8_Rindo_Death    = 8  //ID_QUEST_RINDO_DEATH
+	Quest_9_Rindo_Badge    = 9  //ID_QUEST_RINDO_BADGE
+	Quest_10_Rindo_Battle  = 10 //ID_QUEST_RINDO_BATTLE
 	Quest_11               = 11
 	Quest_12               = 12
 	Quest_13               = 13

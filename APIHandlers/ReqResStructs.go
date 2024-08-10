@@ -29,6 +29,11 @@ type Event_End_Request struct {
 	ALua []uint32 `json:"aLua"`
 }
 
+type Save_Resume_Request struct {
+	Generic_Request
+	ResumeID int `json:"resumeId"`
+}
+
 type Battle_In_Request struct {
 	Generic_Request
 	BattleId int `json:"battleId"`

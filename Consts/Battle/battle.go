@@ -5,4 +5,5 @@ const (
 	Oioi_5F_Wolf      = 4
 	Oioi_5F_Jellyfish = 5
 	Oioi_5F_Bear      = 6
+	Modi_Shark        = 7
 )

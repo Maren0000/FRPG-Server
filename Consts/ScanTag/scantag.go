@@ -41,11 +41,13 @@ const (
 	QR_Q6_Bear_R      = "GM_shibuya21_ma5_00016" //ID_TAG_NOISE_BEAR_R
 	QR_Q6_Bear_Y      = "GM_shibuya21_ma5_00018" //ID_TAG_NOISE_BEAR_Y
 
-	QR_Q_Kariya  = "GM_shibuya21_mod_00001" //ID_TAG_MODI_KARIYA
-	QR_Q_Kanon   = "GM_shibuya21_mod_00002" //ID_TAG_MODI_KANON
-	QR_Q_Shark_B = "GM_shibuya21_mod_00007" //ID_TAG_MODI_SHARK_B
-	QR_Q_Shark_R = "GM_shibuya21_mod_00006" //ID_TAG_MODI_SHARK_R
-	QR_Q_Shark_Y = "GM_shibuya21_mod_00008" //ID_TAG_MODI_SHARK_Y
+	QR_Modi_Kariya   = "GM_shibuya21_mod_00001" //ID_TAG_MODI_KARIYA
+	QR_Modi_Kanon    = "GM_shibuya21_mod_00002" //ID_TAG_MODI_KANON
+	QR_Modi_CryWoman = "GM_shibuya21_mod_00003" //ID_TAG_MODI_WOMAN
+	QR_Modi_Girl     = "GM_shibuya21_mod_00004" //ID_TAG_MODI_GIRL
+	QR_Modi_Shark_B  = "GM_shibuya21_mod_00007" //ID_TAG_MODI_SHARK_B
+	QR_Modi_Shark_R  = "GM_shibuya21_mod_00006" //ID_TAG_MODI_SHARK_R
+	QR_Modi_Shark_Y  = "GM_shibuya21_mod_00008" //ID_TAG_MODI_SHARK_Y
 
 	QR_Q_Uzuki       = "GM_shibuya21_lof_00001" //ID_TAG_LOFT_UZUKI
 	QR_Q_Yuusen1     = "GM_shibuya21_lof_00002" //ID_TAG_LOFT_YUUSEN_1
@@ -53,12 +55,12 @@ const (
 	QR_Q_Chameleon_R = "GM_shibuya21_lof_00004" //ID_TAG_LOFT_CHAMELEON_R
 	QR_Q_Chameleon_Y = "GM_shibuya21_lof_00006" //ID_TAG_LOFT_CHAMELEON_Y
 
-	QR_Q_Kubo       = "GM_shibuya21_lof_00001" //ID_TAG_MAGNET_KUBO
-	QR_Q_Vari2      = "GM_shibuya21_lof_00002" //ID_TAG_MAGNET_VARI_2
-	QR_Q_Elephant_B = "GM_shibuya21_lof_00008" //ID_TAG_MAGNET_ELEPHANT_B
-	QR_Q_Elephant_R = "GM_shibuya21_lof_00007" //ID_TAG_MAGNET_ELEPHANT_R
-	QR_Q_Elephant_Y = "GM_shibuya21_lof_00009" ////ID_TAG_MAGNET_ELEPHANT_Y
+	QR_Q_Kubo       = "GM_shibuya21_mag_00001" //ID_TAG_MAGNET_KUBO
+	QR_Q_Vari2      = "GM_shibuya21_mag_00002" //ID_TAG_MAGNET_VARI_2
+	QR_Q_Elephant_B = "GM_shibuya21_mag_00008" //ID_TAG_MAGNET_ELEPHANT_B
+	QR_Q_Elephant_R = "GM_shibuya21_mag_00007" //ID_TAG_MAGNET_ELEPHANT_R
+	QR_Q_Elephant_Y = "GM_shibuya21_mag_00009" ////ID_TAG_MAGNET_ELEPHANT_Y
 
 	QR_Oioi5F_Burger = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
-	QR_Modi_Burger   = "GM_shibuya21_mod_00005" //QR used for all burger shops in PDF Web version (ID_TAG_BURGER_SHOP_MODI?)
+	QR_Modi_Burger   = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
 )

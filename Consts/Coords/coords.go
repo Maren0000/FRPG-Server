@@ -53,9 +53,20 @@ const (
 	Oioi_5F_Bear_lat       = 770.0
 	Oioi_5F_Bear_long      = 170.0
 
+	Modi_Kariya_lat    = 100.0
+	Modi_Kariya_long   = 100.0
+	Modi_Crywoman_lat  = 1000.0
+	Modi_Crywoman_long = 210.0
+	Modi_Gal_lat       = 700.0
+	Modi_Gal_long      = -400.0
+	Modi_Shark_lat     = -650.0
+	Modi_Shark_long    = -125.0
+	Modi_Kanon_lat     = 0.0
+	Modi_Kanon_long    = 0.0
+
 	//To-Do: Fix these when I get to them
-	Modi_F_Burger_lat        = 0.0
-	Modi_F_Burger_long       = 0.0
+	Modi_Burger_lat          = 500.0
+	Modi_Burger_long         = 150.0
 	Anisen_F_Burger_lat      = 0.0
 	Anisen_F_Burger_long     = 0.0
 	Loft_6F_Burger_lat       = 0.0

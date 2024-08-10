@@ -20,11 +20,11 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_6_Week_Battle)
+	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_6_Week_Battle, 1)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_1000_Burger)
+	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_1000_Burger, 0)
 	if err != nil {
 		return err
 	}
@@ -120,7 +120,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserGPSPin(UserID, "Modi_Burger", Consts_MapPin.Burger, "", Consts_Coords.Modi_F_Burger_lat, Consts_Coords.Modi_F_Burger_long, Consts_Quest.Quest_1000_Burger, Consts_MapType.ModiMap, "7")
+	err = db_commands.CreateUserGPSPin(UserID, "Modi_Burger", Consts_MapPin.Burger, "", Consts_Coords.Modi_Burger_lat, Consts_Coords.Modi_Burger_long, Consts_Quest.Quest_1000_Burger, Consts_MapType.ModiMap, "7")
 	if err != nil {
 		return err
 	}

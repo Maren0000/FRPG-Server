@@ -152,9 +152,9 @@ ORDER BY "UInt";
 
 -- name: CreateNewUserQuest :one
 INSERT INTO "userQuest" (
-  "UserID", "ID", "Value", "IsClear"
+  "UserID", "ID", "Value", "IsCurrent", "IsClear"
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?
 )
 RETURNING *;
 
@@ -162,9 +162,14 @@ RETURNING *;
 SELECT * FROM "userQuest"
 WHERE "UserID" = ? AND "ID" = ? LIMIT 1;
 
+-- name: GetUserQuestAll :many
+SELECT * FROM "userQuest"
+WHERE "UserID" = ?
+ORDER BY "ID";
+
 -- name: GetUserQuestCurrent :one
 SELECT * FROM "userQuest"
-WHERE "UserID" = ? AND "IsClear" = 0 ORDER BY "ID" ASC LIMIT 1;
+WHERE "UserID" = ? AND "IsCurrent" = 1 AND "IsClear" = 0 LIMIT 1;
 
 -- name: ListUserQuests :many
 SELECT * FROM "userQuest"
@@ -176,9 +181,14 @@ UPDATE "userQuest"
 set "Value" = ?
 WHERE "UserID" = ? AND "ID" = ?;
 
+-- name: UpdateUserQuestCurrent :exec
+UPDATE "userQuest"
+set "IsCurrent" = ?
+WHERE "UserID" = ? AND "ID" = ?;
+
 -- name: UpdateUserQuestClear :exec
 UPDATE "userQuest"
-set "IsClear" = ?
+set "IsClear" = ?, "IsCurrent" = 0
 WHERE "UserID" = ? AND "ID" = ?;
 
 -- name: CreateNewUserQuestItem :one
@@ -310,10 +320,15 @@ RETURNING *;
 
 -- name: UpdateUserResume :exec
 UPDATE "userResume"
-set "BResume" = ?, "LuaHash" = ?, "TagID" = ?, "ResumeID" = ?
+set "BResume" = ?, "LuaHash" = ?, "TagID" = ?
 WHERE "UserID" = ?;
 
 -- name: UpdateUserResumeBool :exec
 UPDATE "userResume"
 set "BResume" = ?
+WHERE "UserID" = ?;
+
+-- name: UpdateUserResumeLuaResumeID :exec
+UPDATE "userResume"
+set "ResumeID" = ?
 WHERE "UserID" = ?;

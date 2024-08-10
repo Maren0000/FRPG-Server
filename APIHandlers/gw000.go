@@ -50,6 +50,8 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 		NetResultPartyStart(w, r)
 	case Consts_Protocol.EVENT:
 		NetResultEvent(w, r, DecryptedBody)
+	case Consts_Protocol.EVENT_SAVE_RESUME:
+		NetResultEventSaveResume(w, r, DecryptedBody)
 	case Consts_Protocol.QUEST_CHECKED:
 		NetResultNewQuest(w, r, JSONRequest.TerminalId)
 	case Consts_Protocol.EVENT_CHECK_RESUME:
@@ -293,7 +295,7 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -372,7 +374,7 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -386,6 +388,9 @@ func NetResultEventCheck(w http.ResponseWriter, r *http.Request, Did string) {
 	}
 
 	resumeData, err := db_commands.GetUserResume(User.ID.String)
+	if err != nil {
+		fmt.Println(err)
+	}
 	var EventInfoPointer ResumeDataModel
 	if resumeData.BResume.Int64 == 0 {
 		EventInfoPointer.BResume = false
@@ -404,7 +409,7 @@ func NetResultEventCheck(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -428,23 +433,53 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 		fmt.Println(err)
 	}
 
-	//To-Do: Figure out when ResumeID is needed
-	//To-Do: Maybe stop all lua events when player is dead?
-	err = db_commands.UpdateUserResume(User.ID.String, 1, uint32(UserScan.LuaHash.Int64), Request.TagId, 0)
+	err = db_commands.UpdateUserResume(User.ID.String, 1, uint32(UserScan.LuaHash.Int64), Request.TagId)
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	//To-Do: Maybe stop all lua events when player is dead?
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
 	Response.Lua = uint32(UserScan.LuaHash.Int64)
-	//Response.Result = To-Do: Figure this out
+	//Response.Result =  Used for Invalid QR Code?
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultEventSaveResume(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Save_Resume_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	User, err := db_commands.GetUser(Request.TerminalId)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = db_commands.UpdateUserResumeLuaResume(User.ID.String, Request.ResumeID)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var Response Generic_Response
+	Response.RES = Consts_RES.SUCCESS
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -463,7 +498,7 @@ func NetResultShopBenefit(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -483,7 +518,7 @@ func NetResultShopIdentifyStart(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -499,7 +534,7 @@ func NetResultShopIdentifyEnd(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -524,7 +559,7 @@ func NetResultNewQuest(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -575,7 +610,7 @@ func NetResultBattleIn(w http.ResponseWriter, r *http.Request, body []byte) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -621,7 +656,7 @@ func NetResultBattleAttackSucceeded(w http.ResponseWriter, r *http.Request, body
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")
@@ -659,7 +694,7 @@ func NetResultBattleResult(w http.ResponseWriter, r *http.Request, body []byte) 
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(JSONResponse))
+	//fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")

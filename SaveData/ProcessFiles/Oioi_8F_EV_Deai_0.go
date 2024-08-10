@@ -18,7 +18,7 @@ func Oioi_8F_EV_Deai_0(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_2_Start_Twisters)
+	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_2_Start_Twisters, 1)
 	if err != nil {
 		return err
 	}

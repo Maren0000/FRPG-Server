@@ -244,6 +244,92 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 		}
 		return nil
 
+	case Consts_LuaHash.Modi_BT_Shark_Lose:
+		err := ProcessFiles.Modi_BT_Shark_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Kariya_1:
+		err := ProcessFiles.Modi_EV_Kariya_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Branch_Switch:
+		err := ProcessFiles.Modi_EV_Branch_Switch(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Crywoman_1:
+		err := ProcessFiles.Modi_EV_Crywoman_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Girl_2:
+		err := ProcessFiles.Modi_EV_Girl_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Mpanel_KW_1:
+		err := ProcessFiles.Modi_EV_Mpanel_KW_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Mpanel_KW_10:
+		err := ProcessFiles.Modi_EV_Mpanel_KW_10(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Mpanel_KW_11:
+		err := ProcessFiles.Modi_EV_Mpanel_KW_11(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Crywoman_Miss:
+		err := ProcessFiles.Modi_EV_Crywoman_Miss(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Kanon_2:
+		err := ProcessFiles.Modi_EV_Kanon_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Crywoman_Clear:
+		err := ProcessFiles.Modi_EV_Crywoman_Clear(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Modi_EV_Mission_Clear:
+		err := ProcessFiles.Modi_EV_Mission_Clear(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+
+	case Consts_LuaHash.Miyashita_EV_Hint_Bridge:
+		err := ProcessFiles.Miyashita_EV_Hint_Bridge(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Hint_1:
+		err := ProcessFiles.Miyashita_EV_Hint_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+
 	case Consts_LuaHash.GPS_1:
 		err := ProcessFiles.GPS_EV_Road_1(UserID)
 		if err != nil {
@@ -283,6 +369,18 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 
 	case Consts_LuaHash.Sys_EV_Branch_Switch_EX_On:
 		err := ProcessFiles.Sys_EV_Branch_Switch_EX_On(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Sys_EV_Branch_Switch_EX_Off:
+		err := ProcessFiles.Sys_EV_Branch_Switch_EX_Off(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Sys_EV_Branch_Switch:
+		err := ProcessFiles.Sys_EV_Branch_Switch(UserID)
 		if err != nil {
 			return err
 		}

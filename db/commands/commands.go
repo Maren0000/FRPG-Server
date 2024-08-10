@@ -194,6 +194,22 @@ func InitSaveData(UserID string) (err error) {
 	if err != nil {
 		return err
 	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Modi_EV_Kariya_1, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Modi_EV_FirstBattle, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
 
 	_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
@@ -204,11 +220,13 @@ func InitSaveData(UserID string) (err error) {
 	if err != nil {
 		return err
 	}
+
 	_, err = queries.CreateNewUserQuest(ctx, db.CreateNewUserQuestParams{
-		UserID:  sql.NullString{String: UserID, Valid: true},
-		ID:      sql.NullInt64{Int64: Consts_Quest.Quest_1_Start, Valid: true},
-		Value:   sql.NullInt64{Int64: 0, Valid: true},
-		IsClear: sql.NullInt64{Int64: 0, Valid: true},
+		UserID:    sql.NullString{String: UserID, Valid: true},
+		ID:        sql.NullInt64{Int64: Consts_Quest.Quest_1_Start, Valid: true},
+		Value:     sql.NullInt64{Int64: 0, Valid: true},
+		IsCurrent: sql.NullInt64{Int64: 1, Valid: true},
+		IsClear:   sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {
 		return err
@@ -389,12 +407,38 @@ func GetUserQuest(UserID string, QuestID int) (UserQuest db.UserQuest, err error
 	return UserQuest, nil
 }
 
+func CheckUserQuestExists(UserID string, QuestID int) (Exists bool, err error) {
+	var UserQuests []db.UserQuest
+	UserQuests, err = queries.GetUserQuestAll(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return false, err
+	}
+	for _, quest := range UserQuests {
+		if quest.ID.Int64 == int64(QuestID) {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
 func GetCurrentUserQuest(UserID string) (UserQuest db.UserQuest, err error) {
 	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
 		return UserQuest, err
 	}
 	return UserQuest, nil
+}
+
+func CheckCurrentUserQuest(UserID string, QuestID int) (check bool, err error) {
+	var UserQuest db.UserQuest
+	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return false, err
+	}
+	if UserQuest.ID.Int64 == int64(QuestID) {
+		return true, nil
+	}
+	return false, nil
 }
 
 func CreateUserQuestItem(UserID string, QuestID int, ItemID string, Type string) (err error) {
@@ -422,6 +466,32 @@ func UpdateUserQuestClear(UserID string, QuestID int, IsClear int) (err error) {
 	return nil
 }
 
+func CheckUserQuestCleared(UserID string, QuestID int) (Exists bool, err error) {
+	var UserQuests []db.UserQuest
+	UserQuests, err = queries.GetUserQuestAll(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return false, err
+	}
+	for _, quest := range UserQuests {
+		if quest.ID.Int64 == int64(QuestID) && quest.IsClear.Int64 == 1 {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
+func UpdateUserQuestCurrent(UserID string, QuestID int, IsCurrent int) (err error) {
+	err = queries.UpdateUserQuestCurrent(ctx, db.UpdateUserQuestCurrentParams{
+		UserID:    sql.NullString{String: UserID, Valid: true},
+		ID:        sql.NullInt64{Int64: int64(QuestID), Valid: true},
+		IsCurrent: sql.NullInt64{Int64: int64(IsCurrent), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func UpdateUserQuestProgress(UserID string, QuestID int, Increment int) (err error) {
 	var UserQuest db.UserQuest
 	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
@@ -441,22 +511,63 @@ func UpdateUserQuestProgress(UserID string, QuestID int, Increment int) (err err
 }
 
 func CreateUserGPSPin(UserID string, Name string, PinType string, PinColor string, Latitude float64, Longitude float64, QuestId int, MapType string, MapFloor string) (err error) {
-	_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
-		UserID:    sql.NullString{String: UserID, Valid: true},
-		Name:      sql.NullString{String: Name, Valid: true},
-		PinType:   sql.NullString{String: PinType, Valid: true},
-		PinColor:  sql.NullString{String: PinColor, Valid: true},
-		Latitude:  sql.NullFloat64{Float64: Latitude, Valid: true},
-		Longitude: sql.NullFloat64{Float64: Longitude, Valid: true},
-		QuestID:   sql.NullInt64{Int64: int64(QuestId), Valid: true},
-		MapType:   sql.NullString{String: MapType, Valid: true},
-		MapNo:     sql.NullString{String: MapFloor, Valid: true},
-		IsRemove:  sql.NullInt64{Int64: 0, Valid: true},
-	})
+	//We need to check if the entry already exists or not.
+	//If it does then remove IsRemove, Otherwise make entry
+	GPSPins, err := queries.ListUserGPSRemoved(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
 		return err
 	}
-	return nil
+
+	if len(GPSPins) > 0 {
+		for _, Pin := range GPSPins {
+			if Pin.Name.String == Name {
+				err = queries.UpdateUserGPSRemove(ctx, db.UpdateUserGPSRemoveParams{
+					UserID:   sql.NullString{String: UserID, Valid: true},
+					Name:     sql.NullString{String: Name, Valid: true},
+					IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+				})
+				if err != nil {
+					return err
+				}
+				return nil
+			} else {
+				continue
+			}
+		}
+		_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
+			UserID:    sql.NullString{String: UserID, Valid: true},
+			Name:      sql.NullString{String: Name, Valid: true},
+			PinType:   sql.NullString{String: PinType, Valid: true},
+			PinColor:  sql.NullString{String: PinColor, Valid: true},
+			Latitude:  sql.NullFloat64{Float64: Latitude, Valid: true},
+			Longitude: sql.NullFloat64{Float64: Longitude, Valid: true},
+			QuestID:   sql.NullInt64{Int64: int64(QuestId), Valid: true},
+			MapType:   sql.NullString{String: MapType, Valid: true},
+			MapNo:     sql.NullString{String: MapFloor, Valid: true},
+			IsRemove:  sql.NullInt64{Int64: 0, Valid: true},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	} else {
+		_, err = queries.CreateNewUserGPS(ctx, db.CreateNewUserGPSParams{
+			UserID:    sql.NullString{String: UserID, Valid: true},
+			Name:      sql.NullString{String: Name, Valid: true},
+			PinType:   sql.NullString{String: PinType, Valid: true},
+			PinColor:  sql.NullString{String: PinColor, Valid: true},
+			Latitude:  sql.NullFloat64{Float64: Latitude, Valid: true},
+			Longitude: sql.NullFloat64{Float64: Longitude, Valid: true},
+			QuestID:   sql.NullInt64{Int64: int64(QuestId), Valid: true},
+			MapType:   sql.NullString{String: MapType, Valid: true},
+			MapNo:     sql.NullString{String: MapFloor, Valid: true},
+			IsRemove:  sql.NullInt64{Int64: 0, Valid: true},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	}
 }
 
 func CreateUserGPSEventPin(UserID string, Name string, Latitude float64, Longitude float64, LuaHash uint32) (err error) {
@@ -504,12 +615,13 @@ func SetUserLocalMap(UserID string, Buildingname string, Floor int) (err error) 
 	return nil
 }
 
-func CreateUserQuest(UserID string, QuestID int) (err error) {
+func CreateUserQuest(UserID string, QuestID int, IsCurrent int) (err error) {
 	_, err = queries.CreateNewUserQuest(ctx, db.CreateNewUserQuestParams{
-		UserID:  sql.NullString{String: UserID, Valid: true},
-		ID:      sql.NullInt64{Int64: int64(QuestID), Valid: true},
-		Value:   sql.NullInt64{Int64: 0, Valid: true},
-		IsClear: sql.NullInt64{Int64: 0, Valid: true},
+		UserID:    sql.NullString{String: UserID, Valid: true},
+		ID:        sql.NullInt64{Int64: int64(QuestID), Valid: true},
+		Value:     sql.NullInt64{Int64: 0, Valid: true},
+		IsCurrent: sql.NullInt64{Int64: 1, Valid: true},
+		IsClear:   sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {
 		return err
@@ -578,18 +690,54 @@ func UpdateUserQuestItem(UserID string, QuestID int, Name string, Type string) (
 }
 
 func CreateUserScan(UserID string, Type int, Tag string, Bmulti int, LuaHash uint32) (err error) {
-	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
-		UserID:   sql.NullString{String: UserID, Valid: true},
-		Type:     sql.NullInt64{Int64: int64(Type), Valid: true},
-		Tag:      sql.NullString{String: Tag, Valid: true},
-		BMulti:   sql.NullInt64{Int64: int64(Bmulti), Valid: true},
-		LuaHash:  sql.NullInt64{Int64: int64(LuaHash), Valid: true},
-		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
-	})
+	//We need to check if the entry already exists in Removed or not.
+	//If it does then remove IsRemove, Otherwise make entry
+	Scans, err := queries.ListUserScanRemoved(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
 		return err
 	}
-	return nil
+	if len(Scans) > 0 {
+		for _, Scan := range Scans {
+			if Scan.Tag.String == Tag {
+				err = queries.UpdateUserScanRemove(ctx, db.UpdateUserScanRemoveParams{
+					UserID:   sql.NullString{String: UserID, Valid: true},
+					Tag:      sql.NullString{String: Tag, Valid: true},
+					IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+				})
+				if err != nil {
+					return err
+				}
+				return nil
+			} else {
+				continue
+			}
+		}
+		_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+			UserID:   sql.NullString{String: UserID, Valid: true},
+			Type:     sql.NullInt64{Int64: int64(Type), Valid: true},
+			Tag:      sql.NullString{String: Tag, Valid: true},
+			BMulti:   sql.NullInt64{Int64: int64(Bmulti), Valid: true},
+			LuaHash:  sql.NullInt64{Int64: int64(LuaHash), Valid: true},
+			IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	} else {
+		_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+			UserID:   sql.NullString{String: UserID, Valid: true},
+			Type:     sql.NullInt64{Int64: int64(Type), Valid: true},
+			Tag:      sql.NullString{String: Tag, Valid: true},
+			BMulti:   sql.NullInt64{Int64: int64(Bmulti), Valid: true},
+			LuaHash:  sql.NullInt64{Int64: int64(LuaHash), Valid: true},
+			IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	}
 }
 
 func ListUserScan(UserID string) (UserScans []db.UserScans, err error) {
@@ -713,12 +861,36 @@ func ListUserCharacters(UserID string) (UserCharacters []db.UserCharacters, err 
 }
 
 func CreateUserItem(UserID string, ItemId int) (Item db.UserItems, err error) {
-	Item, err = queries.CreateNewUserItem(ctx, db.CreateNewUserItemParams{
-		UserID: sql.NullString{String: UserID, Valid: true},
-		Item:   sql.NullInt64{Int64: int64(ItemId), Valid: true},
-	})
+	//Check if user already has item
+	UserItems, err := queries.ListUserItems(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
 		return Item, err
+	}
+
+	if len(UserItems) > 0 {
+		for _, item := range UserItems {
+			if item.Item.Int64 == int64(ItemId) {
+				return item, nil
+			} else {
+				continue
+			}
+		}
+		Item, err = queries.CreateNewUserItem(ctx, db.CreateNewUserItemParams{
+			UserID: sql.NullString{String: UserID, Valid: true},
+			Item:   sql.NullInt64{Int64: int64(ItemId), Valid: true},
+		})
+		if err != nil {
+			return Item, err
+		}
+	} else {
+		Item, err = queries.CreateNewUserItem(ctx, db.CreateNewUserItemParams{
+			UserID: sql.NullString{String: UserID, Valid: true},
+			Item:   sql.NullInt64{Int64: int64(ItemId), Valid: true},
+		})
+		if err != nil {
+			return Item, err
+		}
+		return Item, nil
 	}
 	return Item, nil
 }
@@ -763,13 +935,23 @@ func GetUserResume(UserID string) (ResumeData db.UserResume, err error) {
 	return ResumeData, nil
 }
 
-func UpdateUserResume(UserID string, Bool int, LuaHash uint32, TagId int, ResumeId int) (err error) {
+func UpdateUserResume(UserID string, Bool int, LuaHash uint32, TagId int) (err error) {
 	err = queries.UpdateUserResume(ctx, db.UpdateUserResumeParams{
+		UserID:  sql.NullString{String: UserID, Valid: true},
+		BResume: sql.NullInt64{Int64: int64(Bool), Valid: true},
+		LuaHash: sql.NullInt64{Int64: int64(LuaHash), Valid: true},
+		TagID:   sql.NullInt64{Int64: int64(TagId), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserResumeLuaResume(UserID string, Resume int) (err error) {
+	err = queries.UpdateUserResumeLuaResumeID(ctx, db.UpdateUserResumeLuaResumeIDParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
-		BResume:  sql.NullInt64{Int64: int64(Bool), Valid: true},
-		LuaHash:  sql.NullInt64{Int64: int64(LuaHash), Valid: true},
-		TagID:    sql.NullInt64{Int64: int64(TagId), Valid: true},
-		ResumeID: sql.NullInt64{Int64: int64(ResumeId), Valid: true},
+		ResumeID: sql.NullInt64{Int64: int64(Resume), Valid: true},
 	})
 	if err != nil {
 		return err
@@ -781,6 +963,18 @@ func UpdateUserResumeBool(UserID string, Bool int) (err error) {
 	err = queries.UpdateUserResumeBool(ctx, db.UpdateUserResumeBoolParams{
 		UserID:  sql.NullString{String: UserID, Valid: true},
 		BResume: sql.NullInt64{Int64: int64(Bool), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserCharacterItem(UserID string, CharacterID int, ItemID int) (err error) {
+	err = queries.UpdateUserCharacterItem(ctx, db.UpdateUserCharacterItemParams{
+		UserID:      sql.NullString{String: UserID, Valid: true},
+		CharacterId: sql.NullInt64{Int64: int64(CharacterID), Valid: true},
+		ItemId:      sql.NullInt64{Int64: int64(ItemID), Valid: true},
 	})
 	if err != nil {
 		return err

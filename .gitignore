@@ -20,6 +20,8 @@
 # Go workspace file
 go.work
 go.work.sum
+
+#Not needed
 .env
-FRPG.sqlite3
+*.sqlite3
 /.vscode

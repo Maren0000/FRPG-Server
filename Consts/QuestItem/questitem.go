@@ -46,4 +46,12 @@ const (
 	Quest_7_Shark_Y     = "noise7_Y"  //ID_TAG_MODI_SHARK_Y - OFF/ON
 	Quest_7_Chameleon_Y = "noise8_Y"  //ID_TAG_LOFT_CHAMELEON_Y - OFF/ON
 	Quest_7_Elephant_Y  = "noise9_Y"  //ID_TAG_MAGNET_ELEPHANT_Y - OFF/ON
+	Quest_8_Kariya      = "item0"     //ID_PANEL_ITEM_0 - OFF
+	Quest_9_1           = "item0"     //ID_PANEL_ITEM_0 - OFF/ON
+	Quest_9_2           = "item1"     //ID_PANEL_ITEM_1 - OFF/ON
+	Quest_9_3           = "item2"     //ID_PANEL_ITEM_2 - OFF/ON
+	Quest_10_Shark_R    = "noise_R"   //ID_PANEL_R - OFF/ON
+	Quest_10_Shark_B    = "noise_B"   //ID_PANEL_B - OFF/ON
+	Quest_10_Shark_Y    = "noise_Y"   //ID_PANEL_Y - OFF/ON
+	Quest_10_Hint       = "hint"      //ID_PANEL_HINT - ON
 )

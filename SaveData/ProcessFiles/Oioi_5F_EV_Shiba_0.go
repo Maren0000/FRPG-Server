@@ -15,11 +15,11 @@ import (
 
 func Oioi_5F_EV_Shiba_0(UserID string) error {
 	//Create new scans
-	err := db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Kariya, 1, Consts_LuaHash.Modi_EV_Kariya_1)
+	err := db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Kariya, 1, Consts_LuaHash.Modi_EV_Kariya_1)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Kanon, 1, Consts_LuaHash.Modi_EV_Kanon_1)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Kanon, 1, Consts_LuaHash.Modi_EV_Kanon_1)
 	if err != nil {
 		return err
 	}
@@ -74,15 +74,15 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 	if Color == Consts_PlayerColor.Color_Red {
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_R, 1, Consts_LuaHash.Modi_BT_Shark_R)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_R, 1, Consts_LuaHash.Modi_BT_Shark_R)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
@@ -126,15 +126,15 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 			return err
 		}
 	} else if Color == Consts_PlayerColor.Color_Blue {
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_B, 1, Consts_LuaHash.Modi_BT_Shark_B)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_B, 1, Consts_LuaHash.Modi_BT_Shark_B)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
@@ -178,15 +178,15 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 			return err
 		}
 	} else if Color == Consts_PlayerColor.Color_Yellow {
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Shark_Y, 1, Consts_LuaHash.Modi_BT_Shark_Y)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Shark_Y, 1, Consts_LuaHash.Modi_BT_Shark_Y)
 		if err != nil {
 			return err
 		}
