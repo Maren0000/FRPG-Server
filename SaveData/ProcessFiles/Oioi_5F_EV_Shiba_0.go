@@ -5,6 +5,7 @@ import (
 	Consts_Coords "FRPGServer/Consts/Coords"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_MapPin "FRPGServer/Consts/MapPin"
+	Consts_MapType "FRPGServer/Consts/MapType"
 	Consts_PlayerColor "FRPGServer/Consts/PlayerColor"
 	Consts_Quest "FRPGServer/Consts/Quest"
 	Consts_QuestItem "FRPGServer/Consts/QuestItem"
@@ -24,20 +25,20 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Uzuki, 1, Consts_LuaHash.Loft_EV_Uduki_1)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Uzuki, 1, Consts_LuaHash.Loft_EV_Uduki_1)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Yuusen1, 1, Consts_LuaHash.Loft_EV_Yuusen2_Tips)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Yuusen1, 1, Consts_LuaHash.Loft_EV_Yuusen2_Tips)
 	if err != nil {
 		return err
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Kubo, 1, Consts_LuaHash.Magnet_EV_Kubou_1)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Kubo, 1, Consts_LuaHash.Magnet_EV_Kubou_1)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Vari2, 1, Consts_LuaHash.Magnet_EV_Vari1_Tips)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Vari2, 1, Consts_LuaHash.Magnet_EV_Vari1_Tips)
 	if err != nil {
 		return err
 	}
@@ -69,7 +70,7 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}
@@ -87,28 +88,28 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_R, 1, Consts_LuaHash.Loft_BT_Chameleon_R)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_R, 1, Consts_LuaHash.Loft_BT_Chameleon_R)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_R, 1, Consts_LuaHash.Magnet_BT_Elephant_R)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_R, 1, Consts_LuaHash.Magnet_BT_Elephant_R)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
@@ -139,28 +140,28 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_B, 1, Consts_LuaHash.Loft_BT_Chameleon_B)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_B, 1, Consts_LuaHash.Loft_BT_Chameleon_B)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_B, 1, Consts_LuaHash.Magnet_BT_Elephant_B)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_B, 1, Consts_LuaHash.Magnet_BT_Elephant_B)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_Y, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
@@ -191,28 +192,28 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Chameleon_Y, 1, Consts_LuaHash.Loft_BT_Chameleon_Y)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Chameleon_Y, 1, Consts_LuaHash.Loft_BT_Chameleon_Y)
 		if err != nil {
 			return err
 		}
 
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_R, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_B, 1, Consts_LuaHash.Sys_Noise_Error_0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q_Elephant_Y, 1, Consts_LuaHash.Magnet_BT_Elephant_Y)
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Elephant_Y, 1, Consts_LuaHash.Magnet_BT_Elephant_Y)
 		if err != nil {
 			return err
 		}
@@ -252,12 +253,15 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 
-	//To-Do: maybe add the npc pins???
 	err = db_commands.CreateUserGPSPin(UserID, "GPS_Modi", Consts_MapPin.MapPin, "", Consts_Coords.Modi_lat, Consts_Coords.Modi_long, Consts_Quest.Quest_7_Branch, "", "")
 	if err != nil {
 		return err
 	}
 	err = db_commands.CreateUserGPSPin(UserID, "GPS_Loft", Consts_MapPin.MapPin, "", Consts_Coords.Loft_lat, Consts_Coords.Loft_long, Consts_Quest.Quest_7_Branch, "", "")
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserGPSPin(UserID, "Loft_Yuusen", Consts_MapPin.MapPin, "", Consts_Coords.Loft_Yuusen_lat, Consts_Coords.Loft_Yuusen_long, Consts_Quest.Quest_7_Branch, Consts_MapType.LoftMap, "6")
 	if err != nil {
 		return err
 	}
@@ -271,7 +275,92 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 
-	//To-Do: Loft roulette
+	//THIS ENTIRE CODE IS COPIED IN ANOTHER FILE WTF
+	//IsHit checks
+	/*IsHit0, err := db_commands.GetUserSaveIsHit0(UserID)
+	if err != nil {
+		return err
+	}
+	if IsHit0 == 0 {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Cup, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_WaterBottle, "off")
+		if err != nil {
+			return err
+		}
+	}
+
+	IsHit1, err := db_commands.GetUserSaveIsHit1(UserID)
+	if err != nil {
+		return err
+	}
+	if IsHit1 == 0 {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Book, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Soap, "off")
+		if err != nil {
+			return err
+		}
+	}
+
+	IsHit2, err := db_commands.GetUserSaveIsHit2(UserID)
+	if err != nil {
+		return err
+	}
+	if IsHit2 == 0 {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Radio, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Clock, "off")
+		if err != nil {
+			return err
+		}
+	}
+
+	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Bag, "off")
+	if err != nil {
+		return err
+	}
+
+	IsHit4, err := db_commands.GetUserSaveIsHit4(UserID)
+	if err != nil {
+		return err
+	}
+	if IsHit4 == 0 {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Lantern, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Doll, "off")
+		if err != nil {
+			return err
+		}
+	}
+
+	IsHit5, err := db_commands.GetUserSaveIsHit5(UserID)
+	if err != nil {
+		return err
+	}
+	if IsHit5 == 0 {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Puzzle, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Balloon, "off")
+		if err != nil {
+			return err
+		}
+	}*/
 
 	return nil
 }

@@ -25,10 +25,10 @@ func Oioi_8F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 	//(Not in SERVER_SCRIPT)
-	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	//Update lua files for scans
 	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Q2_Rindo, Consts_LuaHash.Oioi_8F_EV_Rindo_Def)
@@ -87,7 +87,7 @@ func Oioi_8F_EV_Shiba_0(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

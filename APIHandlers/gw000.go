@@ -374,7 +374,7 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//fmt.Println(string(JSONResponse))
+	fmt.Println(string(JSONResponse))
 	sendbyte := Utils.DESEncrypt(JSONResponse)
 
 	w.Header().Set("Content-Type", "application/octet-stream")

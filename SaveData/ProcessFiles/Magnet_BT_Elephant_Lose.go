@@ -9,7 +9,7 @@ import (
 	db_commands "FRPGServer/db/commands"
 )
 
-func Modi_BT_Shark_Lose(UserID string) error {
+func Magnet_BT_Elephant_Lose(UserID string) error {
 	//Some if checks
 	Q7_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_7_Branch)
 	if err != nil {
@@ -19,44 +19,45 @@ func Modi_BT_Shark_Lose(UserID string) error {
 		return nil
 	}
 
-	Q9_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_9_Rindo_Badge)
+	Q16_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_16_Nagi_Badge)
 	if err != nil {
 		return err
 	}
-	if Q9_isCurrent {
+	if Q16_isCurrent {
 		return nil
 	}
 
-	Q9_isClear, err := db_commands.CheckUserQuestCleared(UserID, Consts_Quest.Quest_9_Rindo_Badge)
+	Q16_isClear, err := db_commands.CheckUserQuestCleared(UserID, Consts_Quest.Quest_16_Nagi_Badge)
 	if err != nil {
 		return err
 	}
-	if Q9_isClear {
+	if Q16_isClear {
 		return nil
 	}
 
-	Q8_isClear, err := db_commands.CheckUserQuestCleared(UserID, Consts_Quest.Quest_8_Rindo_Death)
+	Q15_isClear, err := db_commands.CheckUserQuestCleared(UserID, Consts_Quest.Quest_15_Nagi_Death)
 	if err != nil {
 		return err
 	}
-	Q8_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_8_Rindo_Death)
+	Q15_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_15_Nagi_Death)
 	if err != nil {
 		return err
 	}
 
-	if !Q8_isClear {
-		if !Q8_isCurrent {
+	if !Q15_isClear {
+		if !Q15_isCurrent {
 			//Set local map
-			err = db_commands.SetUserLocalMap(UserID, Consts_MapType.ModiMap, 7)
+			err = db_commands.SetUserLocalMap(UserID, Consts_MapType.MagnetMap, 7)
 			if err != nil {
 				return err
 			}
 
 			//Create new quest
-			err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_8_Rindo_Death, 1)
+			err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_15_Nagi_Death, 1)
 			if err != nil {
 				return err
 			}
+
 			//(Not in SERVER_SCRIPT)
 			/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 			if err != nil {
@@ -68,14 +69,14 @@ func Modi_BT_Shark_Lose(UserID string) error {
 				return err
 			}
 
-			//Create Kariya Pin
-			err = db_commands.CreateUserGPSPin(UserID, "Q8_Kariya", Consts_MapPin.Kariya, "", Consts_Coords.Modi_Kariya_lat, Consts_Coords.Modi_Kariya_long, Consts_Quest.Quest_8_Rindo_Death, Consts_MapType.ModiMap, "7")
+			//Create Uzuki Pin
+			err = db_commands.CreateUserGPSPin(UserID, "Q15_Kubo", Consts_MapPin.Kubo, "", Consts_Coords.Magnet_Kubo_lat, Consts_Coords.Magnet_Kubo_long, Consts_Quest.Quest_15_Nagi_Death, Consts_MapType.MagnetMap, "7")
 			if err != nil {
 				return err
 			}
 
 			//Create quest icon
-			err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_8_Rindo_Death, Consts_QuestItem.Quest_8_Kariya, "off")
+			err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_15_Nagi_Death, Consts_QuestItem.Quest_15_Kubo, "off")
 			if err != nil {
 				return err
 			}

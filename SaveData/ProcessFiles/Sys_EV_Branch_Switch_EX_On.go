@@ -24,10 +24,10 @@ func Sys_EV_Branch_Switch_EX_On(UserID string) error {
 			return err
 		}
 		//(Not in SERVER_SCRIPT)
-		err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+		/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 		if err != nil {
 			return err
-		}
+		}*/
 	}
 	return nil
 }

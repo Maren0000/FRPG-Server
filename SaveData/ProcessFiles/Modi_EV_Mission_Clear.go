@@ -30,7 +30,7 @@ func Modi_EV_Mission_Clear(UserID string) error {
 		return err
 	}
 
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}
@@ -40,7 +40,7 @@ func Modi_EV_Mission_Clear(UserID string) error {
 			return err
 		}
 
-		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_10_Rindo_Battle, Consts_QuestItem.Quest_10_Shark_R, "ON")
+		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_7_Branch, Consts_QuestItem.Quest_7_Shark_R, "on")
 		if err != nil {
 			return err
 		}
@@ -55,7 +55,7 @@ func Modi_EV_Mission_Clear(UserID string) error {
 			return err
 		}
 
-		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_10_Rindo_Battle, Consts_QuestItem.Quest_10_Shark_B, "ON")
+		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_7_Branch, Consts_QuestItem.Quest_7_Shark_B, "on")
 		if err != nil {
 			return err
 		}
@@ -70,7 +70,7 @@ func Modi_EV_Mission_Clear(UserID string) error {
 			return err
 		}
 
-		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_10_Rindo_Battle, Consts_QuestItem.Quest_10_Shark_B, "ON")
+		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_7_Branch, Consts_QuestItem.Quest_7_Shark_Y, "on")
 		if err != nil {
 			return err
 		}

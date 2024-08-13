@@ -25,10 +25,10 @@ func Oioi_8F_EV_Shiba_2(UserID string) error {
 		return err
 	}
 	//(Not in SERVER_SCRIPT)
-	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	//Add item to quest panel
 	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_5_Week_Death, Consts_QuestItem.Quest_5_Wall, "off")

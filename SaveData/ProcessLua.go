@@ -317,6 +317,127 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 		}
 		return nil
 
+	case Consts_LuaHash.Loft_BT_Chameleon_Lose:
+		err := ProcessFiles.Loft_BT_Chameleon_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Uduki_1:
+		err := ProcessFiles.Loft_EV_Uduki_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Yuusen2_Tips:
+		err := ProcessFiles.Loft_EV_Yuusen2_Tips(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_3F_Book:
+		err := ProcessFiles.Loft_EV_3F_Book(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_3F_Cup:
+		err := ProcessFiles.Loft_EV_3F_Cup(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_3F_Bottle:
+		err := ProcessFiles.Loft_EV_3F_Bottle(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_4F_Clock:
+		err := ProcessFiles.Loft_EV_4F_Clock(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_4F_Holder:
+		err := ProcessFiles.Loft_EV_4F_Holder(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_4F_Radio:
+		err := ProcessFiles.Loft_EV_4F_Radio(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_5F_Bag:
+		err := ProcessFiles.Loft_EV_5F_Bag(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_5F_Lanthanum:
+		err := ProcessFiles.Loft_EV_5F_Lanthanum(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_5F_Umbrella:
+		err := ProcessFiles.Loft_EV_5F_Umbrella(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_6F_Balloon:
+		err := ProcessFiles.Loft_EV_6F_Balloon(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_6F_Puzzle:
+		err := ProcessFiles.Loft_EV_6F_Puzzle(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_6F_Stuffed:
+		err := ProcessFiles.Loft_EV_6F_Stuffed(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Branch_Switch:
+		err := ProcessFiles.Loft_EV_Branch_Switch(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Item_Comp:
+		err := ProcessFiles.Loft_EV_Item_Comp(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Mission_Clear:
+		err := ProcessFiles.Loft_EV_Mission_Clear(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Uduki_3:
+		err := ProcessFiles.Loft_EV_Uduki_3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Loft_EV_Remaining:
+		err := ProcessFiles.Loft_EV_Remaining(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+
 	case Consts_LuaHash.Miyashita_EV_Hint_Bridge:
 		err := ProcessFiles.Miyashita_EV_Hint_Bridge(UserID)
 		if err != nil {
@@ -325,6 +446,12 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 		return nil
 	case Consts_LuaHash.Miyashita_EV_Hint_1:
 		err := ProcessFiles.Miyashita_EV_Hint_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Hint_2:
+		err := ProcessFiles.Miyashita_EV_Hint_2(UserID)
 		if err != nil {
 			return err
 		}

@@ -20,6 +20,11 @@ func Modi_EV_Crywoman_Clear(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//(Not in SERVER_SCRIPT)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	if err != nil {
+		return err
+	}*/
 	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_10_Rindo_Battle, Consts_QuestItem.Quest_10_Hint, "on")
 	if err != nil {
 		return err
@@ -48,7 +53,7 @@ func Modi_EV_Crywoman_Clear(UserID string) error {
 		return err
 	}
 
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

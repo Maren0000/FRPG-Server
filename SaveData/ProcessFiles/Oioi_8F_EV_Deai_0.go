@@ -22,10 +22,10 @@ func Oioi_8F_EV_Deai_0(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	//Add items for quest panel
 	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_2_Start_Twisters, Consts_QuestItem.Quest_2_Rindo, "off")

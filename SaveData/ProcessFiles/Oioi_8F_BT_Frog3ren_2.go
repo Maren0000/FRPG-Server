@@ -8,7 +8,7 @@ import (
 )
 
 func Oioi_8F_BT_Frog3ren_2(UserID string) error {
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

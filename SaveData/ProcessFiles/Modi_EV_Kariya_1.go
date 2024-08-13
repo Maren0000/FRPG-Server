@@ -37,6 +37,11 @@ func Modi_EV_Kariya_1(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//(Not in SERVER_SCRIPT)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	if err != nil {
+		return err
+	}*/
 	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_9_Rindo_Badge, Consts_QuestItem.Quest_9_1, "off")
 	if err != nil {
 		return err
@@ -85,7 +90,7 @@ func Modi_EV_Kariya_1(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

@@ -64,13 +64,27 @@ const (
 	Modi_Kanon_lat     = 0.0
 	Modi_Kanon_long    = 0.0
 
+	Loft_Uzuki_lat      = -200.0
+	Loft_Uzuki_long     = 380.0
+	Loft_Chameleon_lat  = 550.0
+	Loft_Chameleon_long = 400.0
+	Loft_Yuusen_lat     = 400.0
+	Loft_Yuusen_long    = -300.0
+
+	Magnet_Kubo_lat      = 100.0
+	Magnet_Kubo_long     = 100.0
+	Magnet_Art_1_lat     = 200.0
+	Magnet_Art_1_long    = 200.0
+	Magnet_Elephant_lat  = 300.0
+	Magnet_Elephant_long = 300.0
+
 	//To-Do: Fix these when I get to them
 	Modi_Burger_lat          = 500.0
 	Modi_Burger_long         = 150.0
 	Anisen_F_Burger_lat      = 0.0
 	Anisen_F_Burger_long     = 0.0
-	Loft_6F_Burger_lat       = 0.0
-	Loft_6F_Burger_long      = 0.0
+	Loft_6F_Burger_lat       = 300.0
+	Loft_6F_Burger_long      = -600.0
 	Magnet_F_Burger_lat      = 0.0
 	Magnet_F_Burger_long     = 0.0
 	Miyashita_2F_Burger_lat  = 0.0

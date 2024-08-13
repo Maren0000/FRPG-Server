@@ -43,6 +43,18 @@ func FetchBattleData(BattleID int) (BattleData BattleInfoModel) {
 		BattleData.Damage = 2
 		BattleData.Badge = strconv.Itoa(Consts_Item.Item_2)
 		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Loft_Chameleon:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Chameleon
+		BattleData.NoiseID = Consts_Noise.NoiseID_Chameleon
+		BattleData.Damage = 2
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_4)
+		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Magnet_Elephant:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Elephant
+		BattleData.NoiseID = Consts_Noise.NoiseID_Elephant
+		BattleData.Damage = 2
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_6)
+		BattleData.BIgnoreInputOrder = 0
 	}
 
 	return BattleData
@@ -84,6 +96,18 @@ func FetchBattleLuaResult(BattleID int, Success int, NowHP int) uint32 {
 			return Consts_LuaHash.Modi_EV_Mission_Clear
 		} else {
 			return Consts_LuaHash.Modi_BT_Shark_Lose
+		}
+	case Consts_Battle.Loft_Chameleon:
+		if Success == 1 {
+			return Consts_LuaHash.Loft_EV_Mission_Clear
+		} else {
+			return Consts_LuaHash.Loft_BT_Chameleon_Lose
+		}
+	case Consts_Battle.Magnet_Elephant:
+		if Success == 1 {
+			return Consts_LuaHash.Magnet_EV_Mission_Clear
+		} else {
+			return Consts_LuaHash.Magnet_BT_Elephant_Lose
 		}
 	default:
 		return 0

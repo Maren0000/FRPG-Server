@@ -149,7 +149,7 @@ func InitSaveData(UserID string) (err error) {
 		BIntro:    sql.NullInt64{Int64: 1, Valid: true},
 		NowHP:     sql.NullInt64{Int64: 5, Valid: true},
 		MaxHP:     sql.NullInt64{Int64: 5, Valid: true},
-		ColorID:   sql.NullInt64{Int64: rand.Int63n(2) + 1, Valid: true},
+		ColorID:   sql.NullInt64{Int64: rand.Int63n(3) + 1, Valid: true},
 		BNewQuest: sql.NullInt64{Int64: 1, Valid: true},
 	})
 	if err != nil {
@@ -205,6 +205,22 @@ func InitSaveData(UserID string) (err error) {
 	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
 		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Modi_EV_FirstBattle, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Loft_EV_Uduki_1, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Magnet_EV_Kubou_1, Valid: true},
 		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {
@@ -285,7 +301,7 @@ func GetUserSavaData(UserID string) (SaveData db.UserSave, err error) {
 	return SaveData, nil
 }
 
-func GetUserSavaColor(UserID string) (ColorID int, err error) {
+func GetUserSaveColor(UserID string) (ColorID int, err error) {
 	var UserSaveColor sql.NullInt64
 	UserSaveColor, err = queries.GetUserSaveColor(ctx, sql.NullString{String: UserID, Valid: true})
 	if err != nil {
@@ -494,7 +510,10 @@ func UpdateUserQuestCurrent(UserID string, QuestID int, IsCurrent int) (err erro
 
 func UpdateUserQuestProgress(UserID string, QuestID int, Increment int) (err error) {
 	var UserQuest db.UserQuest
-	UserQuest, err = queries.GetUserQuestCurrent(ctx, sql.NullString{String: UserID, Valid: true})
+	UserQuest, err = queries.GetUserQuest(ctx, db.GetUserQuestParams{
+		UserID: sql.NullString{String: UserID, Valid: true},
+		ID:     sql.NullInt64{Int64: int64(QuestID), Valid: true},
+	})
 	if err != nil {
 		return err
 	}
@@ -623,6 +642,10 @@ func CreateUserQuest(UserID string, QuestID int, IsCurrent int) (err error) {
 		IsCurrent: sql.NullInt64{Int64: 1, Valid: true},
 		IsClear:   sql.NullInt64{Int64: 0, Valid: true},
 	})
+	if err != nil {
+		return err
+	}
+	err = UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
 	}

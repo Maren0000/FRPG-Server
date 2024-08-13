@@ -24,10 +24,10 @@ func Oioi_8F_EV_Frog3ren_1(UserID string) error {
 		return err
 	}
 	//(Not in SERVER_SCRIPT)
-	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	//Update GPS pointers
 	err = db_commands.UpdateUserGPSQuest(UserID, "Q3_Pure_1", Consts_Quest.Quest_4_Start_Battle_2)
@@ -44,7 +44,7 @@ func Oioi_8F_EV_Frog3ren_1(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

@@ -29,7 +29,7 @@ func Oioi_5F_BT_Jellyfish_Win(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}

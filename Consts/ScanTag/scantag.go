@@ -49,18 +49,32 @@ const (
 	QR_Modi_Shark_R  = "GM_shibuya21_mod_00006" //ID_TAG_MODI_SHARK_R
 	QR_Modi_Shark_Y  = "GM_shibuya21_mod_00008" //ID_TAG_MODI_SHARK_Y
 
-	QR_Q_Uzuki       = "GM_shibuya21_lof_00001" //ID_TAG_LOFT_UZUKI
-	QR_Q_Yuusen1     = "GM_shibuya21_lof_00002" //ID_TAG_LOFT_YUUSEN_1
-	QR_Q_Chameleon_B = "GM_shibuya21_lof_00005" //ID_TAG_LOFT_CHAMELEON_B
-	QR_Q_Chameleon_R = "GM_shibuya21_lof_00004" //ID_TAG_LOFT_CHAMELEON_R
-	QR_Q_Chameleon_Y = "GM_shibuya21_lof_00006" //ID_TAG_LOFT_CHAMELEON_Y
+	QR_Loft_Uzuki              = "GM_shibuya21_lof_00001" //ID_TAG_LOFT_UZUKI
+	QR_Loft_Yuusen1            = "GM_shibuya21_lof_00002" //ID_TAG_LOFT_YUUSEN_1
+	QR_Loft_Chameleon_B        = "GM_shibuya21_lof_00005" //ID_TAG_LOFT_CHAMELEON_B
+	QR_Loft_Chameleon_R        = "GM_shibuya21_lof_00004" //ID_TAG_LOFT_CHAMELEON_R
+	QR_Loft_Chameleon_Y        = "GM_shibuya21_lof_00006" //ID_TAG_LOFT_CHAMELEON_Y
+	QR_Loft_Search_Cup         = "GM_shibuya21_lof_00007" //ID_TAG_LOFT_SEARCH_CUP
+	QR_Loft_Search_WaterBottle = "GM_shibuya21_lof_00008" //ID_TAG_LOFT_SEARCH_BOTTLE
+	QR_Loft_Search_Book        = "GM_shibuya21_lof_00009" //ID_TAG_LOFT_SEARCH_BOOK
+	QR_Loft_Search_Soap        = "GM_shibuya21_lof_00012" //ID_TAG_LOFT_SEARCH_SOAP
+	QR_Loft_Search_Radio       = "GM_shibuya21_lof_00010" //ID_TAG_LOFT_SEARCH_RADIO
+	QR_Loft_Search_Clock       = "GM_shibuya21_lof_00011" //ID_TAG_LOFT_SEARCH_CLOCK
+	QR_Loft_Search_Bag         = "GM_shibuya21_lof_00013" //ID_TAG_LOFT_SEARCH_BAG
+	QR_Loft_Search_Umbrella    = "GM_shibuya21_lof_00014" //ID_TAG_LOFT_SEARCH_UMBRELLA (Not used)
+	QR_Loft_Search_Lanturn     = "GM_shibuya21_lof_00015" //ID_TAG_LOFT_SEARCH_LANTERN
+	QR_Loft_Search_Doll        = "GM_shibuya21_lof_00018" //ID_TAG_LOFT_SEARCH_DOLL
+	QR_Loft_Search_Puzzle      = "GM_shibuya21_lof_00016" //ID_TAG_LOFT_SEARCH_PUZZLE
+	QR_Loft_Search_Balloon     = "GM_shibuya21_lof_00017" //ID_TAG_LOFT_SEARCH_BALLOON
 
-	QR_Q_Kubo       = "GM_shibuya21_mag_00001" //ID_TAG_MAGNET_KUBO
-	QR_Q_Vari2      = "GM_shibuya21_mag_00002" //ID_TAG_MAGNET_VARI_2
-	QR_Q_Elephant_B = "GM_shibuya21_mag_00008" //ID_TAG_MAGNET_ELEPHANT_B
-	QR_Q_Elephant_R = "GM_shibuya21_mag_00007" //ID_TAG_MAGNET_ELEPHANT_R
-	QR_Q_Elephant_Y = "GM_shibuya21_mag_00009" ////ID_TAG_MAGNET_ELEPHANT_Y
+	QR_Magnet_Kubo       = "GM_shibuya21_mag_00001" //ID_TAG_MAGNET_KUBO
+	QR_Magnet_Vari2      = "GM_shibuya21_mag_00002" //ID_TAG_MAGNET_VARI_2
+	QR_Magnet_Elephant_B = "GM_shibuya21_mag_00008" //ID_TAG_MAGNET_ELEPHANT_B
+	QR_Magnet_Elephant_R = "GM_shibuya21_mag_00007" //ID_TAG_MAGNET_ELEPHANT_R
+	QR_Magnet_Elephant_Y = "GM_shibuya21_mag_00009" //ID_TAG_MAGNET_ELEPHANT_Y
+	QR_Magnet_Art_1      = "GM_shibuya21_art_00001" //ID_TAG_MAGNET_ART_1_QR
 
 	QR_Oioi5F_Burger = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
 	QR_Modi_Burger   = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
+	QR_Loft6F_Burger = "GM_shibuya21_lof_00003"
 )

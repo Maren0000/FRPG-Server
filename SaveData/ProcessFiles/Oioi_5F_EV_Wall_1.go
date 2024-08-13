@@ -29,10 +29,10 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 		return err
 	}
 	//(Not in SERVER_SCRIPT)
-	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	/*err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	//Create new scans
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Q6_Vari1, 1, Consts_LuaHash.Oioi_5F_EV_Vari3_1)
@@ -69,11 +69,11 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft6F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
 	}
@@ -142,7 +142,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	}
 
 	//Color check
-	Color, err := db_commands.GetUserSavaColor(UserID)
+	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {
 		return err
 	}
