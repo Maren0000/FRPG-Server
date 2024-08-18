@@ -438,6 +438,103 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 		}
 		return nil
 
+	case Consts_LuaHash.Magnet_BT_Elephant_Lose:
+		err := ProcessFiles.Magnet_BT_Elephant_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Kubou_1:
+		err := ProcessFiles.Magnet_EV_Kubou_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Kubou_3:
+		err := ProcessFiles.Magnet_EV_Kubou_3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Kubou_4:
+		err := ProcessFiles.Magnet_EV_Kubou_4(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Vari1_Tips:
+		err := ProcessFiles.Magnet_EV_Vari1_Tips(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_2F_Dragon:
+		err := ProcessFiles.Magnet_EV_Art_2F_Dragon(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_3F_Headgear:
+		err := ProcessFiles.Magnet_EV_Art_3F_Headgear(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_7F_Animal:
+		err := ProcessFiles.Magnet_EV_Art_7F_Animal(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_7F_Signboard:
+		err := ProcessFiles.Magnet_EV_Art_7F_Signboard(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_Comp:
+		err := ProcessFiles.Magnet_EV_Art_Comp(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Art_Progress:
+		err := ProcessFiles.Magnet_EV_Art_Progress(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Mission_Clear:
+		err := ProcessFiles.Magnet_EV_Mission_Clear(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Branch_Switch:
+		err := ProcessFiles.Magnet_EV_Branch_Switch(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Pure4_1:
+		err := ProcessFiles.Magnet_EV_Pure4_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Vari4_1:
+		err := ProcessFiles.Magnet_EV_Vari4_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Magnet_EV_Yuusen4_1:
+		err := ProcessFiles.Magnet_EV_Yuusen4_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+
 	case Consts_LuaHash.Miyashita_EV_Hint_Bridge:
 		err := ProcessFiles.Miyashita_EV_Hint_Bridge(UserID)
 		if err != nil {
@@ -452,6 +549,18 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 		return nil
 	case Consts_LuaHash.Miyashita_EV_Hint_2:
 		err := ProcessFiles.Miyashita_EV_Hint_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Hint_3:
+		err := ProcessFiles.Miyashita_EV_Hint_3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Unlock:
+		err := ProcessFiles.Miyashita_EV_Unlock(UserID)
 		if err != nil {
 			return err
 		}

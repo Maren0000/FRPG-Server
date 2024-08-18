@@ -68,13 +68,22 @@ const (
 	QR_Loft_Search_Balloon     = "GM_shibuya21_lof_00017" //ID_TAG_LOFT_SEARCH_BALLOON
 
 	QR_Magnet_Kubo       = "GM_shibuya21_mag_00001" //ID_TAG_MAGNET_KUBO
-	QR_Magnet_Vari2      = "GM_shibuya21_mag_00002" //ID_TAG_MAGNET_VARI_2
+	QR_Magnet_Pure       = "GM_shibuya21_mag_00002" //ID_GPS_MAGNET_PURE
+	QR_Magnet_Vari2      = "GM_shibuya21_mag_00003" //ID_TAG_MAGNET_VARI_2
+	QR_Magnet_Vari1      = "GM_shibuya21_mag_00004" //ID_GPS_MAGNET_VARI_1
+	QR_Magnet_Yuusen     = "GM_shibuya21_mag_00005" //ID_GPS_MAGNET_YUUSEN
 	QR_Magnet_Elephant_B = "GM_shibuya21_mag_00008" //ID_TAG_MAGNET_ELEPHANT_B
 	QR_Magnet_Elephant_R = "GM_shibuya21_mag_00007" //ID_TAG_MAGNET_ELEPHANT_R
 	QR_Magnet_Elephant_Y = "GM_shibuya21_mag_00009" //ID_TAG_MAGNET_ELEPHANT_Y
 	QR_Magnet_Art_1      = "GM_shibuya21_art_00001" //ID_TAG_MAGNET_ART_1_QR
+	QR_Magnet_Art_2      = "GM_shibuya21_art_00003" //ID_TAG_MAGNET_ART_2_QR
+	QR_Magnet_Art_3      = "GM_shibuya21_art_00004" //ID_TAG_MAGNET_ART_3_QR
+	QR_Magnet_Art_4      = "GM_shibuya21_art_00002" //ID_TAG_MAGNET_ART_4_QR
+
+	QR_Miyashita_Badge = "GM_shibuya21_miy_00004" //ID_TAG_MIYASHITA_BADGE
 
 	QR_Oioi5F_Burger = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
 	QR_Modi_Burger   = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
 	QR_Loft6F_Burger = "GM_shibuya21_lof_00003"
+	QR_Magnet_Burger = "GM_shibuya21_mag_00006"
 )

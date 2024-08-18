@@ -29,34 +29,37 @@ func Magnet_EV_Vari1_Tips(UserID string) error {
 		return err
 	}
 	if Color == Consts_PlayerColor.Color_Red {
-		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_R", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_R, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "7")
+		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_R", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_R, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "6")
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_R, "off")
+		//Handled by the Kubo files anyways
+		/*err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_R, "off")
 		if err != nil {
 			return err
-		}
+		}*/
 
 	} else if Color == Consts_PlayerColor.Color_Blue {
-		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_B", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_B, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "7")
+		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_B", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_B, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "6")
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_B, "off")
+		//Handled by the Kubo files anyways
+		/*err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_B, "off")
 		if err != nil {
 			return err
-		}
+		}*/
 
 	} else if Color == Consts_PlayerColor.Color_Yellow {
-		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_Y", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_Y, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "7")
+		err = db_commands.CreateUserGPSPin(UserID, "Q19_Elephant_Y", Consts_MapPin.Noise_Elephant, Consts_MapPinColor.Noise_Elephant_Y, Consts_Coords.Magnet_Elephant_lat, Consts_Coords.Magnet_Elephant_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "6")
 		if err != nil {
 			return err
 		}
-		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_Y, "off")
+		//Handled by the Kubo files anyways
+		/*err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_19_Nagi_Battle, Consts_QuestItem.Quest_19_Elephant_Y, "off")
 		if err != nil {
 			return err
-		}
+		}*/
 
 	}
 

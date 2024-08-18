@@ -76,11 +76,12 @@ const (
 	Quest_16_Stamp_1     = "stamp1"      //ID_PANEL_STAMP_1 - OFF/HINT/ON
 	Quest_16_Stamp_2     = "stamp2"      //ID_PANEL_STAMP_2 - OFF/HINT/ON
 	Quest_16_Stamp_3     = "stamp3"      //ID_PANEL_STAMP_3 - OFF/HINT/ON
-	Quest_16_Stamp_4     = "stamp1"      //ID_PANEL_STAMP_4 - OFF/HINT/ON
+	Quest_16_Stamp_4     = "stamp4"      //ID_PANEL_STAMP_4 - OFF/HINT/ON
 	Quest_17_Kubo        = "item0"       //ID_PANEL_ITEM_0 - OFF
 	Quest_18_Kubo        = "item0"       //ID_PANEL_ITEM_0 - OFF
 	Quest_19_Elephant_R  = "noise_R"     //ID_PANEL_R - OFF/ON
 	Quest_19_Elephant_B  = "noise_B"     //ID_PANEL_B - OFF/ON
 	Quest_19_Elephant_Y  = "noise_Y"     //ID_PANEL_Y - OFF/ON
 	Quest_19_Hint        = "hint"        //ID_PANEL_HINT - ON
+	Quest_20_Badge       = "item0"       //ID_PANEL_ITEM_0 - OFF
 )

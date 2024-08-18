@@ -77,27 +77,27 @@ func Sys_EV_Branch_Switch(UserID string) error {
 		return err
 	}
 	if !Nagi_Cleared {
-		err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Uzuki, 0)
+		err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Kubo, 0)
 		if err != nil {
 			return err
 		}
-		err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Yuusen1, 0)
+		err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Vari2, 0)
 		if err != nil {
 			return err
 		}
 
 		if Color == Consts_PlayerColor.Color_Red {
-			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Chameleon_R, 0)
+			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Elephant_R, 0)
 			if err != nil {
 				return err
 			}
 		} else if Color == Consts_PlayerColor.Color_Blue {
-			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Chameleon_B, 0)
+			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Elephant_B, 0)
 			if err != nil {
 				return err
 			}
 		} else if Color == Consts_PlayerColor.Color_Yellow {
-			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Chameleon_Y, 0)
+			err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Elephant_Y, 0)
 			if err != nil {
 				return err
 			}

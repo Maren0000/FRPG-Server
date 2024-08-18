@@ -20,7 +20,7 @@ const (
 	Quest_17_Nagi_Badge_2  = 17 //ID_QUEST_NAGI_BADGE_2
 	Quest_18_Nagi_Badge_3  = 18 //ID_QUEST_NAGI_BADGE_3
 	Quest_19_Nagi_Battle   = 19 //ID_QUEST_NAGI_BATTLE
-	Quest_20               = 20
+	Quest_20_Last_Death    = 20 //ID_QUEST_LAST_DEATH
 	Quest_21               = 21
 	Quest_22               = 22
 	Quest_100              = 100

@@ -73,11 +73,11 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
 	}
-		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
 	}

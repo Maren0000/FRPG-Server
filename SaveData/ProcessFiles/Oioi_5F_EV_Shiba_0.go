@@ -269,6 +269,10 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 	if err != nil {
 		return err
 	}
+	err = db_commands.CreateUserGPSPin(UserID, "Magnet_Vari2", Consts_MapPin.MapPin, "", Consts_Coords.Magnet_Vari2_lat, Consts_Coords.Magnet_Vari2_long, Consts_Quest.Quest_7_Branch, Consts_MapType.MagnetMap, "7")
+	if err != nil {
+		return err
+	}
 
 	err = db_commands.UpdateUserGPSRemove(UserID, "MaruiPin", 1)
 	if err != nil {

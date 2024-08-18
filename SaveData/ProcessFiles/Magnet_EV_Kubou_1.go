@@ -66,7 +66,7 @@ func Magnet_EV_Kubou_1(UserID string) error {
 		return err
 	}
 
-	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Magnet_Kubo, Consts_LuaHash.Loft_EV_Uduki_2)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Magnet_Kubo, Consts_LuaHash.Magnet_EV_Kubou_2)
 	if err != nil {
 		return err
 	}

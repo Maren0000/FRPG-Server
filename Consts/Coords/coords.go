@@ -1,14 +1,16 @@
 package Consts_Coords
 
 const (
-	Marui_lat   = 35.660866
-	Marui_long  = 139.701024
-	Modi_lat    = 35.661649
-	Modi_long   = 139.700567
-	Loft_lat    = 35.661095
-	Loft_long   = 139.699525
-	Magnet_lat  = 35.659862
-	Magnet_long = 139.700975
+	Marui_lat      = 35.660866
+	Marui_long     = 139.701024
+	Modi_lat       = 35.661649
+	Modi_long      = 139.700567
+	Loft_lat       = 35.661095
+	Loft_long      = 139.699525
+	Magnet_lat     = 35.659862
+	Magnet_long    = 139.700975
+	Miyashita_lat  = 35.660902
+	Miyashita_long = 139.701679
 
 	Oioi_8F_Rindo_lat      = 110.0
 	Oioi_8F_Rindo_long     = 175.0
@@ -71,12 +73,26 @@ const (
 	Loft_Yuusen_lat     = 400.0
 	Loft_Yuusen_long    = -300.0
 
-	Magnet_Kubo_lat      = 100.0
-	Magnet_Kubo_long     = 100.0
-	Magnet_Art_1_lat     = 200.0
+	Magnet_Kubo_lat      = 600.0
+	Magnet_Kubo_long     = -200.0
+	Magnet_Art_1_lat     = 250.0
 	Magnet_Art_1_long    = 200.0
 	Magnet_Elephant_lat  = 300.0
 	Magnet_Elephant_long = 300.0
+	Magnet_Pure_lat      = -400.0
+	Magnet_Pure_long     = -100.0
+	Magnet_Yuusen_lat    = -75.0
+	Magnet_Yuusen_long   = -175.0
+	Magnet_Vari1_lat     = -100.0
+	Magnet_Vari1_long    = -100.0
+	Magnet_Vari2_lat     = -450.0
+	Magnet_Vari2_long    = -350.0
+	Magnet_Art_2_lat     = 400.0
+	Magnet_Art_2_long    = 300.0
+	Magnet_Art_3_lat     = 600.0
+	Magnet_Art_3_long    = 100.0
+	Magnet_Art_4_lat     = 625.0
+	Magnet_Art_4_long    = 100.0
 
 	//To-Do: Fix these when I get to them
 	Modi_Burger_lat          = 500.0
@@ -85,8 +101,8 @@ const (
 	Anisen_F_Burger_long     = 0.0
 	Loft_6F_Burger_lat       = 300.0
 	Loft_6F_Burger_long      = -600.0
-	Magnet_F_Burger_lat      = 0.0
-	Magnet_F_Burger_long     = 0.0
+	Magnet_F_Burger_lat      = 100.0
+	Magnet_F_Burger_long     = 350.0
 	Miyashita_2F_Burger_lat  = 0.0
 	Miyashita_2F_Burger_long = 0.0
 	Miyashita_3F_Burger_lat  = 0.0

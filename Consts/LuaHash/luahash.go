@@ -81,7 +81,7 @@ const (
 	Magnet_EV_Art_Comp               = 2220596167 //"ComicEvent/magnet/magnet_ev_art_comp.lua"
 	Magnet_EV_Art_Error              = 3945156100 //"ComicEvent/magnet/magnet_ev_art_error.lua"
 	Magnet_EV_Art_Progress           = 1745315520 //"ComicEvent/magnet/magnet_ev_art_progress.lua"
-	Magnet_EV_BRanch_Switch          = 2288918512 //"ComicEvent/magnet/magnet_ev_branch_switch.lua"
+	Magnet_EV_Branch_Switch          = 2288918512 //"ComicEvent/magnet/magnet_ev_branch_switch.lua"
 	Magnet_EV_Kubou_1                = 1962771456 //"ComicEvent/magnet/magnet_ev_kubou_001.lua"
 	Magnet_EV_Kubou_2                = 861798096  //"ComicEvent/magnet/magnet_ev_kubou_002.lua"
 	Magnet_EV_Kubou_3                = 238933856  //"ComicEvent/magnet/magnet_ev_kubou_003.lua"
