@@ -226,6 +226,14 @@ func InitSaveData(UserID string) (err error) {
 	if err != nil {
 		return err
 	}
+	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Noise_Firstbattle, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
 
 	_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
 		UserID: sql.NullString{String: UserID, Valid: true},
@@ -262,7 +270,7 @@ func InitSaveData(UserID string) (err error) {
 		UserID:   sql.NullString{String: UserID, Valid: true},
 		Type:     sql.NullInt64{Int64: 3, Valid: true},
 		Tag:      sql.NullString{String: Consts_ScanTag.QR_Q1_JoinBadge, Valid: true},
-		BMulti:   sql.NullInt64{Int64: 0, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
 		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Oioi_8F_EV_Deai_0, Valid: true},
 		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
 	})

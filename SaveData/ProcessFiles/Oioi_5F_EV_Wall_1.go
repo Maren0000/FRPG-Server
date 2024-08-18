@@ -80,15 +80,15 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
-	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
-	if err != nil {
-		return err
-	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
-	if err != nil {
-		return err
 	}*/
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_2F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_3F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	if err != nil {
+		return err
+	}
 
 	//Remove Current GPS markers
 	err = db_commands.UpdateUserGPSRemove(UserID, "Q5_Wall", 1)
@@ -128,7 +128,7 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserGPSPin(UserID, "Magnet_F_Burger", Consts_MapPin.Burger, "", Consts_Coords.Magnet_F_Burger_lat, Consts_Coords.Magnet_F_Burger_long, Consts_Quest.Quest_1000_Burger, Consts_MapType.MagnetMap, "5")
+	err = db_commands.CreateUserGPSPin(UserID, "Magnet_Burger", Consts_MapPin.Burger, "", Consts_Coords.Magnet_Burger_lat, Consts_Coords.Magnet_Burger_long, Consts_Quest.Quest_1000_Burger, Consts_MapType.MagnetMap, "5")
 	if err != nil {
 		return err
 	}

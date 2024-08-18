@@ -1,14 +1,15 @@
 package Consts_Coords
 
 const (
-	Marui_lat      = 35.660866
-	Marui_long     = 139.701024
-	Modi_lat       = 35.661649
-	Modi_long      = 139.700567
-	Loft_lat       = 35.661095
-	Loft_long      = 139.699525
-	Magnet_lat     = 35.659862
-	Magnet_long    = 139.700975
+	Marui_lat   = 35.660866
+	Marui_long  = 139.701024
+	Modi_lat    = 35.661649
+	Modi_long   = 139.700567
+	Loft_lat    = 35.661095
+	Loft_long   = 139.699525
+	Magnet_lat  = 35.659862
+	Magnet_long = 139.700975
+	//To-do: fix this
 	Miyashita_lat  = 35.660902
 	Miyashita_long = 139.701679
 
@@ -94,6 +95,29 @@ const (
 	Magnet_Art_4_lat     = 625.0
 	Magnet_Art_4_long    = 100.0
 
+	Miyashita_Kariya_lat      = 100.0
+	Miyashita_Kariya_long     = 100.0
+	Miyashita_Uzuki_lat       = 200.0
+	Miyashita_Uzuki_long      = 200.0
+	Miyashita_Kanon_lat       = 300.0
+	Miyashita_Kanon_long      = 300.0
+	Miyashita_Pure_lat        = 100.0
+	Miyashita_Pure_long       = 100.0
+	Miyashita_Vari_1_lat      = 200.0
+	Miyashita_Vari_1_long     = 200.0
+	Miyashita_Vari_2_lat      = 300.0
+	Miyashita_Vari_2_long     = 300.0
+	Miyashita_Yuusen_lat      = 400.0
+	Miyashita_Yuusen_long     = 400.0
+	Miyashita_Tyranno_lat     = -100.0
+	Miyashita_Tyranno_long    = -100.0
+	Miyashita_Harisenbon_lat  = -200.0
+	Miyashita_Harisenbon_long = -200.0
+	Miyashita_Scorpion_lat    = -300.0
+	Miyashita_Scorpion_long   = -300.0
+	Miyashita_Gorilla_lat     = 0.0
+	Miyashita_Gorilla_long    = 0.0
+
 	//To-Do: Fix these when I get to them
 	Modi_Burger_lat          = 500.0
 	Modi_Burger_long         = 150.0
@@ -101,8 +125,8 @@ const (
 	Anisen_F_Burger_long     = 0.0
 	Loft_6F_Burger_lat       = 300.0
 	Loft_6F_Burger_long      = -600.0
-	Magnet_F_Burger_lat      = 100.0
-	Magnet_F_Burger_long     = 350.0
+	Magnet_Burger_lat        = 100.0
+	Magnet_Burger_long       = 350.0
 	Miyashita_2F_Burger_lat  = 0.0
 	Miyashita_2F_Burger_long = 0.0
 	Miyashita_3F_Burger_lat  = 0.0

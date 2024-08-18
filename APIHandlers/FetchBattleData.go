@@ -55,6 +55,30 @@ func FetchBattleData(BattleID int) (BattleData BattleInfoModel) {
 		BattleData.Damage = 2
 		BattleData.Badge = strconv.Itoa(Consts_Item.Item_6)
 		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Miyashita_Tyranno:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Tyranno
+		BattleData.NoiseID = Consts_Noise.NoiseID_Tyranno
+		BattleData.Damage = 3
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_8)
+		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Miyashita_Harisenbon:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Harisenbon
+		BattleData.NoiseID = Consts_Noise.NoiseID_Harisenbon
+		BattleData.Damage = 3
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_2) + "," + strconv.Itoa(Consts_Item.Item_4)
+		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Miyashita_Scorpion:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Scorpion
+		BattleData.NoiseID = Consts_Noise.NoiseID_Scorpion
+		BattleData.Damage = 3
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_8)
+		BattleData.BIgnoreInputOrder = 0
+	case Consts_Battle.Miyashita_Gorilla:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Gorilla
+		BattleData.NoiseID = Consts_Noise.NoiseID_Gorilla
+		BattleData.Damage = 4
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_2) + "," + strconv.Itoa(Consts_Item.Item_8) + "," + strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_4)
+		BattleData.BIgnoreInputOrder = 0
 	}
 
 	return BattleData
@@ -108,6 +132,30 @@ func FetchBattleLuaResult(BattleID int, Success int, NowHP int) uint32 {
 			return Consts_LuaHash.Magnet_EV_Mission_Clear
 		} else {
 			return Consts_LuaHash.Magnet_BT_Elephant_Lose
+		}
+	case Consts_Battle.Miyashita_Tyranno:
+		if Success == 1 {
+			return Consts_LuaHash.Miyashita_EV_Tyranno_Win
+		} else {
+			return Consts_LuaHash.Miyashita_BT_Tyranno_Lose
+		}
+	case Consts_Battle.Miyashita_Harisenbon:
+		if Success == 1 {
+			return Consts_LuaHash.Miyashita_EV_Harisenbon_Win
+		} else {
+			return Consts_LuaHash.Miyashita_BT_Harisenbon_Lose
+		}
+	case Consts_Battle.Miyashita_Scorpion:
+		if Success == 1 {
+			return Consts_LuaHash.Miyashita_EV_Scorpion_Win
+		} else {
+			return Consts_LuaHash.Miyashita_BT_Scorpion_Lose
+		}
+	case Consts_Battle.Miyashita_Gorilla:
+		if Success == 1 {
+			return Consts_LuaHash.Miyashita_EV_Gorilla_Win
+		} else {
+			return Consts_LuaHash.Miyashita_BT_Gorilla_Lose
 		}
 	default:
 		return 0

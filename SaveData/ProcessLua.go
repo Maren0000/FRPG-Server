@@ -565,6 +565,138 @@ func ProccessLua(UserID string, LuaHash uint32) error {
 			return err
 		}
 		return nil
+	case Consts_LuaHash.Miyashita_BT_Gorilla_Lose:
+		err := ProcessFiles.Miyashita_BT_Gorilla_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_BT_Harisenbon_Lose:
+		err := ProcessFiles.Miyashita_BT_Harisenbon_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_BT_Scorpion_Lose:
+		err := ProcessFiles.Miyashita_BT_Scorpion_Lose(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Harisenbon_Win:
+		err := ProcessFiles.Miyashita_EV_Harisenbon_Win(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Kanon_2:
+		err := ProcessFiles.Miyashita_EV_Kanon_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Kariya_1:
+		err := ProcessFiles.Miyashita_EV_Kariya_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Kariya_3:
+		err := ProcessFiles.Miyashita_EV_Kariya_3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Pure1_1:
+		err := ProcessFiles.Miyashita_EV_Pure1_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Pure1_2:
+		err := ProcessFiles.Miyashita_EV_Pure1_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Scorpion_Win:
+		err := ProcessFiles.Miyashita_EV_Scorpion_Win(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Shiba_1:
+		err := ProcessFiles.Miyashita_EV_Shiba_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Shiba_2:
+		err := ProcessFiles.Miyashita_EV_Shiba_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Shiba_3:
+		err := ProcessFiles.Miyashita_EV_Shiba_3(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Tyranno_Win:
+		err := ProcessFiles.Miyashita_EV_Tyranno_Win(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Uduki_2:
+		err := ProcessFiles.Miyashita_EV_Uduki_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Vari2_1:
+		err := ProcessFiles.Miyashita_EV_Vari2_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Vari2_2:
+		err := ProcessFiles.Miyashita_EV_Vari2_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Vari3_1:
+		err := ProcessFiles.Miyashita_EV_Vari3_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Vari3_2:
+		err := ProcessFiles.Miyashita_EV_Vari3_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Wakare:
+		err := ProcessFiles.Miyashita_EV_Wakare(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Yuusen1_1:
+		err := ProcessFiles.Miyashita_EV_Yuusen1_1(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
+	case Consts_LuaHash.Miyashita_EV_Yuusen1_2:
+		err := ProcessFiles.Miyashita_EV_Yuusen1_2(UserID)
+		if err != nil {
+			return err
+		}
+		return nil
 
 	case Consts_LuaHash.GPS_1:
 		err := ProcessFiles.GPS_EV_Road_1(UserID)

@@ -29,7 +29,7 @@ func Miyashita_EV_Unlock(UserID string) error {
 	if err != nil {
 		return err
 	}
-	//To-Do: Add badge GPS maybe
+	//Add badge GPS here but the player would never see it so *shrug*
 	err = db_commands.CreateUserGPSPin(UserID, "GPS_Miyashita", Consts_MapPin.MapPin, "", Consts_Coords.Miyashita_lat, Consts_Coords.Miyashita_long, Consts_Quest.Quest_20_Last_Death, "", "")
 	if err != nil {
 		return err

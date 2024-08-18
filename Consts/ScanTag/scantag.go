@@ -80,10 +80,29 @@ const (
 	QR_Magnet_Art_3      = "GM_shibuya21_art_00004" //ID_TAG_MAGNET_ART_3_QR
 	QR_Magnet_Art_4      = "GM_shibuya21_art_00002" //ID_TAG_MAGNET_ART_4_QR
 
-	QR_Miyashita_Badge = "GM_shibuya21_miy_00004" //ID_TAG_MIYASHITA_BADGE
+	QR_Miyashita_Badge        = "GM_shibuya21_miy_00004" //ID_TAG_MIYASHITA_BADGE
+	QR_Miyashita_Kariya       = "GM_shibuya21_miy_00001" //ID_TAG_MIYASHITA_KARIYA
+	QR_Miyashita_Tyranno_B    = "GM_shibuya21_miy_00012" //ID_TAG_NOISE_TYRANNO_B
+	QR_Miyashita_Tyranno_R    = "GM_shibuya21_miy_00011" //ID_TAG_NOISE_TYRANNO_R
+	QR_Miyashita_Tyranno_Y    = "GM_shibuya21_miy_00013" //ID_TAG_NOISE_TYRANNO_Y
+	QR_Miyashita_Pure_1       = "GM_shibuya21_miy_00005" //ID_TAG_MIYASHITA_PURE_1
+	QR_Miyashita_Vari_1       = "GM_shibuya21_miy_00006" //ID_TAG_MIYASHITA_VARI_1
+	QR_Miyashita_Vari_2       = "GM_shibuya21_miy_00007" //ID_TAG_MIYASHITA_VARI_2
+	QR_Miyashita_Yuusen_1     = "GM_shibuya21_miy_00008" //ID_TAG_MIYASHITA_YUUSEN_1
+	QR_Miyashita_Harisenbon_B = "GM_shibuya21_miy_00015" //ID_TAG_NOISE_HARISENBON_B
+	QR_Miyashita_Harisenbon_R = "GM_shibuya21_miy_00014" //ID_TAG_NOISE_HARISENBON_R
+	QR_Miyashita_Harisenbon_Y = "GM_shibuya21_miy_00016" //ID_TAG_NOISE_HARISENBON_Y
+	QR_Miyashita_Scorpion_B   = "GM_shibuya21_miy_00018" //ID_TAG_NOISE_SCORPION_B
+	QR_Miyashita_Scorpion_R   = "GM_shibuya21_miy_00017" //ID_TAG_NOISE_SCORPION_R
+	QR_Miyashita_Scorpion_Y   = "GM_shibuya21_miy_00019" //ID_TAG_NOISE_SCORPION_Y
+	QR_Miyashita_Kanon        = "GM_shibuya21_miy_00002" //ID_TAG_MIYASHITA_KANON
+	QR_Miyashita_Uzuki        = "GM_shibuya21_miy_00003" //ID_TAG_MIYASHITA_UZUKI
+	QR_Miyashita_Gorilla      = "GM_shibuya21_miy_00020" //ID_TAG_NOISE_GORILLA_R
 
-	QR_Oioi5F_Burger = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
-	QR_Modi_Burger   = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
-	QR_Loft6F_Burger = "GM_shibuya21_lof_00003"
-	QR_Magnet_Burger = "GM_shibuya21_mag_00006"
+	QR_Oioi5F_Burger       = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
+	QR_Modi_Burger         = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
+	QR_Loft6F_Burger       = "GM_shibuya21_lof_00003"
+	QR_Magnet_Burger       = "GM_shibuya21_mag_00006"
+	QR_Miyashita_2F_Burger = "GM_shibuya21_miy_00009"
+	QR_Miyashita_3F_Burger = "GM_shibuya21_miy_00010"
 )
