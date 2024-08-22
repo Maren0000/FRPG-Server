@@ -5,7 +5,9 @@ import (
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Protocol "FRPGServer/Consts/Protocol"
 	Consts_RES "FRPGServer/Consts/Res"
-	"FRPGServer/SaveData"
+	Consts_ScanTag "FRPGServer/Consts/ScanTag"
+	"FRPGServer/DataHandlers"
+	"FRPGServer/Models"
 	"FRPGServer/Utils"
 	db_commands "FRPGServer/db/commands"
 	"encoding/json"
@@ -118,7 +120,7 @@ func NetResultLogin(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var Player PlayerModel
+	var Player Models.PlayerModel
 	Player.ID = User.ID.String
 	Player.Name = User.Name.String
 
@@ -245,12 +247,12 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 
 	var Response Home_Response
 
-	var Player PlayerModel
+	var Player Models.PlayerModel
 	Player.ID = UserID
 	Player.Name = User.Name.String
 	Response.ATeamUser = append(Response.ATeamUser, Player)
 
-	saveData, intro, err := fetchSaveData(UserID)
+	saveData, intro, err := DataHandlers.FetchSaveData(UserID)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -259,7 +261,7 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var EventInfoPointer ResumeDataModel
+	var EventInfoPointer Models.ResumeDataModel
 	if resumeData.BResume.Int64 == 0 {
 		EventInfoPointer.BResume = false
 	} else {
@@ -336,7 +338,7 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 	UserID := User.ID.String
 
 	for _, LuaHash := range Request.ALua {
-		err = SaveData.ProccessLua(UserID, LuaHash)
+		err = DataHandlers.ProccessLua(UserID, LuaHash)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -347,7 +349,7 @@ func NetResultEvent(w http.ResponseWriter, r *http.Request, body []byte) {
 		fmt.Println(err)
 	}
 
-	saveData, _, err := fetchSaveData(UserID)
+	saveData, _, err := DataHandlers.FetchSaveData(UserID)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -391,7 +393,7 @@ func NetResultEventCheck(w http.ResponseWriter, r *http.Request, Did string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var EventInfoPointer ResumeDataModel
+	var EventInfoPointer Models.ResumeDataModel
 	if resumeData.BResume.Int64 == 0 {
 		EventInfoPointer.BResume = false
 	} else {
@@ -428,6 +430,11 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 		fmt.Println(err)
 	}
 
+	UserSave, err := db_commands.GetUserSavaData(User.ID.String)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	UserScan, err := db_commands.GetUserScan(User.ID.String, Request.TagId)
 	if err != nil {
 		fmt.Println(err)
@@ -438,10 +445,15 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 		fmt.Println(err)
 	}
 
-	//To-Do: Maybe stop all lua events when player is dead?
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.Lua = uint32(UserScan.LuaHash.Int64)
+	if UserSave.NowHP.Int64 > 0 {
+		Response.Lua = uint32(UserScan.LuaHash.Int64)
+	} else if UserSave.NowHP.Int64 == 0 && (UserScan.Tag.String != Consts_ScanTag.QR_Loft6F_Burger && UserScan.Tag.String != Consts_ScanTag.QR_Magnet_Burger && UserScan.Tag.String != Consts_ScanTag.QR_Miyashita_2F_Burger && UserScan.Tag.String != Consts_ScanTag.QR_Miyashita_3F_Burger && UserScan.Tag.String != Consts_ScanTag.QR_Modi_Burger) {
+		Response.Lua = Consts_LuaHash.Sys_EV_Burger_Other
+	} else if UserSave.NowHP.Int64 == 0 && (UserScan.Tag.String == Consts_ScanTag.QR_Loft6F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Magnet_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Miyashita_2F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Miyashita_3F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Modi_Burger) {
+		Response.Lua = uint32(UserScan.LuaHash.Int64)
+	}
 	//Response.Result =  Used for Invalid QR Code?
 
 	JSONResponse, err := json.Marshal(Response)
@@ -492,7 +504,7 @@ func NetResultShopBenefit(w http.ResponseWriter, r *http.Request) {
 	var Response Scan_Response
 	Response.RES = Consts_RES.SUCCESS
 	Response.Lua = Consts_LuaHash.Novelty_EV_11_TowerRecords
-	//Response.Result = To-Do: Figure this out
+	//Response.Result = Used for Invalid QR Code?
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -512,7 +524,7 @@ func NetResultShopIdentifyStart(w http.ResponseWriter, r *http.Request) {
 	Response.RES = Consts_RES.SUCCESS
 	Response.Message = "This is a test"
 	//Response.Type = 0 //1: Badge, 2: Discount, 3: Bonus Card, Anything Else: Already got
-	//Response.Result = No Clue
+	//Response.Result = Used for Invalid QR Code?
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -585,7 +597,7 @@ func NetResultBattleIn(w http.ResponseWriter, r *http.Request, body []byte) {
 		fmt.Println(err)
 	}
 
-	BattleData := FetchBattleData(Request.BattleId)
+	BattleData := DataHandlers.FetchBattleData(Request.BattleId)
 	var Response Battle_In_Response
 	Response.RES = Consts_RES.SUCCESS
 	Response.BGM_ID = BattleData.BGM_ID
@@ -688,7 +700,7 @@ func NetResultBattleResult(w http.ResponseWriter, r *http.Request, body []byte) 
 
 	var Response Battle_Result_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.Lua = FetchBattleLuaResult(int(UserSave.BattleID.Int64), Request.Succeeded, Request.NowHp)
+	Response.Lua = DataHandlers.FetchBattleLuaResult(int(UserSave.BattleID.Int64), Request.Succeeded, Request.NowHp)
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {

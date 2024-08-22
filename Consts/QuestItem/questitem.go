@@ -103,4 +103,11 @@ const (
 	Quest_22_Hint_2       = "hint2"       //ID_PANEL_BOSS_HINT_2 - ON
 	Quest_22_Hint_3       = "hint3"       //ID_PANEL_BOSS_HINT_3 - ON
 	Quest_22_Hint_4       = "hint4"       //ID_PANEL_BOSS_HINT_4 - ON
+	Quest_100_Rhino_R     = "noise_R"     //ID_PANEL_R - OFF
+	Quest_100_Rhino_B     = "noise_B"     //ID_PANEL_B - OFF
+	Quest_100_Rhino_Y     = "noise_Y"     //ID_PANEL_Y - OFF
+	Quest_100_Hint_1      = "hint1"       //ID_PANEL_BOSS_HINT_1 - ON
+	Quest_100_Hint_2      = "hint2"       //ID_PANEL_BOSS_HINT_2 - ON
+	Quest_100_Hint_3      = "hint3"       //ID_PANEL_BOSS_HINT_3 - ON
+	Quest_100_Hint_4      = "hint4"       //ID_PANEL_BOSS_HINT_4 - ON
 )

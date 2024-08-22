@@ -1,12 +1,12 @@
-package APIHandlers
+package DataHandlers
 
 import (
+	"FRPGServer/Models"
 	db_commands "FRPGServer/db/commands"
 	"strconv"
 )
 
-// To-Do: Move this to SaveData package
-func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error error) {
+func FetchSaveData(UserID string) (save Models.PlayerDataModel, bIntro bool, error error) {
 	PlayerSave, err := db_commands.GetUserSavaData(UserID)
 	if err != nil {
 		return save, false, err
@@ -17,7 +17,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		return save, false, err
 	}
 	for _, data := range PlayerCharacters {
-		var temp CharacterModel
+		var temp Models.CharacterModel
 		temp.CharacterId = int(data.CharacterId.Int64)
 		temp.ItemId = int(data.ItemId.Int64)
 
@@ -29,7 +29,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		return save, false, err
 	}
 	for _, data := range PlayerScans {
-		var temp ScanModel
+		var temp Models.ScanModel
 		temp.ID = int(data.ID)
 		temp.Type = int(data.Type.Int64)
 		temp.Tag = data.Tag.String
@@ -48,7 +48,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		return save, false, err
 	}
 	for _, data := range PlayerBuildings {
-		var temp BuildingModel
+		var temp Models.BuildingModel
 		temp.Name = data.Name.String
 		temp.Prefab = data.Prefab.String
 		temp.Status = data.Status.String
@@ -56,7 +56,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		save.ABuildings = append(save.ABuildings, temp)
 	}
 
-	var CurrentQuest QuestModel
+	var CurrentQuest Models.QuestModel
 	if PlayerSave.NowHP.Int64 == 0 {
 		PlayerQuest, err := db_commands.GetUserQuest(UserID, 1000)
 		if err != nil {
@@ -77,7 +77,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 			return save, false, err
 		}
 		for _, data := range PlayerQuestItems {
-			var temp QuestItemModel
+			var temp Models.QuestItemModel
 			temp.Name = data.Name.String
 			temp.Type = data.Type.String
 
@@ -90,7 +90,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 		return save, false, err
 	}
 	for _, data := range PlayerGPS {
-		var temp GPSModel
+		var temp Models.GPSModel
 		temp.ID = strconv.FormatInt(data.ID, 10)
 		temp.Name = data.Name.String
 		temp.PinType = data.PinType.String
@@ -160,7 +160,7 @@ func fetchSaveData(UserID string) (save PlayerDataModel, bIntro bool, error erro
 	if err != nil {
 		return save, false, err
 	}
-	var LocalmapTemp LocalMapModel
+	var LocalmapTemp Models.LocalMapModel
 	LocalmapTemp.Name = PlayerCurrentLocalMap.Name.String
 	LocalmapTemp.Floor = int(PlayerCurrentLocalMap.Floor.Int64)
 	save.LocalMap = &LocalmapTemp

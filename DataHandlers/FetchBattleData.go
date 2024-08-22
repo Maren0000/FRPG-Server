@@ -1,16 +1,20 @@
-package APIHandlers
+package DataHandlers
 
 import (
+	Consts_BGM "FRPGServer/Consts/BGM"
 	Consts_Battle "FRPGServer/Consts/Battle"
 	Consts_Item "FRPGServer/Consts/Item"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Noise "FRPGServer/Consts/Noise"
+	"FRPGServer/Models"
+	"FRPGServer/Utils"
 	"strconv"
 )
 
-func FetchBattleData(BattleID int) (BattleData BattleInfoModel) {
-	//To-Do: Randomize music for each battle (except maybe bosses?)
-	BattleData.BGM_ID = 1
+var Battle_BGM_List = []int{Consts_BGM.BGM_002, Consts_BGM.BGM_003, Consts_BGM.BGM_004, Consts_BGM.BGM_005, Consts_BGM.BGM_013, Consts_BGM.BGM_014, Consts_BGM.BGM_018, Consts_BGM.BGM_031, Consts_BGM.BGM_033, Consts_BGM.BGM_048, Consts_BGM.BGM_049}
+
+func FetchBattleData(BattleID int) (BattleData Models.BattleInfoModel) {
+	BattleData.BGM_ID = Utils.RandomBGM(Battle_BGM_List)
 
 	switch BattleID {
 	case Consts_Battle.Oioi_5F_Crow:
@@ -79,41 +83,38 @@ func FetchBattleData(BattleID int) (BattleData BattleInfoModel) {
 		BattleData.Damage = 4
 		BattleData.Badge = strconv.Itoa(Consts_Item.Item_2) + "," + strconv.Itoa(Consts_Item.Item_8) + "," + strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_4)
 		BattleData.BIgnoreInputOrder = 0
+		BattleData.BGM_ID = Consts_BGM.BGM_042
 	}
 
 	return BattleData
 }
 
 func FetchBattleLuaResult(BattleID int, Success int, NowHP int) uint32 {
-	//To-Do: This may be removed?
-	if NowHP == 0 {
-		return Consts_LuaHash.Sys_BT_Lose
-	}
 
 	switch BattleID {
 	case Consts_Battle.Oioi_5F_Crow:
 		if Success == 1 {
 			return Consts_LuaHash.Oioi_5F_BT_Crow_Win
 		} else {
-			return 0
+			return Consts_LuaHash.Sys_BT_Lose
 		}
 	case Consts_Battle.Oioi_5F_Wolf:
 		if Success == 1 {
 			return Consts_LuaHash.Oioi_5F_BT_Wolf_Win
 		} else {
-			return 0
+			return Consts_LuaHash.Sys_BT_Lose
 		}
 	case Consts_Battle.Oioi_5F_Jellyfish:
 		if Success == 1 {
 			return Consts_LuaHash.Oioi_5F_BT_Jellyfish_Win
 		} else {
-			return 0
+			return Consts_LuaHash.Sys_BT_Lose
 		}
 	case Consts_Battle.Oioi_5F_Bear:
 		if Success == 1 {
 			return Consts_LuaHash.Oioi_5F_BT_Bear_Win
 		} else {
-			return 0
+			return Consts_LuaHash.Sys_BT_Lose
 		}
 	case Consts_Battle.Modi_Shark:
 		if Success == 1 {

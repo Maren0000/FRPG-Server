@@ -1,8 +1,8 @@
-package SaveData
+package DataHandlers
 
 import (
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
-	"FRPGServer/SaveData/ProcessFiles"
+	"FRPGServer/DataHandlers/ProcessFiles"
 	"fmt"
 	"strconv"
 )

@@ -21,3 +21,11 @@ func IsHit(int) bool {
 		return true
 	}
 }
+
+func RandomBGM(BGMs []int) int {
+	return BGMs[rand.Intn(len(BGMs))]
+}
+
+func GenerateColorID() int64 {
+	return rand.Int63n(3) + 1
+}

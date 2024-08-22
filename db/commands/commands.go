@@ -13,7 +13,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"math/rand"
 
 	_ "embed"
 
@@ -143,13 +142,12 @@ func CreateTeam(TeamName string) (team db.Teams, err error) {
 }
 
 func InitSaveData(UserID string) (err error) {
-	//To-Do: Move ColorID Random to Utils
 	_, err = queries.CreateNewUserSave(ctx, db.CreateNewUserSaveParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},
 		BIntro:    sql.NullInt64{Int64: 1, Valid: true},
 		NowHP:     sql.NullInt64{Int64: 5, Valid: true},
 		MaxHP:     sql.NullInt64{Int64: 5, Valid: true},
-		ColorID:   sql.NullInt64{Int64: rand.Int63n(3) + 1, Valid: true},
+		ColorID:   sql.NullInt64{Int64: Utils.GenerateColorID(), Valid: true},
 		BNewQuest: sql.NullInt64{Int64: 1, Valid: true},
 	})
 	if err != nil {
@@ -169,7 +167,6 @@ func InitSaveData(UserID string) (err error) {
 		return err
 	}
 
-	//To-Do: add the rest of the OnceEvents since they are all added at the start
 	_, err = queries.CreateNewUserOnceEvent(ctx, db.CreateNewUserOnceEventParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},
 		UInt:     sql.NullInt64{Int64: Consts_LuaHash.Introduction, Valid: true},
@@ -647,7 +644,7 @@ func CreateUserQuest(UserID string, QuestID int, IsCurrent int) (err error) {
 		UserID:    sql.NullString{String: UserID, Valid: true},
 		ID:        sql.NullInt64{Int64: int64(QuestID), Valid: true},
 		Value:     sql.NullInt64{Int64: 0, Valid: true},
-		IsCurrent: sql.NullInt64{Int64: 1, Valid: true},
+		IsCurrent: sql.NullInt64{Int64: int64(IsCurrent), Valid: true},
 		IsClear:   sql.NullInt64{Int64: 0, Valid: true},
 	})
 	if err != nil {

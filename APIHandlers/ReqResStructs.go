@@ -1,5 +1,7 @@
 package APIHandlers
 
+import "FRPGServer/Models"
+
 type Generic_Request struct {
 	PID        int    `json:"pid"`        //Protocol ID
 	Ver        int    `json:"ver"`        //1 is 1.0.0, 2 is 1.1.0, 3 is 1.2.1
@@ -80,9 +82,9 @@ type Session_Update_Response struct {
 
 type Login_Game_Response struct {
 	Generic_Response
-	Result   int          `json:"result"`
-	LinkUUID string       `json:"linkUUID"`
-	Player   *PlayerModel `json:"player"`
+	Result   int                 `json:"result"`
+	LinkUUID string              `json:"linkUUID"`
+	Player   *Models.PlayerModel `json:"player"`
 }
 
 type NG_Word_Response struct {
@@ -92,19 +94,19 @@ type NG_Word_Response struct {
 
 type Home_Response struct {
 	Generic_Response
-	PlayerDataModel
-	WebSocketServer string           `json:"webSockesServer"`
-	RoomId          string           `json:"roomId"`
-	TeamId          string           `json:"teamId"`
-	TeamName        string           `json:"teamName"`
-	ATeamUser       []PlayerModel    `json:"aTeamUser"`
-	EventInfo       *ResumeDataModel `json:"eventInfo"`
-	BIntro          bool             `json:"bIntro"`
+	Models.PlayerDataModel
+	WebSocketServer string                  `json:"webSockesServer"`
+	RoomId          string                  `json:"roomId"`
+	TeamId          string                  `json:"teamId"`
+	TeamName        string                  `json:"teamName"`
+	ATeamUser       []Models.PlayerModel    `json:"aTeamUser"`
+	EventInfo       *Models.ResumeDataModel `json:"eventInfo"`
+	BIntro          bool                    `json:"bIntro"`
 }
 
 type Event_Response struct {
 	Generic_Response
-	PlayerDataModel
+	Models.PlayerDataModel
 }
 
 type Party_Start_Response struct {
@@ -115,7 +117,7 @@ type Party_Start_Response struct {
 
 type Event_Check_Resume_Response struct {
 	Generic_Response
-	EventInfo *ResumeDataModel `json:"eventInfo"`
+	EventInfo *Models.ResumeDataModel `json:"eventInfo"`
 }
 
 type Scan_Response struct {
@@ -149,5 +151,5 @@ type Battle_In_Response struct {
 
 type Battle_Result_Response struct {
 	Generic_Response
-	Lua uint32 `json:"lua,omitempty"`
+	Lua uint32 `json:"lua"`
 }

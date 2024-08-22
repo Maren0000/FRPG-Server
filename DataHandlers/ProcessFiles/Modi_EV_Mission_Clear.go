@@ -10,7 +10,6 @@ import (
 	db_commands "FRPGServer/db/commands"
 )
 
-// To-Do: Chnage quest IDs
 func Modi_EV_Mission_Clear(UserID string) error {
 	err := db_commands.UpdateUserOnceEvent(UserID, Consts_LuaHash.Modi_EV_FirstBattle, 1)
 	if err != nil {

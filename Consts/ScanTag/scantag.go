@@ -99,10 +99,27 @@ const (
 	QR_Miyashita_Uzuki        = "GM_shibuya21_miy_00003" //ID_TAG_MIYASHITA_UZUKI
 	QR_Miyashita_Gorilla      = "GM_shibuya21_miy_00020" //ID_TAG_NOISE_GORILLA_R
 
+	QR_EX_Quiz_1_109     = "GM_shibuya21_109_00001" //ID_TAG_EX_QUIZ_1
+	QR_EX_Quiz_2_Tsutaya = "GM_shibuya21_tsu_00001" //ID_TAG_EX_QUIZ_2
+	QR_EX_Quiz_3_Hachiko = "GM_shibuya21_hac_00001" //ID_TAG_EX_QUIZ_3
+	QR_EX_Nazo           = "GM_shibuya21_par_00001" //ID_TAG_EX_NAZO_QR
+	QR_EX_Nazo_Goal      = "GM_shibuya21_par_00002" //ID_TAG_EX_NAZO_GOAL
+	QR_EX_6              = "GM_shibuya21_str_00001" //ID_TAG_EX_6
+	QR_EX_5              = "GM_shibuya21_pla_00001" //ID_TAG_EX_5
+	QR_EX_4              = "GM_shibuya21_mar_00001" //ID_TAG_EX_4
+	QR_EX_3              = "GM_shibuya21_ani_00001" //ID_TAG_EX_3
+	QR_EX_2              = "GM_shibuya21_tow_00001" //ID_TAG_EX_2
+	QR_EX_1              = "GM_shibuya21_tai_00001" //ID_TAG_EX_1
+	QR_EX_Minamimoto     = "GM_shibuya21_tac_00001" //ID_TAG_EX_MINAMIMOTO
+	QR_EX_Rhino_R        = "GM_shibuya21_tac_00003" //ID_TAG_EX_RHINO_R
+	QR_EX_Rhino_B        = "GM_shibuya21_tac_00004" //ID_TAG_EX_RHINO_B
+	QR_EX_Rhino_Y        = "GM_shibuya21_tac_00005" //ID_TAG_EX_RHINO_Y
+
 	QR_Oioi5F_Burger       = "GM_shibuya21_ma5_00006" //ID_TAG_BURGER_SHOP_OIOI
 	QR_Modi_Burger         = "GM_shibuya21_mod_00005" //ID_TAG_BURGER_SHOP_MODI (QR used for all burger shops in PDF Web version)
 	QR_Loft6F_Burger       = "GM_shibuya21_lof_00003"
 	QR_Magnet_Burger       = "GM_shibuya21_mag_00006"
 	QR_Miyashita_2F_Burger = "GM_shibuya21_miy_00009"
 	QR_Miyashita_3F_Burger = "GM_shibuya21_miy_00010"
+	QR_EX_Burger           = "GM_shibuya21_tac_00002"
 )

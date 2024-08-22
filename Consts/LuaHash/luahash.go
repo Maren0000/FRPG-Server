@@ -22,7 +22,7 @@ const (
 	EX_EV_Quiz_2_Def                 = 2631348851 //"ComicEvent/ex/ex_ev_quiz_002_def.lua"
 	EX_EV_Quiz_3                     = 320616324  //"ComicEvent/ex/ex_ev_quiz_003.lua"
 	EX_EV_Quiz_3_Clear               = 1537413365 //"ComicEvent/ex/ex_ev_quiz_003_clear.lua"
-	EX_EV_quiz_3_Def                 = 2343314992 //"ComicEvent/ex/ex_ev_quiz_003_def.lua"
+	EX_EV_Quiz_3_Def                 = 2343314992 //"ComicEvent/ex/ex_ev_quiz_003_def.lua"
 	EX_EV_Rhino_Win                  = 1555943925 //"ComicEvent/ex/ex_ev_rhino_win.lua"
 	GPS_1                            = 2143898317 //"ComicEvent/gps/gps_ev_road_001.lua"
 	GPS_2                            = 946417693  //"ComicEvent/gps/gps_ev_road_002.lua"

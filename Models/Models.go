@@ -1,4 +1,4 @@
-package APIHandlers
+package Models
 
 type PlayerModel struct {
 	ID   string `json:"id"`
