@@ -13,6 +13,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "embed"
 
@@ -27,12 +28,22 @@ var dbconn *sql.DB
 var queries *db.Queries
 
 func Opendb() error {
+	//To-Do: Add table check before making tables
 	var err error
 	ctx = context.Background()
+	DockerBool := os.Getenv("DOCKER_MODE")
 
-	dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
-	if err != nil {
-		fmt.Println(err)
+	if DockerBool == "0" {
+		dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
+		path := os.Getenv("DOCKER_VOLUME")
+		dbconn, err = sql.Open("sqlite", path+"FRPG.sqlite3")
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 	fmt.Println("Opened DB")
 
@@ -100,6 +111,17 @@ func SetUserStatus(Did string, Status int) (err error) {
 	err = queries.UpdateUserStatus(ctx, db.UpdateUserStatusParams{
 		DeviceID: sql.NullString{String: Did, Valid: true},
 		Status:   sql.NullInt64{Int64: int64(Status), Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func SetUserStatusWithUserID(Uid string, Status int) (err error) {
+	err = queries.UpdateUserStatusWithUserID(ctx, db.UpdateUserStatusWithUserIDParams{
+		ID:     sql.NullString{String: Uid, Valid: true},
+		Status: sql.NullInt64{Int64: int64(Status), Valid: true},
 	})
 	if err != nil {
 		return err
@@ -671,6 +693,20 @@ func ListUserGPS(UserID string) (UserGPS []db.UserGPS, err error) {
 		return UserGPS, err
 	}
 	return UserGPS, nil
+}
+
+func CheckUserGPSExists(UserID string, Name string) (Exists bool, err error) {
+	var UserGPS []db.UserGPS
+	UserGPS, err = queries.ListUserGPS(ctx, sql.NullString{String: UserID, Valid: true})
+	if err != nil {
+		return false, err
+	}
+	for _, gps := range UserGPS {
+		if gps.Name.String == Name {
+			return true, nil
+		}
+	}
+	return false, nil
 }
 
 func UpdateUserGPSRemove(UserID string, GPSName string, Remove int) (err error) {

@@ -13,20 +13,21 @@ const (
 	IV  = "sX5nJEQL"
 )
 
-func DESDecrypt(cipherText []byte) (plainText []byte) {
+func DESDecrypt(cipherText []byte) (plainText []byte, err error) {
+	DecryptData := make([]byte, len(cipherText))
 	block, err := des.NewCipher([]byte(KEY))
 	if err != nil {
-		fmt.Println(err)
+		return DecryptData, err
 	}
 	blockMode := cipher.NewCBCDecrypter(block, []byte(IV))
-	DecryptData := make([]byte, len(cipherText))
+
 	blockMode.CryptBlocks(DecryptData, cipherText)
 	DecryptData, err = pkcs7strip(DecryptData, des.BlockSize)
 	if err != nil {
-		fmt.Println(err)
+		return DecryptData, err
 	}
 
-	return DecryptData
+	return DecryptData, nil
 }
 
 func DESEncrypt(plainText []byte) (cipherText []byte) {

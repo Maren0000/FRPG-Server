@@ -24,6 +24,11 @@ UPDATE "users"
 set "Status" = ?
 WHERE "DeviceID" = ?;
 
+-- name: UpdateUserStatusWithUserID :exec
+UPDATE "users"
+set "Status" = ?
+WHERE "ID" = ?;
+
 -- name: UpdateUserNewGame :exec
 UPDATE "users"
 set "NewGame" = ?

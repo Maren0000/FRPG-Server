@@ -21,7 +21,7 @@ func Magnet_EV_Art_7F_Animal(UserID string) error {
 		return err
 	}
 
-	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_17_Nagi_Badge_2, 0)
+	err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_17_Nagi_Badge_2, 1)
 	if err != nil {
 		return err
 	}

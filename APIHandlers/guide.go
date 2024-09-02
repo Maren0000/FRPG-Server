@@ -6,25 +6,41 @@ import (
 	"FRPGServer/Utils"
 	db_commands "FRPGServer/db/commands"
 	"encoding/json"
-	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func GuideHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Guide Hit")
+	slog.Info("Guide Hit")
 	RequestBody, err := io.ReadAll(r.Body)
 	if err != nil {
-		fmt.Println(err)
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Empty Body",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
 	}
 
-	DecryptedBody := Utils.DESDecrypt(RequestBody)
-	fmt.Println(string(DecryptedBody))
+	DecryptedBody, err := Utils.DESDecrypt(RequestBody)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Decrypt Failed",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+	slog.Debug(string(DecryptedBody))
 	var JSONRequest Generic_Request
 	err = json.Unmarshal(DecryptedBody, &JSONRequest)
 	if err != nil {
-		fmt.Println(err)
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("JSON unmarshal failed",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
 	}
 
 	if !db_commands.CheckDeviceIdExists(JSONRequest.TerminalId) {
@@ -38,25 +54,29 @@ func GuideHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func NetResultGetUrl(w http.ResponseWriter, r *http.Request) {
-	IP := os.Getenv("IP_ADDRESS")
+	Domain := os.Getenv("DOMAIN")
 	Port := os.Getenv("PORT")
 
 	var Response Get_URL_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.API = "http://" + IP + ":" + Port + "/gw000.php"
-	Response.NSC = "http://" + IP + ":" + Port + "/nativeBridge/native/session.php"
+	Response.API = "http://" + Domain + ":" + Port + "/gw000.php"
+	Response.NSC = "http://" + Domain + ":" + Port + "/nativeBridge/native/session.php"
 	Response.MainteURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki"
 	Response.TermsURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/terms"
 	Response.PrivacyURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/privacy"
 	Response.LicenseURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/license"
 	Response.CommerceURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/commerce"
-	Response.TicketURL = "http://" + IP + ":" + Port + "/ticket.php"
+	Response.TicketURL = "http://" + Domain + ":" + Port + "/ticket.php"
 	Response.StoreURL = "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.NTWEWYXFIELDWALKRPG"
 	Response.EventEndDate = 1937679599 //Original date: 1637679599
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
-		fmt.Println(err)
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to create json response",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
 	}
 
 	sendbyte := Utils.DESEncrypt(JSONResponse)

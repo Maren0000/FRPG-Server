@@ -13,6 +13,18 @@ import (
 )
 
 func Magnet_EV_Kubou_1(UserID string) error {
+	Q15_Exists, err := db_commands.CheckUserQuestExists(UserID, Consts_Quest.Quest_15_Nagi_Death)
+	if err != nil {
+		return err
+	}
+
+	if !Q15_Exists {
+		err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_15_Nagi_Death, 1)
+		if err != nil {
+			return err
+		}
+	}
+
 	Q15_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_15_Nagi_Death)
 	if err != nil {
 		return err

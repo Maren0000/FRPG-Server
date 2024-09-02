@@ -1460,6 +1460,22 @@ func (q *Queries) UpdateUserStatus(ctx context.Context, arg UpdateUserStatusPara
 	return err
 }
 
+const updateUserStatusWithUserID = `-- name: UpdateUserStatusWithUserID :exec
+UPDATE "users"
+set "Status" = ?
+WHERE "ID" = ?
+`
+
+type UpdateUserStatusWithUserIDParams struct {
+	Status sql.NullInt64
+	ID     sql.NullString
+}
+
+func (q *Queries) UpdateUserStatusWithUserID(ctx context.Context, arg UpdateUserStatusWithUserIDParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserStatusWithUserID, arg.Status, arg.ID)
+	return err
+}
+
 const updateUserTeam = `-- name: UpdateUserTeam :exec
 UPDATE "users"
 set "TeamID" = ?

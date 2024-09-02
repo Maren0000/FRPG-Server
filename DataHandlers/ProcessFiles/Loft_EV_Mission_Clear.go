@@ -59,7 +59,7 @@ func Loft_EV_Mission_Clear(UserID string) error {
 			return err
 		}
 
-		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_14_Fret_Battle, Consts_QuestItem.Quest_7_Chameleon_B, "on")
+		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_7_Branch, Consts_QuestItem.Quest_7_Chameleon_B, "on")
 		if err != nil {
 			return err
 		}
@@ -74,7 +74,7 @@ func Loft_EV_Mission_Clear(UserID string) error {
 			return err
 		}
 
-		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_14_Fret_Battle, Consts_QuestItem.Quest_7_Chameleon_Y, "on")
+		err = db_commands.UpdateUserQuestItem(UserID, Consts_Quest.Quest_7_Branch, Consts_QuestItem.Quest_7_Chameleon_Y, "on")
 		if err != nil {
 			return err
 		}

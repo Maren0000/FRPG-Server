@@ -1,17 +1,36 @@
 package Consts_Coords
 
 const (
-	Marui_lat   = 35.660866
-	Marui_long  = 139.701024
-	Modi_lat    = 35.661649
-	Modi_long   = 139.700567
-	Loft_lat    = 35.661095
-	Loft_long   = 139.699525
-	Magnet_lat  = 35.659862
-	Magnet_long = 139.700975
-	//To-do: fix this
-	Miyashita_lat  = 35.660902
-	Miyashita_long = 139.701679
+	Marui_lat            = 35.660866
+	Marui_long           = 139.701024
+	Modi_lat             = 35.661649  //Used for Anime Center as well
+	Modi_long            = 139.700567 //Used for Anime Center as well
+	Loft_lat             = 35.661095
+	Loft_long            = 139.699525
+	Magnet_lat           = 35.659862
+	Magnet_long          = 139.700975
+	Miyashita_lat        = 35.660902
+	Miyashita_long       = 139.701679
+	Tatio_Station_lat    = 35.659829
+	Tatio_Station_long   = 139.702020
+	Tower_Records_lat    = 35.661939
+	Tower_Records_long   = 139.701054
+	Animate_lat          = 35.661474
+	Animate_long         = 139.697535
+	Mark_City_lat        = 35.658060
+	Mark_City_long       = 139.698136
+	Tokyu_Plaza_lat      = 35.657568
+	Tokyu_Plaza_long     = 139.700110
+	Shibuya_Stream_lat   = 35.657329
+	Shibuya_Stream_long  = 139.702926
+	Shibuya_109_lat      = 35.659626
+	Shibuya_109_long     = 139.698908
+	Shibuya_Tsutaya_lat  = 35.659941
+	Shibuya_Tsutaya_long = 139.700190
+	Hachiko_lat          = 35.659191
+	Hachiko_long         = 139.700925
+	Parco_lat            = 35.662031
+	Parco_long           = 139.698941
 
 	Oioi_8F_Rindo_lat      = 110.0
 	Oioi_8F_Rindo_long     = 175.0
@@ -96,29 +115,28 @@ const (
 	Magnet_Art_4_long    = 100.0
 
 	Miyashita_Kariya_lat      = 100.0
-	Miyashita_Kariya_long     = 100.0
+	Miyashita_Kariya_long     = -400.0
 	Miyashita_Uzuki_lat       = 200.0
-	Miyashita_Uzuki_long      = 200.0
-	Miyashita_Kanon_lat       = 300.0
-	Miyashita_Kanon_long      = 300.0
+	Miyashita_Uzuki_long      = 1000.0
+	Miyashita_Kanon_lat       = 0.0
+	Miyashita_Kanon_long      = -700.0
 	Miyashita_Pure_lat        = 100.0
-	Miyashita_Pure_long       = 100.0
-	Miyashita_Vari_1_lat      = 200.0
-	Miyashita_Vari_1_long     = 200.0
+	Miyashita_Pure_long       = -700.0
+	Miyashita_Vari_1_lat      = 250.0
+	Miyashita_Vari_1_long     = 250.0
 	Miyashita_Vari_2_lat      = 300.0
-	Miyashita_Vari_2_long     = 300.0
-	Miyashita_Yuusen_lat      = 400.0
-	Miyashita_Yuusen_long     = 400.0
+	Miyashita_Vari_2_long     = 600.0
+	Miyashita_Yuusen_lat      = 370.0
+	Miyashita_Yuusen_long     = -300.0
 	Miyashita_Tyranno_lat     = -100.0
-	Miyashita_Tyranno_long    = -100.0
-	Miyashita_Harisenbon_lat  = -200.0
-	Miyashita_Harisenbon_long = -200.0
-	Miyashita_Scorpion_lat    = -300.0
-	Miyashita_Scorpion_long   = -300.0
+	Miyashita_Tyranno_long    = -2100.0
+	Miyashita_Harisenbon_lat  = -100.0
+	Miyashita_Harisenbon_long = 1300.0
+	Miyashita_Scorpion_lat    = -280.0
+	Miyashita_Scorpion_long   = -550.0
 	Miyashita_Gorilla_lat     = 0.0
-	Miyashita_Gorilla_long    = 0.0
+	Miyashita_Gorilla_long    = -500.0
 
-	//To-Do: Fix these when I get to them
 	Modi_Burger_lat          = 500.0
 	Modi_Burger_long         = 150.0
 	Anisen_F_Burger_lat      = 0.0
@@ -128,9 +146,9 @@ const (
 	Magnet_Burger_lat        = 100.0
 	Magnet_Burger_long       = 350.0
 	Miyashita_2F_Burger_lat  = 0.0
-	Miyashita_2F_Burger_long = 0.0
+	Miyashita_2F_Burger_long = -300.0
 	Miyashita_3F_Burger_lat  = 0.0
-	Miyashita_3F_Burger_long = 0.0
+	Miyashita_3F_Burger_long = -500.0
 
 	//GPS
 	GPS_Voice_1_Lat  = 35.66166667

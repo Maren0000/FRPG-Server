@@ -81,16 +81,21 @@ func FetchBattleData(BattleID int) (BattleData Models.BattleInfoModel) {
 		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Gorilla
 		BattleData.NoiseID = Consts_Noise.NoiseID_Gorilla
 		BattleData.Damage = 4
-		BattleData.Badge = strconv.Itoa(Consts_Item.Item_2) + "," + strconv.Itoa(Consts_Item.Item_8) + "," + strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_4)
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_4) + "," + strconv.Itoa(Consts_Item.Item_8) + "," + strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_2)
 		BattleData.BIgnoreInputOrder = 0
 		BattleData.BGM_ID = Consts_BGM.BGM_042
+	case Consts_Battle.Secret_Rhino:
+		BattleData.NoiseSymbolPath = Consts_Noise.NoiseSymbol_Rhino
+		BattleData.NoiseID = Consts_Noise.NoiseID_Rhino
+		BattleData.Damage = 4
+		BattleData.Badge = strconv.Itoa(Consts_Item.Item_4) + "," + strconv.Itoa(Consts_Item.Item_6) + "," + strconv.Itoa(Consts_Item.Item_2) + "," + strconv.Itoa(Consts_Item.Item_7)
+		BattleData.BIgnoreInputOrder = 0
 	}
 
 	return BattleData
 }
 
 func FetchBattleLuaResult(BattleID int, Success int, NowHP int) uint32 {
-
 	switch BattleID {
 	case Consts_Battle.Oioi_5F_Crow:
 		if Success == 1 {
@@ -157,6 +162,12 @@ func FetchBattleLuaResult(BattleID int, Success int, NowHP int) uint32 {
 			return Consts_LuaHash.Miyashita_EV_Gorilla_Win
 		} else {
 			return Consts_LuaHash.Miyashita_BT_Gorilla_Lose
+		}
+	case Consts_Battle.Secret_Rhino:
+		if Success == 1 {
+			return Consts_LuaHash.EX_EV_Rhino_Win
+		} else {
+			return Consts_LuaHash.Sys_BT_Lose
 		}
 	default:
 		return 0

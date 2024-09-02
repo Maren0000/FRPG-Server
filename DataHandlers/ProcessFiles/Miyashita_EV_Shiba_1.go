@@ -68,7 +68,50 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 		return err
 	}*/
 
-	//To-Do: Add EX pin map removes
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_1_Taito_Station", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_2_Tower_Records", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_3_Animate", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_4_Mark_City", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_5_Tokyu_Plaza", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_6_Shibuya_Stream", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_Parco", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_Shibuya_109", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_Shibuya_Tsutaya", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_Hachiko", 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_Tokyo_Anime_Center", 1)
+	if err != nil {
+		return err
+	}
 
 	//Remove GPS badge here but the player won't ever see it so *shrug*
 	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Badge, Consts_LuaHash.Miyashita_EV_Mission_Addition)

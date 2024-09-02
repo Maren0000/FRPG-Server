@@ -1,11 +1,13 @@
 package APIHandlers
 
 import (
+	"FRPGServer/Utils"
 	"bytes"
 	"compress/gzip"
 	"encoding/json"
-	"fmt"
+	"log/slog"
 	"net/http"
+	"strconv"
 )
 
 type NativeSessionResponse struct {
@@ -15,14 +17,18 @@ type NativeSessionResponse struct {
 
 // ConnectSessionCreate
 func BridgeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Bridge hit")
+	slog.Info("Bridge hit")
 	var Response NativeSessionResponse
 	Response.SharedSecurityKey = "QetBknGIxXLS4zxfoUQIkFUKChDhvILG"
 	Response.NativeSessionId = "73745dbcc387e6b90e04c98b433a1320"
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
-		fmt.Println(err)
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to create json response",
+		"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+		"Function", ErrorInfo.FunctionName,
+		"ErrorDetail", ErrorInfo.ErrorText)
 	}
 
 	var buf bytes.Buffer

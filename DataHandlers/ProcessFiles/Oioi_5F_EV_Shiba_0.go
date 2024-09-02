@@ -69,6 +69,36 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 
+	//Not in SERVER_SCRIPT. Add QR codes for GPS events
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_1, 1, Consts_LuaHash.GPS_1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_2, 1, Consts_LuaHash.GPS_2)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_3, 1, Consts_LuaHash.GPS_3)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_4, 1, Consts_LuaHash.GPS_4)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_5, 1, Consts_LuaHash.GPS_5)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_6, 1, Consts_LuaHash.GPS_6)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_GPS_7, 1, Consts_LuaHash.GPS_7)
+	if err != nil {
+		return err
+	}
+
 	//Color check
 	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {

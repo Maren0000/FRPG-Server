@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - db-data:/home/sqlite
+volumes:
+  db-data:

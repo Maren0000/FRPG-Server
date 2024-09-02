@@ -2,6 +2,7 @@ package DataHandlers
 
 import (
 	"FRPGServer/Models"
+	"FRPGServer/db"
 	db_commands "FRPGServer/db/commands"
 	"strconv"
 )
@@ -99,7 +100,36 @@ func FetchSaveData(UserID string) (save Models.PlayerDataModel, bIntro bool, err
 		temp.Longitude = data.Longitude.Float64
 		temp.BLocationEvent = int(data.BLocationEvent.Int64)
 		temp.LuaScript = uint32(data.LuaScript.Int64)
-		temp.Quest = &CurrentQuest
+
+		var tempquest Models.QuestModel
+		var GPSQuest db.UserQuest
+		if data.QuestID.Int64 == 59651 {
+			tempquest.ID = 59651
+			tempquest.Value = 0
+		} else {
+			GPSQuest, err = db_commands.GetUserQuest(UserID, int(data.QuestID.Int64))
+			if err != nil {
+				return save, false, err
+			}
+			tempquest.ID = int(GPSQuest.ID.Int64)
+			tempquest.Value = int(GPSQuest.Value.Int64)
+		}
+
+		if data.QuestID.Int64 != 59651 {
+			TempQuestItems, err := db_commands.ListUserQuestItems(UserID, int(GPSQuest.ID.Int64))
+			if err != nil {
+				return save, false, err
+			}
+			for _, data := range TempQuestItems {
+				var tempitem Models.QuestItemModel
+				tempitem.Name = data.Name.String
+				tempitem.Type = data.Type.String
+
+				tempquest.ItemList = append(tempquest.ItemList, tempitem)
+			}
+		}
+
+		temp.Quest = &tempquest
 		temp.MapType = data.MapType.String
 		temp.MapNo = data.MapNo.String
 

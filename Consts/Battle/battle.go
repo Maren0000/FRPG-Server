@@ -12,4 +12,5 @@ const (
 	Miyashita_Harisenbon = 11
 	Miyashita_Scorpion   = 12
 	Miyashita_Gorilla    = 13
+	Secret_Rhino         = 14
 )

@@ -60,7 +60,6 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 
 	//Create Burger scan tags
 	//The Web PDF version cheats by using one tag so we will do that for now.
-	//To-Do: Add the other burger tags
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
@@ -77,10 +76,10 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	/*err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Oioi5F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_EX_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
-	}*/
+	}
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_2F_Burger, 1, Consts_LuaHash.Sys_EV_Burger_Open)
 	if err != nil {
 		return err
@@ -115,7 +114,6 @@ func Oioi_5F_EV_Wall_1(UserID string) error {
 	}
 
 	//Create new GPS for burger shops
-	//To-Do: Update these when I get to them
 	err = db_commands.CreateUserGPSPin(UserID, "Oioi_5F_Burger", Consts_MapPin.Burger, "", Consts_Coords.Oioi_5F_Burger_lat, Consts_Coords.Oioi_5F_Burger_long, Consts_Quest.Quest_1000_Burger, Consts_MapType.MaruiMap, "5")
 	if err != nil {
 		return err

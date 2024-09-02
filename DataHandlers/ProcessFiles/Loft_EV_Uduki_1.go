@@ -12,6 +12,20 @@ import (
 )
 
 func Loft_EV_Uduki_1(UserID string) error {
+	//Not in SERVER_sCRIPT. This is to make sure the player has the 10th quest even if they scan Uzuki first.
+	Q11_Exists, err := db_commands.CheckUserQuestExists(UserID, Consts_Quest.Quest_11_Fret_Death)
+	if err != nil {
+		return err
+	}
+
+	if !Q11_Exists {
+		//Create new quest
+		err = db_commands.CreateUserQuest(UserID, Consts_Quest.Quest_11_Fret_Death, 1)
+		if err != nil {
+			return err
+		}
+	}
+
 	Q11_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_11_Fret_Death)
 	if err != nil {
 		return err

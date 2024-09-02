@@ -52,6 +52,11 @@ type Battle_Result_Request struct {
 	NowHp     int `json:"nowHp"`
 }
 
+type Shop_Benefit_Request struct {
+	Generic_Request
+	Code string `json:"code"`
+}
+
 type Generic_Response struct {
 	RES int `json:"res"`
 }
