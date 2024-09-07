@@ -17,14 +17,14 @@ import (
 )
 
 func main() {
-	err := db_commands.Opendb()
+	err := godotenv.Load()
 	if err != nil {
-		log.Println(err)
+		log.Println("Error loading .env file")
 	}
 
-	err = godotenv.Load()
+	err = db_commands.Opendb(os.Getenv("DOCKER_MODE"))
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println(err)
 	}
 
 	//IP := os.Getenv("IP_ADDRESS")

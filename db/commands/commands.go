@@ -27,20 +27,19 @@ var ctx context.Context
 var dbconn *sql.DB
 var queries *db.Queries
 
-func Opendb() error {
+func Opendb(DockerBool string) error {
 	//To-Do: Add table check before making tables
 	var err error
 	ctx = context.Background()
-	DockerBool := os.Getenv("DOCKER_MODE")
 
-	if DockerBool == "0" {
-		dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
+	if DockerBool == "1" {
+		path := os.Getenv("DOCKER_VOLUME")
+		dbconn, err = sql.Open("sqlite", path+"FRPG.sqlite3")
 		if err != nil {
 			fmt.Println(err)
 		}
 	} else {
-		path := os.Getenv("DOCKER_VOLUME")
-		dbconn, err = sql.Open("sqlite", path+"FRPG.sqlite3")
+		dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
 		if err != nil {
 			fmt.Println(err)
 		}
