@@ -59,8 +59,8 @@ func NetResultGetUrl(w http.ResponseWriter, r *http.Request) {
 
 	var Response Get_URL_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.API = "http://" + Domain + ":" + Port + "/gw000.php"
-	Response.NSC = "http://" + Domain + ":" + Port + "/nativeBridge/native/session.php"
+	Response.API = Domain + ":" + Port + "/gw000.php"
+	Response.NSC = Domain + ":" + Port + "/nativeBridge/native/session.php"
 	Response.MainteURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki"
 	Response.TermsURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/terms"
 	Response.PrivacyURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/privacy"
