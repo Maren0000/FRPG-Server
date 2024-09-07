@@ -17,17 +17,20 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Error loading .env file")
+	if _, err := os.Stat("./.env"); errors.Is(err, os.ErrNotExist) {
+		log.Println("No .env file exists")
+	} else {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
-	err = db_commands.Opendb(os.Getenv("DOCKER_MODE"))
+	err := db_commands.Opendb(os.Getenv("CUSTOM_SQLITE_PATH"))
 	if err != nil {
 		log.Println(err)
 	}
 
-	//IP := os.Getenv("IP_ADDRESS")
 	Port := os.Getenv("PORT")
 
 	mux := http.NewServeMux()
