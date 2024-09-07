@@ -4,6 +4,6 @@ services:
     ports:
       - "80:80"
     volumes:
-      - db-data:/home/sqlite
+      - db-data:/db
 volumes:
   db-data:
