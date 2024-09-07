@@ -34,11 +34,11 @@ func Opendb(CustomPath string) error {
 
 	if CustomPath == "1" {
 		path := os.Getenv("SQLITE_PATH")
-		dbconn, err = sql.Open("sqlite", path+"FRPG.sqlite3")
+		dbconn, err = sql.Open("sqlite", path+"/FRPG.sqlite3")
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println("Opened DB: " + path + "FRPG.sqlite3")
+		fmt.Println("Opened DB: " + path + "/FRPG.sqlite3")
 	} else {
 		dbconn, err = sql.Open("sqlite", "file:FRPG.sqlite3")
 		if err != nil {
