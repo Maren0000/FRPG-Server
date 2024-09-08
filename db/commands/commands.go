@@ -163,6 +163,14 @@ func CreateTeam(TeamName string) (team db.Teams, err error) {
 	return team, nil
 }
 
+func GetTeam(TeamID string) (team db.Teams, err error) {
+	team, err = queries.GetUserTeam(ctx, sql.NullString{String: TeamID, Valid: true})
+	if err != nil {
+		return team, err
+	}
+	return team, nil
+}
+
 func InitSaveData(UserID string) (err error) {
 	_, err = queries.CreateNewUserSave(ctx, db.CreateNewUserSaveParams{
 		UserID:    sql.NullString{String: UserID, Valid: true},

@@ -43,6 +43,10 @@ WHERE "ID" = ?;
 DELETE FROM "users"
 WHERE "DeviceID" = ?;
 
+-- name: GetUserTeam :one
+SELECT * FROM "teams"
+WHERE "TeamID" = ? LIMIT 1;
+
 -- name: CreateNewTeam :one
 INSERT INTO "teams" (
   "TeamID", "RoomID", "TeamName"

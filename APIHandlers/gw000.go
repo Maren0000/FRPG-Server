@@ -347,6 +347,15 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	Player.Name = User.Name.String
 	Response.ATeamUser = append(Response.ATeamUser, Player)
 
+	Team, err := db_commands.GetTeam(User.TeamID.String)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to get user team",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+
 	saveData, intro, err := DataHandlers.FetchSaveData(UserID)
 	if err != nil {
 		ErrorInfo := Utils.FormatError(err.Error())
@@ -392,9 +401,9 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	Response.AItemList = saveData.AItemList
 	Response.LocalMap = saveData.LocalMap
 	Response.WebSocketServer = "ws://" + IP + WSPort //Only used when there is more than one player in a team
-	Response.RoomId = "J24YUe"
-	Response.TeamId = "J24YUe"
-	Response.TeamName = "MarenTeam"
+	Response.RoomId = Team.RoomID.String
+	Response.TeamId = Team.TeamID.String
+	Response.TeamName = Team.TeamName.String
 	Response.EventInfo = &EventInfoPointer
 	Response.BIntro = intro
 

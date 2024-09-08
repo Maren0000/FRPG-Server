@@ -649,6 +649,18 @@ func (q *Queries) GetUserScan(ctx context.Context, arg GetUserScanParams) (UserS
 	return i, err
 }
 
+const getUserTeam = `-- name: GetUserTeam :one
+SELECT TeamID, RoomID, TeamName FROM "teams"
+WHERE "TeamID" = ? LIMIT 1
+`
+
+func (q *Queries) GetUserTeam(ctx context.Context, teamid sql.NullString) (Teams, error) {
+	row := q.db.QueryRowContext(ctx, getUserTeam, teamid)
+	var i Teams
+	err := row.Scan(&i.TeamID, &i.RoomID, &i.TeamName)
+	return i, err
+}
+
 const listUserBuildings = `-- name: ListUserBuildings :many
 SELECT UserID, Prefab, Name, Status FROM "userBuildings"
 WHERE "UserID" = ?
