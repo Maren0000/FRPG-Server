@@ -254,7 +254,7 @@ INSERT INTO "userQuest" (
 ) VALUES (
   ?, ?, ?, ?, ?
 )
-RETURNING UserID, QID, ID, Value, IsCurrent, IsClear
+RETURNING UserID, ID, Value, IsCurrent, IsClear
 `
 
 type CreateNewUserQuestParams struct {
@@ -276,7 +276,6 @@ func (q *Queries) CreateNewUserQuest(ctx context.Context, arg CreateNewUserQuest
 	var i UserQuest
 	err := row.Scan(
 		&i.UserID,
-		&i.QID,
 		&i.ID,
 		&i.Value,
 		&i.IsCurrent,
@@ -495,7 +494,7 @@ func (q *Queries) GetUserLocalMap(ctx context.Context, userid sql.NullString) (U
 }
 
 const getUserQuest = `-- name: GetUserQuest :one
-SELECT UserID, QID, ID, Value, IsCurrent, IsClear FROM "userQuest"
+SELECT UserID, ID, Value, IsCurrent, IsClear FROM "userQuest"
 WHERE "UserID" = ? AND "ID" = ? LIMIT 1
 `
 
@@ -509,7 +508,6 @@ func (q *Queries) GetUserQuest(ctx context.Context, arg GetUserQuestParams) (Use
 	var i UserQuest
 	err := row.Scan(
 		&i.UserID,
-		&i.QID,
 		&i.ID,
 		&i.Value,
 		&i.IsCurrent,
@@ -519,7 +517,7 @@ func (q *Queries) GetUserQuest(ctx context.Context, arg GetUserQuestParams) (Use
 }
 
 const getUserQuestAll = `-- name: GetUserQuestAll :many
-SELECT UserID, QID, ID, Value, IsCurrent, IsClear FROM "userQuest"
+SELECT UserID, ID, Value, IsCurrent, IsClear FROM "userQuest"
 WHERE "UserID" = ?
 ORDER BY "ID"
 `
@@ -535,7 +533,6 @@ func (q *Queries) GetUserQuestAll(ctx context.Context, userid sql.NullString) ([
 		var i UserQuest
 		if err := rows.Scan(
 			&i.UserID,
-			&i.QID,
 			&i.ID,
 			&i.Value,
 			&i.IsCurrent,
@@ -555,7 +552,7 @@ func (q *Queries) GetUserQuestAll(ctx context.Context, userid sql.NullString) ([
 }
 
 const getUserQuestCurrent = `-- name: GetUserQuestCurrent :one
-SELECT UserID, QID, ID, Value, IsCurrent, IsClear FROM "userQuest"
+SELECT UserID, ID, Value, IsCurrent, IsClear FROM "userQuest"
 WHERE "UserID" = ? AND "IsCurrent" = 1 AND "IsClear" = 0 LIMIT 1
 `
 
@@ -564,7 +561,6 @@ func (q *Queries) GetUserQuestCurrent(ctx context.Context, userid sql.NullString
 	var i UserQuest
 	err := row.Scan(
 		&i.UserID,
-		&i.QID,
 		&i.ID,
 		&i.Value,
 		&i.IsCurrent,
@@ -929,7 +925,7 @@ func (q *Queries) ListUserQuestItem(ctx context.Context, arg ListUserQuestItemPa
 }
 
 const listUserQuests = `-- name: ListUserQuests :many
-SELECT UserID, QID, ID, Value, IsCurrent, IsClear FROM "userQuest"
+SELECT UserID, ID, Value, IsCurrent, IsClear FROM "userQuest"
 WHERE "UserID" = ?
 ORDER BY "ID"
 `
@@ -945,7 +941,6 @@ func (q *Queries) ListUserQuests(ctx context.Context, userid sql.NullString) ([]
 		var i UserQuest
 		if err := rows.Scan(
 			&i.UserID,
-			&i.QID,
 			&i.ID,
 			&i.Value,
 			&i.IsCurrent,
