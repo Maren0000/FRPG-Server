@@ -34,9 +34,7 @@ func Sys_EV_Branch_Switch_EX_Off(UserID string) error {
 				return err
 			}
 		}
-	} /*else {
-		err =
-	}*/
+	}
 
 	err = db_commands.UpdateUserGPSRemove(UserID, "GPS_EX_1_Taito_Station", 1)
 	if err != nil {

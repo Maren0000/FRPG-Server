@@ -11,6 +11,11 @@ func Miyashita_EV_Kanon_2(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//Not in SERVER_SCRIPT. Helps guide user with mission update.
+	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -22,6 +22,12 @@ func Magnet_EV_Pure4_1(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//Not in SERVER_SCRIPT. Helps guide user with mission update.
+	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	if err != nil {
+		return err
+	}
+
 	err = db_commands.CreateUserGPSPin(UserID, "Magnet_Art_3", Consts_MapPin.MapPin, "", Consts_Coords.Magnet_Art_3_lat, Consts_Coords.Magnet_Art_3_long, Consts_Quest.Quest_16_Nagi_Badge, Consts_MapType.MagnetMap, "7")
 	if err != nil {
 		return err

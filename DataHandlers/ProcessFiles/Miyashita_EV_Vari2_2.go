@@ -10,6 +10,9 @@ import (
 
 func Miyashita_EV_Vari2_2(UserID string) error {
 	GPSExists, err := db_commands.CheckUserGPSExists(UserID, "Miyashita_Gorilla")
+	if err != nil {
+		return err
+	}
 
 	if !GPSExists {
 		err = db_commands.CreateUserGPSPin(UserID, "Miyashita_Gorilla", Consts_MapPin.Noise_Gorilla, "", Consts_Coords.Miyashita_Gorilla_lat, Consts_Coords.Miyashita_Gorilla_long, Consts_Quest.Quest_22_Last_Boss, Consts_MapType.MiyashitaParkMap, "4")

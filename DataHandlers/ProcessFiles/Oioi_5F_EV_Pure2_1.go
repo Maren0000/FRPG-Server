@@ -12,6 +12,11 @@ func Oioi_5F_EV_Pure2_1(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//Not in SERVER_SCRIPT. Helps guide user with mission update.
+	err = db_commands.UpdateUserSaveNewQuest(UserID, 1)
+	if err != nil {
+		return err
+	}
 	//Remove Current GPS markers
 	err = db_commands.UpdateUserGPSRemove(UserID, "Q6_Pure_1", 1)
 	if err != nil {
