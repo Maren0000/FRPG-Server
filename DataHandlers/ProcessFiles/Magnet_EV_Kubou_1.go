@@ -25,6 +25,12 @@ func Magnet_EV_Kubou_1(UserID string) error {
 		}
 	}
 
+	//(Not in SERVER_SCRIPT) set the branch quest to not current in case it isn't already disabled
+	err = db_commands.UpdateUserQuestCurrent(UserID, Consts_Quest.Quest_7_Branch, 0)
+	if err != nil {
+		return err
+	}
+
 	Q15_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_15_Nagi_Death)
 	if err != nil {
 		return err
@@ -48,12 +54,6 @@ func Magnet_EV_Kubou_1(UserID string) error {
 	if err != nil {
 		return err
 	}*/
-
-	//(Not in SERVER_SCRIPT) set the branch quest to not current in case it isn't already disabled
-	err = db_commands.UpdateUserQuestCurrent(UserID, Consts_Quest.Quest_7_Branch, 0)
-	if err != nil {
-		return err
-	}
 
 	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_16_Nagi_Badge, Consts_QuestItem.Quest_16_Stamp_1, "off")
 	if err != nil {

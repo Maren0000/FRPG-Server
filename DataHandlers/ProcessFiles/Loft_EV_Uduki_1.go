@@ -26,6 +26,12 @@ func Loft_EV_Uduki_1(UserID string) error {
 		}
 	}
 
+	//(Not in SERVER_SCRIPT) set the branch quest to not current in case it isn't already disabled
+	err = db_commands.UpdateUserQuestCurrent(UserID, Consts_Quest.Quest_7_Branch, 0)
+	if err != nil {
+		return err
+	}
+
 	Q11_isCurrent, err := db_commands.CheckCurrentUserQuest(UserID, Consts_Quest.Quest_11_Fret_Death)
 	if err != nil {
 		return err
@@ -49,12 +55,6 @@ func Loft_EV_Uduki_1(UserID string) error {
 	if err != nil {
 		return err
 	}*/
-
-	//(Not in SERVER_SCRIPT) set the branch quest to not current in case it isn't already disabled
-	err = db_commands.UpdateUserQuestCurrent(UserID, Consts_Quest.Quest_7_Branch, 0)
-	if err != nil {
-		return err
-	}
 
 	//Set local map
 	err = db_commands.SetUserLocalMap(UserID, Consts_MapType.LoftMap, 6)
