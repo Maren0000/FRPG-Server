@@ -21,6 +21,12 @@ type Party_Create_Request struct {
 	AMember   []string `json:"aMember"`
 }
 
+type Party_State_Request struct {
+	Generic_Request
+	PartyId string   `json:"partyId"`
+	Kick    []string `json:"bKick"`
+}
+
 type Scan_Request struct {
 	Generic_Request
 	TagId int `json:"tagId"`
@@ -118,6 +124,11 @@ type Party_Start_Response struct {
 	Generic_Response
 	PartyId         string `json:"partyId"`
 	WebSocketServer string `json:"webSockesServer"`
+}
+
+type Party_State_Response struct {
+	Generic_Response
+	State int `json:"state"`
 }
 
 type Event_Check_Resume_Response struct {

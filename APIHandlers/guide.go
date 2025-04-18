@@ -55,18 +55,19 @@ func GuideHandler(w http.ResponseWriter, r *http.Request) {
 
 func NetResultGetUrl(w http.ResponseWriter, r *http.Request) {
 	Domain := os.Getenv("DOMAIN")
+	HTTP := os.Getenv("HTTP_MODE")
 	Port := os.Getenv("PORT")
 
 	var Response Get_URL_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.API = Domain + ":" + Port + "/gw000.php"
-	Response.NSC = Domain + ":" + Port + "/nativeBridge/native/session.php"
+	Response.API = HTTP + "://" + Domain + ":" + Port + "/gw000.php"
+	Response.NSC = HTTP + "://" + Domain + ":" + Port + "/nativeBridge/native/session.php"
 	Response.MainteURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki"
 	Response.TermsURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/terms"
 	Response.PrivacyURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/privacy"
 	Response.LicenseURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/license"
 	Response.CommerceURL = "https://www.liveinteractiveworks.com/contents/frpg/shinsubarashiki/commerce"
-	Response.TicketURL = "http://" + Domain + ":" + Port + "/ticket.php"
+	Response.TicketURL = HTTP + "://" + Domain + ":" + Port + "/ticket.php"
 	Response.StoreURL = "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.NTWEWYXFIELDWALKRPG"
 	Response.EventEndDate = 1937679599 //Original date: 1637679599
 

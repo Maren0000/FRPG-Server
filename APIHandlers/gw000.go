@@ -62,6 +62,8 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 		NetResultCreateUser(w, r, DecryptedBody)
 	case Consts_Protocol.PARTY_CREATE:
 		NetResultPartyCreate(w, r, DecryptedBody)
+	case Consts_Protocol.PARTY_STATE:
+		NetResultPartyState(w, r)
 	case Consts_Protocol.HOME:
 		NetResultHome(w, r, JSONRequest.TerminalId)
 	case Consts_Protocol.PARTY_START:
@@ -423,13 +425,34 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 }
 
 func NetResultPartyStart(w http.ResponseWriter, r *http.Request) {
-	//IP := os.Getenv("IP_ADDRESS")
-	//WSPort := os.Getenv("WS_PORT")
+	Domain := os.Getenv("DOMAIN")
+	WSPort := os.Getenv("WS_PORT")
 
 	var Response Party_Start_Response
-	Response.RES = Consts_RES.MAINTENANCE
-	//Response.PartyId = "cHifjK"
-	//Response.WebSocketServer = "ws://"+IP+WSPort
+	Response.RES = Consts_RES.SUCCESS
+	Response.PartyId = "room1"
+	Response.WebSocketServer = "ws://" + Domain + ":" + WSPort + "/socket.io/?EIO=4&transport=websocket"
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to create json response",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+	slog.Debug("Response: " + string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultPartyState(w http.ResponseWriter, r *http.Request) {
+
+	var Response Party_State_Response
+	Response.RES = Consts_RES.SUCCESS
+	Response.State = 1
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {

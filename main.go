@@ -2,6 +2,7 @@ package main
 
 import (
 	"FRPGServer/APIHandlers"
+	multi "FRPGServer/Multi"
 	db_commands "FRPGServer/db/commands"
 	"context"
 	"errors"
@@ -32,6 +33,7 @@ func main() {
 	}
 
 	Port := os.Getenv("PORT")
+	PortWS := os.Getenv("WS_PORT")
 
 	mux := http.NewServeMux()
 
@@ -44,12 +46,27 @@ func main() {
 		Handler: mux,
 	}
 
+	WSServer := multi.ServerObj()
+
 	go func() {
 		if err := server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("HTTP server error: %v", err)
 		}
 		log.Println("Stopped serving new connections.")
 	}()
+
+	go func() {
+		if err := WSServer.Serve(); !errors.Is(err, http.ErrServerClosed) {
+			log.Fatalf("HTTP server error: %v", err)
+		}
+		log.Println("Stopped serving new connections.")
+	}()
+
+	http.Handle("/socket.io/", WSServer)
+
+	defer server.Close()
+
+	log.Fatal(http.ListenAndServe(":"+PortWS, nil))
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
@@ -63,5 +80,6 @@ func main() {
 	}
 	log.Println("Graceful shutdown complete.")
 
-	log.Fatal(http.ListenAndServe(":"+Port, mux))
+	//log.Fatal(http.ListenAndServe(":"+Port, mux))
+	//log.Fatal(http.ListenAndServe(":"+PortWS, muxWS))
 }
