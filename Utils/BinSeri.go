@@ -59,22 +59,53 @@ func ReadHashMap(data []byte) (ret map[string]any, err error) {
 	return ret, nil
 }
 
-func WriteHashMap(data map[string]any) (ret []byte, err error) {
-	b := make([]byte, 1)
-	b[0] = 1
-	mapLen := uint32(len(data))
-	b = binary.BigEndian.AppendUint32(b, mapLen)
-	for k, v := range data {
-		klen := uint16(len(k))
-		b = binary.BigEndian.AppendUint16(b, klen)
-		b = append(b, []byte(k)...)
+func WriteRequest(data map[string]any) (ret []byte) {
+	ret = WriteHashMap(data)
+	return ret
+}
+
+func WriteArray(data []any) (Req []byte) {
+	Req = append(Req, byte(6))
+	arryLen := uint32(len(data))
+	Req = binary.BigEndian.AppendUint32(Req, arryLen)
+	for i, v := range data {
+		Req = binary.BigEndian.AppendUint32(Req, uint32(i))
 		switch reflect.TypeOf(v).String() {
+		case "map[string]interface {}":
+			encode := WriteHashMap(v.(map[string]any))
+			Req = append(Req, encode...)
 		case "string":
-			b = append(b, byte(5))
-			vlen := uint16(len(v.(string)))
-			b = binary.BigEndian.AppendUint16(b, vlen)
-			b = append(b, []byte(v.(string))...)
+			encode := WriteString(v.(string))
+			Req = append(Req, encode...)
 		}
 	}
-	return b, nil
+	return Req
+}
+
+func WriteString(data string) (Req []byte) {
+	Req = append(Req, byte(5))
+	vlen := uint16(len(data))
+	Req = binary.BigEndian.AppendUint16(Req, vlen)
+	Req = append(Req, []byte(data)...)
+	return Req
+}
+
+func WriteHashMap(data map[string]any) (Req []byte) {
+	Req = append(Req, byte(1))
+	mapLen := uint32(len(data))
+	Req = binary.BigEndian.AppendUint32(Req, mapLen)
+	for k, v := range data {
+		klen := uint16(len(k))
+		Req = binary.BigEndian.AppendUint16(Req, klen)
+		Req = append(Req, []byte(k)...)
+		switch reflect.TypeOf(v).String() {
+		case "string":
+			encode := WriteString(v.(string))
+			Req = append(Req, encode...)
+		case "[]interface {}":
+			encode := WriteArray(v.([]any))
+			Req = append(Req, encode...)
+		}
+	}
+	return Req
 }

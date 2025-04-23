@@ -2,6 +2,7 @@ package multi
 
 import (
 	"FRPGServer/Utils"
+	"encoding/base64"
 	"fmt"
 	"hash/crc32"
 	"log"
@@ -49,18 +50,37 @@ func ServerObj() *socketio.Server {
 		fmt.Println(data)
 
 		resData := map[string]any{}
-		resData["name"] = "test"
-		resByte, err := Utils.WriteHashMap(resData)
+		PartyNames := []any{}
+		mem2 := map[string]any{}
+		mem2["name"] = "Neku"
+		mem2["id"] = "11111"
+		PartyNames = append(PartyNames, mem2)
+		mem3 := map[string]any{}
+		mem3["name"] = "Shiki"
+		mem3["id"] = "11112"
+		PartyNames = append(PartyNames, mem3)
+		mem4 := map[string]any{}
+		mem4["name"] = "Beat"
+		mem4["id"] = "11113"
+		PartyNames = append(PartyNames, mem4)
+		mem5 := map[string]any{}
+		mem5["name"] = "Rhyme"
+		mem5["id"] = "11114"
+		PartyNames = append(PartyNames, mem5)
+		resData["aMember"] = PartyNames
+		resByte := Utils.WriteRequest(resData)
 		if err != nil {
 			fmt.Println(err)
 		}
+		fmt.Println(base64.StdEncoding.EncodeToString(resByte))
+		res := map[string]string{}
+		res["crc"] = strconv.FormatUint(uint64(crc32.ChecksumIEEE(resByte)), 16)
 		resEnc, err := Utils.WSEncrypt(resByte, 3723)
 
 		//map: roomId - playerId - playerName
 		//res: name? ArrayList of playerdata?
-		res := map[string]string{}
+
 		res["data"] = resEnc
-		res["crc"] = strconv.Itoa(int(crc32.Checksum(resByte, crc32.MakeTable(crc32.IEEE))))
 		s.Emit("join", res)
 	})
 
@@ -149,6 +169,18 @@ func ServerObj() *socketio.Server {
 		//s.Emit("reply", "have "+msg)
 	})
 
+	serverWS.OnEvent("/", "syncTag", func(s socketio.Conn, msg map[string]string) {
+		log.Println("syncTag crc:", msg["crc"])
+		log.Println("syncTag data:", msg["data"])
+		data, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println((err))
+		}
+
+		test, err := Utils.ReadHashMap(data)
+		fmt.Println(test)
+	})
+
 	serverWS.OnEvent("/", "mute", func(s socketio.Conn, msg map[string]string) {
 		log.Println("mute crc:", msg["crc"])
 		log.Println("mute data:", msg["data"])
@@ -178,17 +210,95 @@ func ServerObj() *socketio.Server {
 		//s.Emit("reply", "have "+msg)
 	})
 
-	serverWS.OnEvent("/", "in", func(s socketio.Conn, msg any) {
-		log.Println("in:", msg)
-		//s.SetContext(msg)
-		//return "recv " + msg
+	serverWS.OnEvent("/", "in", func(s socketio.Conn, msg map[string]string) {
+		log.Println("in crc:", msg["crc"])
+		log.Println("in data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
 	})
 
-	serverWS.OnEvent("/", "out", func(s socketio.Conn, msg any) {
-		log.Println("out:", msg)
-		//last := s.Context().(string)
-		//s.Emit("out", last)
-		//s.Close()
+	serverWS.OnEvent("/", "out", func(s socketio.Conn, msg map[string]string) {
+		log.Println("out crc:", msg["crc"])
+		log.Println("out data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
+	})
+
+	serverWS.OnEvent("/", "kick", func(s socketio.Conn, msg map[string]string) {
+		log.Println("kick crc:", msg["crc"])
+		log.Println("kick data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
+	})
+
+	serverWS.OnEvent("/", "message", func(s socketio.Conn, msg map[string]string) {
+		log.Println("message crc:", msg["crc"])
+		log.Println("message data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
+	})
+
+	serverWS.OnEvent("/", "stamp", func(s socketio.Conn, msg map[string]string) {
+		log.Println("stamp crc:", msg["crc"])
+		log.Println("stamp data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
+	})
+
+	serverWS.OnEvent("/", "script", func(s socketio.Conn, msg map[string]string) {
+		log.Println("script crc:", msg["crc"])
+		log.Println("script data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
+	})
+
+	serverWS.OnEvent("/", "syscall", func(s socketio.Conn, msg map[string]string) {
+		log.Println("syscall crc:", msg["crc"])
+		log.Println("syscall data:", msg["data"])
+
+		decrypt, err := Utils.WSDecrypt(msg["data"], 3723)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		data, err := Utils.ReadHashMap(decrypt)
+		fmt.Println(data)
 	})
 
 	serverWS.OnError("/", func(s socketio.Conn, e error) {
