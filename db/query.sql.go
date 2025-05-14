@@ -449,6 +449,42 @@ func (q *Queries) DeleteUser(ctx context.Context, deviceid sql.NullString) error
 	return err
 }
 
+const getTeamMembers = `-- name: GetTeamMembers :many
+SELECT DeviceID, ID, Name, Status, TeamID, NewGame, UUID FROM "users"
+WHERE "TeamID" = ? LIMIT 4
+`
+
+func (q *Queries) GetTeamMembers(ctx context.Context, teamid sql.NullString) ([]Users, error) {
+	rows, err := q.db.QueryContext(ctx, getTeamMembers, teamid)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Users
+	for rows.Next() {
+		var i Users
+		if err := rows.Scan(
+			&i.DeviceID,
+			&i.ID,
+			&i.Name,
+			&i.Status,
+			&i.TeamID,
+			&i.NewGame,
+			&i.UUID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getUser = `-- name: GetUser :one
 SELECT DeviceID, ID, Name, Status, TeamID, NewGame, UUID FROM "users"
 WHERE "DeviceID" = ? LIMIT 1

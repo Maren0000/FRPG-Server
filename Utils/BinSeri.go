@@ -7,7 +7,7 @@ import (
 	"reflect"
 )
 
-func ReadHashMap(data []byte) (ret map[string]any, err error) {
+func ReadHashMap(data []byte) (ret map[string]any) {
 	ret = map[string]any{}
 	elemCount := binary.BigEndian.Uint32(data[1:5])
 	pos := 5
@@ -52,11 +52,11 @@ func ReadHashMap(data []byte) (ret map[string]any, err error) {
 			fmt.Println("array has no support")
 			i++
 		default:
-			fmt.Println("Unkown Element!")
+			fmt.Println("Unknown Element!")
 		}
 	}
 
-	return ret, nil
+	return ret
 }
 
 func WriteRequest(data map[string]any) (ret []byte) {
@@ -90,6 +90,17 @@ func WriteString(data string) (Req []byte) {
 	return Req
 }
 
+func WriteBool(data bool) (Req []byte) {
+	Req = append(Req, byte(4))
+
+	if data {
+		Req = append(Req, byte(1))
+	} else {
+		Req = append(Req, byte(0))
+	}
+	return Req
+}
+
 func WriteHashMap(data map[string]any) (Req []byte) {
 	Req = append(Req, byte(1))
 	mapLen := uint32(len(data))
@@ -101,6 +112,9 @@ func WriteHashMap(data map[string]any) (Req []byte) {
 		switch reflect.TypeOf(v).String() {
 		case "string":
 			encode := WriteString(v.(string))
+			Req = append(Req, encode...)
+		case "bool":
+			encode := WriteBool(v.(bool))
 			Req = append(Req, encode...)
 		case "[]interface {}":
 			encode := WriteArray(v.([]any))

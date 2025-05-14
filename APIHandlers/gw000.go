@@ -63,11 +63,13 @@ func Gw000Handler(w http.ResponseWriter, r *http.Request) {
 	case Consts_Protocol.PARTY_CREATE:
 		NetResultPartyCreate(w, r, DecryptedBody)
 	case Consts_Protocol.PARTY_STATE:
-		NetResultPartyState(w, r)
+		NetResultPartyState(w, r, DecryptedBody)
 	case Consts_Protocol.HOME:
 		NetResultHome(w, r, JSONRequest.TerminalId)
 	case Consts_Protocol.PARTY_START:
 		NetResultPartyStart(w, r)
+	case Consts_Protocol.PARTY_CANCEL:
+		NetResultPartyCancel(w, r)
 	case Consts_Protocol.EVENT:
 		NetResultEvent(w, r, DecryptedBody)
 	case Consts_Protocol.EVENT_SAVE_RESUME:
@@ -298,16 +300,15 @@ func NetResultPartyCreate(w http.ResponseWriter, r *http.Request, body []byte) {
 				"Function", ErrorInfo.FunctionName,
 				"ErrorDetail", ErrorInfo.ErrorText)
 		}
-	}
-
-	err = db_commands.SetUserStatus(Request.TerminalId, Consts_Login.PLAYING)
-	if err != nil {
-		ErrorInfo := Utils.FormatError(err.Error())
-		slog.Error("Failed to set user status",
-			"User", Request.TerminalId,
-			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
-			"Function", ErrorInfo.FunctionName,
-			"ErrorDetail", ErrorInfo.ErrorText)
+		err = db_commands.SetUserStatusWithUserID(user, Consts_Login.PLAYING)
+		if err != nil {
+			ErrorInfo := Utils.FormatError(err.Error())
+			slog.Error("Failed to set user status",
+				"User", Request.TerminalId,
+				"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+				"Function", ErrorInfo.FunctionName,
+				"ErrorDetail", ErrorInfo.ErrorText)
+		}
 	}
 
 	var Response Generic_Response
@@ -342,12 +343,29 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	}
 	UserID := User.ID.String
 
+	TeamMem, err := db_commands.GetTeamMembers(User.TeamID.String)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to get user info",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+
 	var Response Home_Response
 
 	var Player Models.PlayerModel
-	Player.ID = UserID
-	Player.Name = User.Name.String
-	Response.ATeamUser = append(Response.ATeamUser, Player)
+	if len(TeamMem) == 1 {
+		Player.ID = UserID
+		Player.Name = User.Name.String
+		Response.ATeamUser = append(Response.ATeamUser, Player)
+	} else {
+		for _, mem := range TeamMem {
+			Player.ID = mem.ID.String
+			Player.Name = mem.Name.String
+			Response.ATeamUser = append(Response.ATeamUser, Player)
+		}
+	}
 
 	Team, err := db_commands.GetTeam(User.TeamID.String)
 	if err != nil {
@@ -402,7 +420,7 @@ func NetResultHome(w http.ResponseWriter, r *http.Request, Did string) {
 	Response.Quest = saveData.Quest
 	Response.AItemList = saveData.AItemList
 	Response.LocalMap = saveData.LocalMap
-	Response.WebSocketServer = "ws://" + IP + WSPort //Only used when there is more than one player in a team
+	Response.WebSocketServer = "ws://" + IP + ":" + WSPort + "/socket.io/?EIO=4&transport=websocket" //Only used when there is more than one player in a team
 	Response.RoomId = Team.RoomID.String
 	Response.TeamId = Team.TeamID.String
 	Response.TeamName = Team.TeamName.String
@@ -430,7 +448,8 @@ func NetResultPartyStart(w http.ResponseWriter, r *http.Request) {
 
 	var Response Party_Start_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.PartyId = "room1"
+
+	Response.PartyId = Utils.GenRandId()
 	Response.WebSocketServer = "ws://" + Domain + ":" + WSPort + "/socket.io/?EIO=4&transport=websocket"
 
 	JSONResponse, err := json.Marshal(Response)
@@ -448,11 +467,43 @@ func NetResultPartyStart(w http.ResponseWriter, r *http.Request) {
 	w.Write(sendbyte)
 }
 
-func NetResultPartyState(w http.ResponseWriter, r *http.Request) {
+func NetResultPartyCancel(w http.ResponseWriter, r *http.Request) {
+	var Response Generic_Response
+	Response.RES = Consts_RES.SUCCESS
+
+	JSONResponse, err := json.Marshal(Response)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to create json response",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+
+	slog.Debug("Response: " + string(JSONResponse))
+	sendbyte := Utils.DESEncrypt(JSONResponse)
+
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(sendbyte)
+}
+
+func NetResultPartyState(w http.ResponseWriter, r *http.Request, body []byte) {
+	var Request Party_State_Request
+	err := json.Unmarshal(body, &Request)
+	if err != nil {
+		ErrorInfo := Utils.FormatError(err.Error())
+		slog.Error("Failed to unmarshal JSON Request",
+			"File", ErrorInfo.FileName+":"+strconv.Itoa(ErrorInfo.Line),
+			"Function", ErrorInfo.FunctionName,
+			"ErrorDetail", ErrorInfo.ErrorText)
+	}
+
+	slog.Info(Request.PartyId)
+	slog.Info(strconv.Itoa(Request.Kick))
 
 	var Response Party_State_Response
 	Response.RES = Consts_RES.SUCCESS
-	Response.State = 1
+	Response.State = 3 //Still have no clue what this does tbh
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {
@@ -666,7 +717,7 @@ func NetResultScan(w http.ResponseWriter, r *http.Request, body []byte) {
 	} else if UserSave.NowHP.Int64 == 0 && (UserScan.Tag.String == Consts_ScanTag.QR_Loft6F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Magnet_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Miyashita_2F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Miyashita_3F_Burger || UserScan.Tag.String == Consts_ScanTag.QR_Modi_Burger) {
 		Response.Lua = uint32(UserScan.LuaHash.Int64)
 	}
-	//Response.Result =  Used for Invalid QR Code?
+	Response.Result = 2 //Used for Invalid QR Code?
 
 	JSONResponse, err := json.Marshal(Response)
 	if err != nil {

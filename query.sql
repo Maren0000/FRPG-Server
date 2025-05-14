@@ -47,6 +47,14 @@ WHERE "DeviceID" = ?;
 SELECT * FROM "teams"
 WHERE "TeamID" = ? LIMIT 1;
 
+-- name: GetTeamMembers :many
+SELECT * FROM "users"
+WHERE "TeamID" = ? LIMIT 4;
+
+-- name: GetTeamRoomID :one
+SELECT * FROM "teams"
+WHERE "TeamID" = ? LIMIT 1;
+
 -- name: CreateNewTeam :one
 INSERT INTO "teams" (
   "TeamID", "RoomID", "TeamName"

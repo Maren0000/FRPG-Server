@@ -23,8 +23,8 @@ type Party_Create_Request struct {
 
 type Party_State_Request struct {
 	Generic_Request
-	PartyId string   `json:"partyId"`
-	Kick    []string `json:"bKick"`
+	PartyId string `json:"partyId"`
+	Kick    int    `json:"bKick"`
 }
 
 type Scan_Request struct {
