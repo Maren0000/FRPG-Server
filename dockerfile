@@ -19,7 +19,7 @@ FROM alpine:edge
 
 # Set the working directory
 WORKDIR /app
-COPY ./.env .
+COPY ./.env* .
 
 # Copy the binary from the build stage
 COPY --from=build /app/frpgserver .
