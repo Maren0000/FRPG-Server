@@ -6,6 +6,7 @@ import (
 	Consts_Item "FRPGServer/Consts/Item"
 	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	db_commands "FRPGServer/db/commands"
+	"os"
 )
 
 func Miyashita_EV_Hint_3(UserID string) error {
@@ -14,9 +15,16 @@ func Miyashita_EV_Hint_3(UserID string) error {
 		return err
 	}
 
-	err = db_commands.CreateUserBuilding(UserID, Consts_Building.MiyashitaPark, "宮下公園", "2")
-	if err != nil {
-		return err
+	if os.Getenv("USE_EN_MAP_TEXT") == "0" {
+		err = db_commands.CreateUserBuilding(UserID, Consts_Building.MiyashitaPark, "宮下公園", "2")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserBuilding(UserID, Consts_Building.MiyashitaPark, "MIYASHITA", "2")
+		if err != nil {
+			return err
+		}
 	}
 
 	//To-Do: Add GPS 8

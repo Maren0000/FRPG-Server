@@ -262,14 +262,26 @@ func InitSaveData(UserID string) (err error) {
 		return err
 	}
 
-	_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
-		UserID: sql.NullString{String: UserID, Valid: true},
-		Prefab: sql.NullString{String: Consts_Building.Marui, Valid: true},
-		Name:   sql.NullString{String: "マルイ", Valid: true},
-		Status: sql.NullString{String: "2", Valid: true},
-	})
-	if err != nil {
-		return err
+	if os.Getenv("USE_EN_MAP_TEXT") == "0" {
+		_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
+			UserID: sql.NullString{String: UserID, Valid: true},
+			Prefab: sql.NullString{String: Consts_Building.Marui, Valid: true},
+			Name:   sql.NullString{String: "マルイ", Valid: true},
+			Status: sql.NullString{String: "2", Valid: true},
+		})
+		if err != nil {
+			return err
+		}
+	} else {
+		_, err = queries.CreateNewUserBuilding(ctx, db.CreateNewUserBuildingParams{
+			UserID: sql.NullString{String: UserID, Valid: true},
+			Prefab: sql.NullString{String: Consts_Building.Marui, Valid: true},
+			Name:   sql.NullString{String: "MARUI", Valid: true},
+			Status: sql.NullString{String: "2", Valid: true},
+		})
+		if err != nil {
+			return err
+		}
 	}
 
 	_, err = queries.CreateNewUserQuest(ctx, db.CreateNewUserQuestParams{
