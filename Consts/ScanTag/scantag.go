@@ -61,7 +61,7 @@ const (
 	QR_Loft_Search_Radio       = "GM_shibuya21_lof_00010" //ID_TAG_LOFT_SEARCH_RADIO
 	QR_Loft_Search_Clock       = "GM_shibuya21_lof_00011" //ID_TAG_LOFT_SEARCH_CLOCK
 	QR_Loft_Search_Bag         = "GM_shibuya21_lof_00013" //ID_TAG_LOFT_SEARCH_BAG
-	QR_Loft_Search_Umbrella    = "GM_shibuya21_lof_00014" //ID_TAG_LOFT_SEARCH_UMBRELLA (Not used)
+	QR_Loft_Search_Umbrella    = "GM_shibuya21_lof_00014" //ID_TAG_LOFT_SEARCH_UMBRELLA (Not used in official server)
 	QR_Loft_Search_Lanturn     = "GM_shibuya21_lof_00015" //ID_TAG_LOFT_SEARCH_LANTERN
 	QR_Loft_Search_Doll        = "GM_shibuya21_lof_00018" //ID_TAG_LOFT_SEARCH_DOLL
 	QR_Loft_Search_Puzzle      = "GM_shibuya21_lof_00016" //ID_TAG_LOFT_SEARCH_PUZZLE

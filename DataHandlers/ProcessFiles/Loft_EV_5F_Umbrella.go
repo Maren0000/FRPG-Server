@@ -8,7 +8,7 @@ import (
 	db_commands "FRPGServer/db/commands"
 )
 
-//Not actually used afaik
+//Not actually used during the official event afaik. But will be enabled in this implementation.
 
 func Loft_EV_5F_Umbrella(UserID string) error {
 	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Loft_Search_Umbrella, Consts_LuaHash.Loft_EV_Shopping_Error_2)

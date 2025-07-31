@@ -162,17 +162,32 @@ func Loft_EV_Uduki_1(UserID string) error {
 		}
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Bag, 1, Consts_LuaHash.Loft_EV_5F_Bag)
-	if err != nil {
-		return err
-	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Umbrella, 1, Consts_LuaHash.Loft_EV_Shopping_Error_1)
-	if err != nil {
-		return err
-	}
-	err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Bag, "off")
-	if err != nil {
-		return err
+	if Utils.IsHit(3) {
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Bag, 1, Consts_LuaHash.Loft_EV_5F_Bag)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Umbrella, 1, Consts_LuaHash.Loft_EV_Shopping_Error_1)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Bag, "off")
+		if err != nil {
+			return err
+		}
+	} else {
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Bag, 1, Consts_LuaHash.Loft_EV_Shopping_Error_1)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Search_Umbrella, 1, Consts_LuaHash.Loft_EV_5F_Umbrella)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserQuestItem(UserID, Consts_Quest.Quest_12_Fret_Badge, Consts_QuestItem.Quest_12_Umbrella, "off")
+		if err != nil {
+			return err
+		}
 	}
 
 	if Utils.IsHit(4) {
