@@ -149,4 +149,16 @@ const (
 	QR_GPS_5 = "GM_GPS_5"
 	QR_GPS_6 = "GM_GPS_6"
 	QR_GPS_7 = "GM_GPS_7"
+
+	TFLITE_Magnet_Art_UNK1   = "17_magnet_pink_hair"
+	TFLITE_Magnet_Art_UNK2   = "21_magnet_dragon"
+	TFLITE_Magnet_Art_1      = "22_magnet_white_jacket"
+	TFLITE_Magnet_Art_2      = "15_magnet_red_mask"
+	TFLITE_Magnet_Art_3      = "23_magnet_meets_and_eats"
+	TFLITE_Magnet_Art_4      = "25_magnet_dragon_head" // Both this and "21_magnet_dragon" work, but will use head because it's probably easier to scan
+	TFLITE_EX_Quiz_3_Hachiko = "31_hachiko"
+	TFLITE_Parco_UNK1        = "71_parco_p"
+	TFLITE_Parco_UNK2        = "72_parco_r"
+	TFLITE_Parco_UNK3        = "73_parco_c"
+	TFLITE_EX_Nazo_Goal      = "74_parco_fire"
 )

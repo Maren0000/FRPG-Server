@@ -14,8 +14,11 @@ func Magnet_EV_Art_2F_Dragon(UserID string) error {
 		return err
 	}
 
-	//to-do: add tflite
 	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Art_4, 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.TFLITE_Magnet_Art_4, 1)
 	if err != nil {
 		return err
 	}

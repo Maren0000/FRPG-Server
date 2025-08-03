@@ -31,9 +31,12 @@ func Magnet_EV_Kubou_3(UserID string) error {
 		return err
 	}
 
-	//to-do: add tflite
 	//3F
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Art_2, 1, Consts_LuaHash.Magnet_EV_Art_3F_Headgear_Error)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.TFLITE_Magnet_Art_2, 1, Consts_LuaHash.Magnet_EV_Art_3F_Headgear_Error)
 	if err != nil {
 		return err
 	}
@@ -43,9 +46,17 @@ func Magnet_EV_Kubou_3(UserID string) error {
 	if err != nil {
 		return err
 	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.TFLITE_Magnet_Art_3, 1, Consts_LuaHash.Magnet_EV_Art_7F_Signboard_Error)
+	if err != nil {
+		return err
+	}
 
 	//2F
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Art_4, 1, Consts_LuaHash.Magnet_EV_Art_2F_Dragon_Error)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.TFLITE_Magnet_Art_4, 1, Consts_LuaHash.Magnet_EV_Art_2F_Dragon_Error)
 	if err != nil {
 		return err
 	}

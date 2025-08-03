@@ -12,8 +12,11 @@ import (
 )
 
 func Magnet_EV_Vari4_1(UserID string) error {
-	//to-do: add tflite
 	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Magnet_Art_4, Consts_LuaHash.Magnet_EV_Art_2F_Dragon)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.TFLITE_Magnet_Art_4, Consts_LuaHash.Magnet_EV_Art_2F_Dragon)
 	if err != nil {
 		return err
 	}

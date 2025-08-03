@@ -93,12 +93,15 @@ func Magnet_EV_Kubou_1(UserID string) error {
 		return err
 	}
 
-	//To-Do: Add TFLITE if I ever figure that out
 	err = db_commands.CreateUserGPSPin(UserID, "Magnet_Art1", Consts_MapPin.MapPin, "", Consts_Coords.Magnet_Art_1_lat, Consts_Coords.Magnet_Art_1_long, Consts_Quest.Quest_16_Nagi_Badge, Consts_MapType.MagnetMap, "7")
 	if err != nil {
 		return err
 	}
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Art_1, 1, Consts_LuaHash.Magnet_EV_Art_7F_Animal)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.TFLITE_Magnet_Art_1, 1, Consts_LuaHash.Magnet_EV_Art_7F_Animal)
 	if err != nil {
 		return err
 	}

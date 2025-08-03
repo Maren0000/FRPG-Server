@@ -14,6 +14,10 @@ func EX_EV_Nazo_Goal(UserID string) error {
 	if err != nil {
 		return err
 	}
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.TFLITE_EX_Nazo_Goal, Consts_LuaHash.Miyashita_EV_Mission_Cleared)
+	if err != nil {
+		return err
+	}
 
 	Q120_Clear, err := db_commands.CheckUserQuestCleared(UserID, Consts_Quest.Quest_120_EX_Nazo_Playing)
 	if err != nil {

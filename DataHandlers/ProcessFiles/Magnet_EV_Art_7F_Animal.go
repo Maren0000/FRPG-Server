@@ -44,12 +44,15 @@ func Magnet_EV_Art_7F_Animal(UserID string) error {
 		return err
 	}
 
-	//To-do: Remove TFLIFE if it is figured out
 	err = db_commands.UpdateUserGPSRemove(UserID, "Magnet_Art1", 1)
 	if err != nil {
 		return err
 	}
 	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Art_1, 1)
+	if err != nil {
+		return err
+	}
+	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.TFLITE_Magnet_Art_1, 1)
 	if err != nil {
 		return err
 	}

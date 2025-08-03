@@ -30,8 +30,11 @@ func EX_EV_Nazo_Start(UserID string) error {
 		return err
 	}
 
-	//To-Do: Add tflite
 	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_EX_Nazo_Goal, 1, Consts_LuaHash.EX_EV_Nazo_Goal)
+	if err != nil {
+		return err
+	}
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.TF_LITE, Consts_ScanTag.TFLITE_EX_Nazo_Goal, 1, Consts_LuaHash.EX_EV_Nazo_Goal)
 	if err != nil {
 		return err
 	}
