@@ -75,7 +75,7 @@ func Modi_EV_Kariya_1(UserID string) error {
 		return err
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_CryWoman, 1, Consts_LuaHash.Modi_EV_Crywoman_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Modi_CryWoman, Consts_LuaHash.Modi_EV_Crywoman_1)
 	if err != nil {
 		return err
 	}

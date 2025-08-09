@@ -19,6 +19,11 @@ func Loft_EV_Mission_Clear(UserID string) error {
 	if err != nil {
 		return err
 	}
+	//Not in SERVER_SCRIPT. Use unused def file for NPC
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Loft_Yuusen1, Consts_LuaHash.Loft_EV_Yuusen2_Def)
+	if err != nil {
+		return err
+	}
 	err = db_commands.UpdateUserGPSRemove(UserID, "Q11_Uzuki", 1)
 	if err != nil {
 		return err
@@ -29,10 +34,10 @@ func Loft_EV_Mission_Clear(UserID string) error {
 		return err
 	}
 
-	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Yuusen1, 1)
+	/*err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Loft_Yuusen1, 1)
 	if err != nil {
 		return err
-	}
+	}*/
 
 	Color, err := db_commands.GetUserSaveColor(UserID)
 	if err != nil {

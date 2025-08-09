@@ -316,6 +316,127 @@ func InitSaveData(UserID string) (err error) {
 	if err != nil {
 		return err
 	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Modi_Kariya, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Modi_EV_Kariya_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Modi_Kanon, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Modi_EV_Kanon_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Pure_1, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Pure1_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Vari_1, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Vari2_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Kariya, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Kariya_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Uzuki, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Uduki_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Kanon, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Kanon_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Vari_2, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Vari3_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Miyashita_Yuusen_1, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Miyashita_EV_Yuusen1_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Magnet_Kubo, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Magnet_EV_Kubou_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	_, err = queries.CreateNewUserScan(ctx, db.CreateNewUserScanParams{
+		UserID:   sql.NullString{String: UserID, Valid: true},
+		Type:     sql.NullInt64{Int64: 3, Valid: true},
+		Tag:      sql.NullString{String: Consts_ScanTag.QR_Loft_Uzuki, Valid: true},
+		BMulti:   sql.NullInt64{Int64: 1, Valid: true},
+		LuaHash:  sql.NullInt64{Int64: Consts_LuaHash.Loft_EV_Uduki_Def, Valid: true},
+		IsRemove: sql.NullInt64{Int64: 0, Valid: true},
+	})
+	if err != nil {
+		return err
+	}
 
 	_, err = queries.CreateNewUserResume(ctx, db.CreateNewUserResumeParams{
 		UserID:   sql.NullString{String: UserID, Valid: true},

@@ -2,6 +2,7 @@ package ProcessFiles
 
 import (
 	Consts_Coords "FRPGServer/Consts/Coords"
+	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_MapPin "FRPGServer/Consts/MapPin"
 	Consts_MapPinColor "FRPGServer/Consts/MapPinColor"
 	Consts_Quest "FRPGServer/Consts/Quest"
@@ -10,7 +11,12 @@ import (
 )
 
 func EX_EV_Quiz_3_Clear(UserID string) error {
-	err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Quiz_3_Hachiko, 1)
+	/*err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Quiz_3_Hachiko, 1)
+	if err != nil {
+		return err
+	}*/
+	//Not in SERVER_SCRIPT
+	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_EX_Quiz_3_Hachiko, Consts_LuaHash.EX_EV_Quiz_3_Def)
 	if err != nil {
 		return err
 	}

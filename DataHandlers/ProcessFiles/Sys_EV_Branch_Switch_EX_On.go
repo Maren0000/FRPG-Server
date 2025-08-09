@@ -292,8 +292,11 @@ func Sys_EV_Branch_Switch_EX_On(UserID string) error {
 			if err != nil {
 				return err
 			}
-			//To-Do: Add Tflite scan
 			err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_EX_Nazo_Goal, 1, Consts_LuaHash.EX_EV_Nazo_Goal)
+			if err != nil {
+				return err
+			}
+			err = db_commands.CreateUserScan(UserID, Consts_ScanType.TF_LITE, Consts_ScanTag.TFLITE_EX_Nazo_Goal, 1, Consts_LuaHash.EX_EV_Nazo_Goal)
 			if err != nil {
 				return err
 			}
@@ -369,8 +372,11 @@ func Sys_EV_Branch_Switch_EX_On(UserID string) error {
 		if err != nil {
 			return err
 		}
-		//To-Do: Add Tflite scan
 		err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_EX_Quiz_3_Hachiko, 1, Consts_LuaHash.EX_EV_Quiz_3)
+		if err != nil {
+			return err
+		}
+		err = db_commands.CreateUserScan(UserID, Consts_ScanType.TF_LITE, Consts_ScanTag.TFLITE_EX_Quiz_3_Hachiko, 1, Consts_LuaHash.EX_EV_Quiz_3)
 		if err != nil {
 			return err
 		}

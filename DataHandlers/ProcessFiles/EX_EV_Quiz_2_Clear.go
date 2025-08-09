@@ -1,6 +1,7 @@
 package ProcessFiles
 
 import (
+	Consts_LuaHash "FRPGServer/Consts/LuaHash"
 	Consts_Quest "FRPGServer/Consts/Quest"
 	Consts_QuestItem "FRPGServer/Consts/QuestItem"
 	Consts_ScanTag "FRPGServer/Consts/ScanTag"
@@ -8,7 +9,12 @@ import (
 )
 
 func EX_EV_Quiz_2_Clear(UserID string) error {
-	err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Quiz_2_Tsutaya, 1)
+	/*err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Quiz_2_Tsutaya, 1)
+	if err != nil {
+		return err
+	}*/
+	//Not in SERVER_SCRIPT
+	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_EX_Quiz_2_Tsutaya, Consts_LuaHash.EX_EV_Quiz_2_Def)
 	if err != nil {
 		return err
 	}

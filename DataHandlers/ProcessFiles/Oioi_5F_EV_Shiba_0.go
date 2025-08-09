@@ -16,16 +16,21 @@ import (
 
 func Oioi_5F_EV_Shiba_0(UserID string) error {
 	//Create new scans
-	err := db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Kariya, 1, Consts_LuaHash.Modi_EV_Kariya_1)
+	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Modi_Kariya, Consts_LuaHash.Modi_EV_Kariya_1)
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_Kanon, 1, Consts_LuaHash.Modi_EV_Kanon_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Modi_Kanon, Consts_LuaHash.Modi_EV_Kanon_1)
+	if err != nil {
+		return err
+	}
+	//Not in SERVER_SCRIPT. Added back crywoman def
+	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Modi_CryWoman, 1, Consts_LuaHash.Modi_EV_Crywoman_Def)
 	if err != nil {
 		return err
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Loft_Uzuki, 1, Consts_LuaHash.Loft_EV_Uduki_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Loft_Uzuki, Consts_LuaHash.Loft_EV_Uduki_1)
 	if err != nil {
 		return err
 	}
@@ -34,7 +39,7 @@ func Oioi_5F_EV_Shiba_0(UserID string) error {
 		return err
 	}
 
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Magnet_Kubo, 1, Consts_LuaHash.Magnet_EV_Kubou_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Magnet_Kubo, Consts_LuaHash.Magnet_EV_Kubou_1)
 	if err != nil {
 		return err
 	}

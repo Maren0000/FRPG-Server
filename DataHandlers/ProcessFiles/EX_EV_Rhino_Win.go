@@ -9,7 +9,12 @@ import (
 )
 
 func EX_EV_Rhino_Win(UserID string) error {
-	err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Minamimoto, 1)
+	/*err := db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_EX_Minamimoto, 1)
+	if err != nil {
+		return err
+	}*/
+	//Not in SERVER_SCRIPT
+	err := db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_EX_Minamimoto, Consts_LuaHash.EX_EV_Minamimoto_Def)
 	if err != nil {
 		return err
 	}

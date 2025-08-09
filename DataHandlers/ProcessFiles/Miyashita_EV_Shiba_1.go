@@ -123,7 +123,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Kariya, 1, Consts_LuaHash.Miyashita_EV_Kariya_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Kariya, Consts_LuaHash.Miyashita_EV_Kariya_1)
 	if err != nil {
 		return err
 	}
@@ -132,7 +132,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Uzuki, 1, Consts_LuaHash.Miyashita_EV_Uduki_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Uzuki, Consts_LuaHash.Miyashita_EV_Uduki_1)
 	if err != nil {
 		return err
 	}
@@ -141,7 +141,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Kanon, 1, Consts_LuaHash.Miyashita_EV_Kanon_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Kanon, Consts_LuaHash.Miyashita_EV_Kanon_1)
 	if err != nil {
 		return err
 	}
@@ -150,7 +150,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Pure_1, 1, Consts_LuaHash.Miyashita_EV_Pure1_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Pure_1, Consts_LuaHash.Miyashita_EV_Pure1_1)
 	if err != nil {
 		return err
 	}
@@ -159,7 +159,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Vari_1, 1, Consts_LuaHash.Miyashita_EV_Vari2_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Vari_1, Consts_LuaHash.Miyashita_EV_Vari2_1)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Vari_2, 1, Consts_LuaHash.Miyashita_EV_Vari3_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Vari_2, Consts_LuaHash.Miyashita_EV_Vari3_1)
 	if err != nil {
 		return err
 	}
@@ -177,7 +177,7 @@ func Miyashita_EV_Shiba_1(UserID string) error {
 	if err != nil {
 		return err
 	}
-	err = db_commands.CreateUserScan(UserID, Consts_ScanType.QR_CODE, Consts_ScanTag.QR_Miyashita_Yuusen_1, 1, Consts_LuaHash.Miyashita_EV_Yuusen1_1)
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Yuusen_1, Consts_LuaHash.Miyashita_EV_Yuusen1_1)
 	if err != nil {
 		return err
 	}

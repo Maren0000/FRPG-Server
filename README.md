@@ -9,7 +9,6 @@ FRPG-Server is a lightweight, easy to setup API server meant to bring the game b
 Almost all the game features have been fully recreated in this server. However, there are currently two game features that are missing:
 
 1. Although the server has support for teams in the DB, the team system in-game uses a different communication protocol than the main API. So, for now teams aren't supported and only Solo mode works in-game.
-2. The game features TFLITE object recognition for scanning. Currently the hardcoded strings needed to get this to work are unknown, so for now all the scans will need to be done using QR codes.
 
 ## Server Building and Setup
 

@@ -43,15 +43,6 @@ func Miyashita_EV_Shiba_2(UserID string) error {
 		return err
 	}
 
-	err = db_commands.UpdateUserGPSRemove(UserID, "Miyashita_Kariya", 0)
-	if err != nil {
-		return err
-	}
-	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Miyashita_Kariya, Consts_LuaHash.Miyashita_EV_Kariya_3)
-	if err != nil {
-		return err
-	}
-
 	err = db_commands.UpdateUserGPSRemove(UserID, "Miyashita_Uzuki", 0)
 	if err != nil {
 		return err

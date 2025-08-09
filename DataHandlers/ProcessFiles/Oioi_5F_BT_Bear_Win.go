@@ -17,7 +17,11 @@ func Oioi_5F_BT_Bear_Win(UserID string) error {
 	}
 
 	//Remove Scan Tag
-	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Q6_Yuusen1, 1)
+	/*err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Q6_Yuusen1, 1)
+	if err != nil {
+		return err
+	}*/
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Q6_Yuusen1, Consts_LuaHash.Oioi_5F_EV_Yuusen3_Def)
 	if err != nil {
 		return err
 	}

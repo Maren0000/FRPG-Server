@@ -17,7 +17,12 @@ func Oioi_5F_BT_Jellyfish_Win(UserID string) error {
 	}
 
 	//Remove Scan Tag
-	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Q6_Pure2, 1)
+	/*err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Q6_Pure2, 1)
+	if err != nil {
+		return err
+	}*/
+	//Not in SERVER_SCRIPT
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Q6_Pure2, Consts_LuaHash.Oioi_5F_EV_Pure3_Def)
 	if err != nil {
 		return err
 	}

@@ -14,14 +14,24 @@ func Magnet_EV_Art_2F_Dragon(UserID string) error {
 		return err
 	}
 
-	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Art_4, 1)
+	/*err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.QR_Magnet_Art_4, 1)
 	if err != nil {
 		return err
 	}
 	err = db_commands.UpdateUserScanRemove(UserID, Consts_ScanTag.TFLITE_Magnet_Art_4, 1)
 	if err != nil {
 		return err
+	}*/
+	//Not in SERVER_SCRIPT
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.QR_Magnet_Art_4, Consts_LuaHash.Magnet_EV_Art_Error)
+	if err != nil {
+		return err
 	}
+	err = db_commands.UpdateUserScanLuaHash(UserID, Consts_ScanTag.TFLITE_Magnet_Art_4, Consts_LuaHash.Magnet_EV_Art_Error)
+	if err != nil {
+		return err
+	}
+
 	err = db_commands.UpdateUserGPSRemove(UserID, "Magnet_Art_4", 1)
 	if err != nil {
 		return err
